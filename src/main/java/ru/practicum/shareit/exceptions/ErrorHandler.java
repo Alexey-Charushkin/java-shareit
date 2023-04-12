@@ -13,6 +13,7 @@ public class ErrorHandler {
     public ErrorResponse handleUserIsPresentException(final UserIsPresentException e) {
         return new ErrorResponse(e.getMessage());
     }
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponse handleUserNotFoundException(final UserNotFoundException e) {
