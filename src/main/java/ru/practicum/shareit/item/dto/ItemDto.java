@@ -9,7 +9,7 @@ import ru.practicum.shareit.item.model.Item;
 @Data
 public class ItemDto {
 
-    private Long itemId;
+    private Long id;
 
     private String name;
 
@@ -20,7 +20,7 @@ public class ItemDto {
     private Integer countRent;
 
     public ItemDto(Item item, Integer countRent) {
-        this.itemId = item.getItemId();
+        this.id = item.getItemId();
         this.name = item.getName();
         this.description = item.getDescription();
         this.available = item.isAvailable();

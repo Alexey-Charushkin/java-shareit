@@ -12,12 +12,9 @@ import javax.validation.constraints.Positive;
 @Data
 public class Item {
 
-    @NotNull
-    @Positive
     private Long itemId;
 
-    @NotBlank
-    private String owner;
+    private Long ownerId;
 
     @NotBlank
     private String name;

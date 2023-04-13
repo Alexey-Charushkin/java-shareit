@@ -3,7 +3,7 @@ package ru.practicum.shareit.user;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.exceptions.UserIsPresentException;
-import ru.practicum.shareit.exceptions.UserNotFoundException;
+import ru.practicum.shareit.exceptions.notFoundException;
 import ru.practicum.shareit.user.dto.UserDto;
 
 import java.util.*;
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
             users.put(userToUpdate.getUserId(), userToUpdate);
         } else {
             log.warn("User with id: {} not found", user.getUserId());
-            throw new UserNotFoundException("User not found.");
+            throw new notFoundException("User not found.");
         }
         log.info("User updated.");
         return userMapper.userToUserDto(userToUpdate);
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
             return userMapper.userToUserDto(users.get(userId));
         } else {
             log.warn("User with id: {} not found", userId);
-            throw new UserNotFoundException("User not found.");
+            throw new notFoundException("User not found.");
         }
     }
 
@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
             return userMapper.userToUserDto(users.remove(userId));
         } else {
             log.warn("User with id: {} not found.", userId);
-            throw new UserNotFoundException("User not found.");
+            throw new notFoundException("User not found.");
         }
     }
 
