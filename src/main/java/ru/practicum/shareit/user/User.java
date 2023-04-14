@@ -5,6 +5,7 @@ import ru.practicum.shareit.item.model.Item;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +23,6 @@ public class User {
     @Email
     private String email;
 
-    private List<Item> items;
+    private List<Item> items = new ArrayList<>();
 
 }

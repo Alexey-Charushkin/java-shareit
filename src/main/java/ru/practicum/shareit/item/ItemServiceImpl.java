@@ -1,14 +1,13 @@
 package ru.practicum.shareit.item;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.practicum.shareit.exceptions.notFoundException;
+import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.item.dao.ItemDao;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.model.Item;
-import ru.practicum.shareit.user.User;
-import ru.practicum.shareit.user.dto.UserDto;
+import ru.practicum.shareit.user.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,20 +15,30 @@ import java.util.Map;
 
 @Log4j2
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
     private Long itemId = 0L;
     private final ItemDao itemDao;
 
+    private UserService userService;
+
+    @Autowired
+    public ItemServiceImpl(ItemDao itemDao, UserService userService) {
+        this.itemDao = itemDao;
+        this.userService = userService;
+    }
     private final ItemMapper itemMapper = new ItemMapper();
 
     @Override
     public ItemDto create(Long userId, Item item) {
-        //   emailIsPresent(user);
-        log.info("Item create.");
         item.setItemId(++itemId);
         item.setOwnerId(userId);
+        userService.addItem(userId, item);
         itemDao.add(item.getItemId(), item);
+        log.info("Item create.");
+
+        System.out.println(item);
+
         return itemMapper.itemToItemDto(item);
     }
 
@@ -46,7 +55,7 @@ public class ItemServiceImpl implements ItemService {
             itemDao.add(itemToUpdate.getItemId(), itemToUpdate);
         } else {
             log.warn("Item with id: {} not found", item.getItemId());
-            throw new notFoundException("Item not found.");
+            throw new NotFoundException("Item not found.");
         }
         log.info("User updated.");
         return itemMapper.itemToItemDto(itemToUpdate);
@@ -58,7 +67,7 @@ public class ItemServiceImpl implements ItemService {
             return itemMapper.itemToItemDto(itemDao.get(itemId));
         } else {
             log.warn("Item with id: {} not found", itemId);
-            throw new notFoundException("Item not found.");
+            throw new NotFoundException("Item not found.");
         }
     }
 
@@ -79,7 +88,7 @@ public class ItemServiceImpl implements ItemService {
             return itemMapper.itemToItemDto(itemDao.get(itemId));
         } else {
             log.warn("Item with id: {} not found.", itemId);
-            throw new notFoundException("Item not found.");
+            throw new NotFoundException("Item not found.");
         }
     }
 

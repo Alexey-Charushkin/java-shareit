@@ -1,6 +1,7 @@
 package ru.practicum.shareit.user.dao;
 
 import org.springframework.stereotype.Service;
+import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.User;
 
 import java.util.Map;
@@ -27,6 +28,11 @@ public class InMemoryUserDao implements UserDao {
     public User get(Long id) {
         return users.get(id);
     }
+
+//    @Override
+//    public void addItem(Long id, Item item) {
+//        users.put(id);
+//    }
 
     @Override
     public boolean containsKey(Long id) {

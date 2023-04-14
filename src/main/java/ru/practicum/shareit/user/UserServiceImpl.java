@@ -3,8 +3,10 @@ package ru.practicum.shareit.user;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import ru.practicum.shareit.exceptions.BadRequestException;
 import ru.practicum.shareit.exceptions.UserIsPresentException;
-import ru.practicum.shareit.exceptions.notFoundException;
+import ru.practicum.shareit.exceptions.NotFoundException;
+import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.dao.UserDao;
 import ru.practicum.shareit.user.dto.UserDto;
 
@@ -42,7 +44,7 @@ public class UserServiceImpl implements UserService {
             userDao.add(userToUpdate.getUserId(), userToUpdate);
         } else {
             log.warn("User with id: {} not found", user.getUserId());
-            throw new notFoundException("User not found.");
+            throw new NotFoundException("User not found.");
         }
         log.info("User updated.");
         return userMapper.userToUserDto(userToUpdate);
@@ -54,7 +56,7 @@ public class UserServiceImpl implements UserService {
             return userMapper.userToUserDto(userDao.get(userId));
         } else {
             log.warn("User with id: {} not found", userId);
-            throw new notFoundException("User not found.");
+            throw new NotFoundException("User not found.");
         }
     }
 
@@ -76,7 +78,27 @@ public class UserServiceImpl implements UserService {
             return userMapper.userToUserDto(userDao.remove(userId));
         } else {
             log.warn("User with id: {} not found.", userId);
-            throw new notFoundException("User not found.");
+            throw new NotFoundException("User not found.");
+        }
+    }
+
+    public void addItem(Long userId, Item item) {
+        if(!item.isAvailable()) {
+            log.warn("Available not found");
+            throw new BadRequestException("Available not found");
+        }
+        User user = userDao.get(userId);
+        if (user != null) {
+            List<Item> userItems = user.getItems();
+            userItems.add(item);
+            user.setItems(userItems);
+
+            System.out.println(user);
+
+            userDao.add(user.getUserId(), user);
+        } else {
+            log.warn("User with id: {} not found", userId);
+            throw new NotFoundException("User not found.");
         }
     }
 

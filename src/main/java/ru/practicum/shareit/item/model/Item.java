@@ -21,7 +21,6 @@ public class Item {
 
     @NotBlank
     private String description;
-
     private boolean available;
 
     public boolean isAvailable() {

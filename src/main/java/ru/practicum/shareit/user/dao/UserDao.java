@@ -1,5 +1,6 @@
 package ru.practicum.shareit.user.dao;
 
+import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.User;
 
 import java.util.HashMap;
@@ -16,6 +17,8 @@ public interface UserDao {
     User remove(Long id);
 
     User get(Long id);
+
+  //  void addItem(User user, Item item);
 
     boolean containsKey(Long id);
 
