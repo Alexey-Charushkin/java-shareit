@@ -24,18 +24,18 @@ public class ItemController {
     }
 
     @PatchMapping("{itemId}")
-    public ItemDto update(@PathVariable Long itemId, @RequestBody Item item) {
-        return itemService.update(itemId, item);
+    public ItemDto update(@RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long itemId, @RequestBody Item item) {
+        return itemService.update(userId, itemId, item);
     }
 
     @GetMapping("{itemId}")
     public ItemDto getById(@PathVariable Long itemId) {
-        return itemService.getById(itemId);
+        return itemService.getItemById(itemId);
     }
 
     @GetMapping()
-    public List<ItemDto> gelAll() {
-        return itemService.getAll();
+    public List<ItemDto> gelAllByUserId(@RequestHeader("X-Sharer-User-Id") Long userId) {
+        return itemService.getAllItemsByUser(userId);
     }
 
     @DeleteMapping("{itemId}")

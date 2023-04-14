@@ -9,61 +9,73 @@ import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.UserService;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Log4j2
 @Service
-//@RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
     private Long itemId = 0L;
     private final ItemDao itemDao;
 
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public ItemServiceImpl(ItemDao itemDao, UserService userService) {
         this.itemDao = itemDao;
         this.userService = userService;
     }
+
     private final ItemMapper itemMapper = new ItemMapper();
 
     @Override
     public ItemDto create(Long userId, Item item) {
+
+        userService.getById(userId);
+
         item.setItemId(++itemId);
         item.setOwnerId(userId);
         userService.addItem(userId, item);
+
         itemDao.add(item.getItemId(), item);
-        log.info("Item create.");
 
         System.out.println(item);
+
+        log.info("Item create.");
 
         return itemMapper.itemToItemDto(item);
     }
 
     @Override
-    public ItemDto update(Long itemId, Item item) {
+    public ItemDto update(Long userId, Long itemId, Item item) {
 
         Item itemToUpdate = itemDao.get(itemId);
+
         if (itemToUpdate != null) {
-//            if (user.getName() != null) userToUpdate.setName(user.getName());
-//            if (user.getEmail() != null && !user.getEmail().equals(userToUpdate.getEmail())) {
-//                emailIsPresent(user);
-//                userToUpdate.setEmail(user.getEmail());
-//            }
-            itemDao.add(itemToUpdate.getItemId(), itemToUpdate);
+            if (!itemToUpdate.getOwnerId().equals(userId)) {
+                log.warn("This item belongs to another user.");
+                throw new NotFoundException("This item belongs to another user.");
+            }
+            if (item.getName() != null) itemToUpdate.setName(item.getName());
+            if (item.getDescription() != null) itemToUpdate.setDescription(item.getDescription());
+            if (item.getAvailable().isPresent()) itemToUpdate.setAvailable(item.getAvailable().get());
+
+            userService.addItem(userId, itemToUpdate);
+
+            System.out.println(itemToUpdate);
+
+            itemDao.add(itemId, itemToUpdate);
         } else {
             log.warn("Item with id: {} not found", item.getItemId());
             throw new NotFoundException("Item not found.");
         }
-        log.info("User updated.");
+        log.info("Item updated.");
         return itemMapper.itemToItemDto(itemToUpdate);
     }
 
     @Override
-    public ItemDto getById(Long itemId) {
+    public ItemDto getItemById(Long itemId) {
         if (itemDao.containsKey(itemId)) {
+            log.info("Item with id: {} found.", itemId);
             return itemMapper.itemToItemDto(itemDao.get(itemId));
         } else {
             log.warn("Item with id: {} not found", itemId);
@@ -72,13 +84,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemDto> getAll() {
-        ArrayList<ItemDto> itemsDto = new ArrayList<>();
-        Map<Long, Item> items = itemDao.getAll();
-        for (Item item : items.values()) {
-            itemsDto.add(itemMapper.itemToItemDto(item));
-        }
-        return itemsDto;
+    public List<ItemDto> getAllItemsByUser(Long userId) {
+        return itemMapper.getItemDtoList(userService.getItemsByIdUser(userId));
     }
 
     @Override
@@ -91,15 +98,4 @@ public class ItemServiceImpl implements ItemService {
             throw new NotFoundException("Item not found.");
         }
     }
-
-//    private void emailIsPresent(User user) {
-//        users.values()
-//                .stream()
-//                .filter(x -> x.getEmail().equals(user.getEmail()))
-//                .findFirst()
-//                .ifPresent(u -> {
-//                    log.warn("User with email: {} is already exists.", user.getEmail());
-//                    throw new UserIsPresentException("User with this email is already exists.");
-//                });
-//    }
 }

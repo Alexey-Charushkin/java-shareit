@@ -23,7 +23,7 @@ public class ItemDto {
         this.id = item.getItemId();
         this.name = item.getName();
         this.description = item.getDescription();
-        this.available = item.isAvailable();
+        this.available = item.getAvailable().get();
         this.countRent = countRent;
     }
 }

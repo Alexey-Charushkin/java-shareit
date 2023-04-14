@@ -17,4 +17,6 @@ public interface UserService {
     UserDto deleteById(Long userId);
 
     void addItem(Long userId, Item item);
+
+    List<Item> getItemsByIdUser(Long userId);
 }

@@ -4,7 +4,8 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+
+import java.util.Optional;
 
 /**
  * TODO Sprint add-controllers.
@@ -21,10 +22,11 @@ public class Item {
 
     @NotBlank
     private String description;
-    private boolean available;
+    @NotNull
+    private Boolean available;
 
-    public boolean isAvailable() {
-        return available;
+    public Optional<Boolean> getAvailable() {
+        return Optional.ofNullable(available);
     }
 }
 

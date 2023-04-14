@@ -3,7 +3,6 @@ package ru.practicum.shareit.user;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
-import ru.practicum.shareit.exceptions.BadRequestException;
 import ru.practicum.shareit.exceptions.UserIsPresentException;
 import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.item.model.Item;
@@ -53,6 +52,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getById(Long userId) {
         if (userDao.containsKey(userId)) {
+            log.warn("User with id: {} found", userId);
             return userMapper.userToUserDto(userDao.get(userId));
         } else {
             log.warn("User with id: {} not found", userId);
@@ -83,10 +83,6 @@ public class UserServiceImpl implements UserService {
     }
 
     public void addItem(Long userId, Item item) {
-        if(!item.isAvailable()) {
-            log.warn("Available not found");
-            throw new BadRequestException("Available not found");
-        }
         User user = userDao.get(userId);
         if (user != null) {
             Map<Long, Item> userItems = user.getItems();
@@ -100,6 +96,12 @@ public class UserServiceImpl implements UserService {
             log.warn("User with id: {} not found", userId);
             throw new NotFoundException("User not found.");
         }
+    }
+
+    @Override
+    public List<Item> getItemsByIdUser(Long userId) {
+        User user = userDao.get(userId);
+        return new ArrayList<>(user.getItems().values());
     }
 
     private void emailIsPresent(User user) {
