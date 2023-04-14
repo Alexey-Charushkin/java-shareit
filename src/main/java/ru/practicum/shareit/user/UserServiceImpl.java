@@ -89,8 +89,8 @@ public class UserServiceImpl implements UserService {
         }
         User user = userDao.get(userId);
         if (user != null) {
-            List<Item> userItems = user.getItems();
-            userItems.add(item);
+            Map<Long, Item> userItems = user.getItems();
+            userItems.put(item.getItemId(), item);
             user.setItems(userItems);
 
             System.out.println(user);

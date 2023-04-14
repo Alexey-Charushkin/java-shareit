@@ -2,7 +2,6 @@ package ru.practicum.shareit.item.dao;
 
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.item.model.Item;
-import ru.practicum.shareit.user.User;
 
 import java.util.Map;
 
