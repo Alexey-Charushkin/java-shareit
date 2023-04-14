@@ -62,6 +62,7 @@ public class UserServiceImpl implements UserService {
     public List<UserDto> getAll() {
         ArrayList<UserDto> usersDto = new ArrayList<>();
         Map<Long, User> users = userDao.getAll();
+
         for (User user : users.values()) {
             usersDto.add(userMapper.userToUserDto(user));
         }
