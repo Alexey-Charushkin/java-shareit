@@ -1,16 +1,15 @@
-package ru.practicum.shareit.item;
+package ru.practicum.shareit.servise;
 
 import java.util.Arrays;
 
 public class BoyerMoore {
-    private int[] shiftTable;
 
     public int search(String text, String pattern) {
         int n = text.length();
         int m = pattern.length();
 
         // Построение таблицы смещений
-        shiftTable = new int[1280];
+        int[] shiftTable = new int[1280];
         Arrays.fill(shiftTable, m);
         for (int i = 0; i < m - 1; i++) {
             char c = pattern.charAt(i);

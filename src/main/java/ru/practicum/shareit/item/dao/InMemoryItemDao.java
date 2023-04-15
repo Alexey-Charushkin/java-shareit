@@ -1,13 +1,11 @@
 package ru.practicum.shareit.item.dao;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.practicum.shareit.item.BoyerMoore;
+import ru.practicum.shareit.servise.BoyerMoore;
 import ru.practicum.shareit.item.model.Item;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 @Service

@@ -1,7 +1,7 @@
 package ru.practicum.shareit.item;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.item.dao.ItemDao;
@@ -13,18 +13,11 @@ import java.util.List;
 
 @Log4j2
 @Service
+@RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
     private Long itemId = 0L;
     private final ItemDao itemDao;
-
     private final UserService userService;
-
-    @Autowired
-    public ItemServiceImpl(ItemDao itemDao, UserService userService) {
-        this.itemDao = itemDao;
-        this.userService = userService;
-    }
-
     private final ItemMapper itemMapper = new ItemMapper();
 
     @Override
@@ -87,6 +80,7 @@ public class ItemServiceImpl implements ItemService {
     public List<ItemDto> getAllItemsByUser(Long userId) {
         return itemMapper.getItemDtoList(userService.getItemsByIdUser(userId));
     }
+
     public List<ItemDto> searchItems(String query) {
         List<ItemDto> items = itemMapper.getItemDtoList(itemDao.search(query));
         log.info("Request search films, query = {}.", query);

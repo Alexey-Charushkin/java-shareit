@@ -24,5 +24,4 @@ public class User {
     private String email;
 
     private Map<Long, Item> items = new HashMap<>();
-
 }

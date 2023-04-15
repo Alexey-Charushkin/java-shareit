@@ -25,9 +25,4 @@ public class ErrorHandler {
     public ErrorResponse handleAvailableNotFoundException(final BadRequestException e) {
         return new ErrorResponse(e.getMessage());
     }
-//    @ExceptionHandler
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    public ErrorResponse handleThrows(final Throwable e) {
-//        return new ErrorResponse("Произошла непредвиденная ошибка.");
-//    }
 }
