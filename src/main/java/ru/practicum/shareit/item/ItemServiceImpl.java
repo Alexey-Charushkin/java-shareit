@@ -87,6 +87,11 @@ public class ItemServiceImpl implements ItemService {
     public List<ItemDto> getAllItemsByUser(Long userId) {
         return itemMapper.getItemDtoList(userService.getItemsByIdUser(userId));
     }
+    public List<ItemDto> searchItems(String query) {
+        List<ItemDto> items = itemMapper.getItemDtoList(itemDao.search(query));
+        log.info("Request search films, query = {}.", query);
+        return items;
+    }
 
     @Override
     public ItemDto deleteById(Long itemId) {

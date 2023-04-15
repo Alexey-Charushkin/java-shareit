@@ -10,7 +10,7 @@ public class BoyerMoore {
         int m = pattern.length();
 
         // Построение таблицы смещений
-        shiftTable = new int[256];
+        shiftTable = new int[1280];
         Arrays.fill(shiftTable, m);
         for (int i = 0; i < m - 1; i++) {
             char c = pattern.charAt(i);

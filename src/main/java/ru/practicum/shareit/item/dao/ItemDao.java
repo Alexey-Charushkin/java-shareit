@@ -1,9 +1,9 @@
 package ru.practicum.shareit.item.dao;
 
 import ru.practicum.shareit.item.model.Item;
-import ru.practicum.shareit.user.User;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public interface ItemDao {
@@ -17,6 +17,8 @@ public interface ItemDao {
     Item remove(Long id);
 
     Item get(Long id);
+
+    List<Item> search(String query);
 
     boolean containsKey(Long id);
 }

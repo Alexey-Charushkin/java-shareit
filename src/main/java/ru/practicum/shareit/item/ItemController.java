@@ -43,4 +43,9 @@ public class ItemController {
         return itemService.deleteById(itemId);
     }
 
+    @GetMapping("search")
+    public List<ItemDto> searchItems(@RequestParam("text") String query) {
+        return itemService.searchItems(query);
+    }
+
 }
