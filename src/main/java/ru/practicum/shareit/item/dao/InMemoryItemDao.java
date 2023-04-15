@@ -11,7 +11,7 @@ import java.util.Map;
 @Service
 class InMemoryItemDao implements ItemDao {
 
-    private BoyerMoore boyerMoore = new BoyerMoore();
+    private final BoyerMoore boyerMoore = new BoyerMoore();
 
     @Override
     public void add(Long id, Item item) {
