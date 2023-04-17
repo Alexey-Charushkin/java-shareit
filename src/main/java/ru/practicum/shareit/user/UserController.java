@@ -25,12 +25,12 @@ public class UserController {
         return userService.create(userDto);
     }
 
-//    @PatchMapping("{userId}")
-//    public UserDto update(@PathVariable Long userId, @Valid @RequestBody UserDto user) {
-//        log.info("Patch user.");
-//        user.setId(userId);
-//        return userService.update(user);
-//    }
+    @PatchMapping("{userId}")
+    public UserDto update(@PathVariable Long userId, @Valid @RequestBody UserDto userDto) {
+        log.info("Patch user.");
+        userDto.setId(userId);
+        return userService.update(userDto);
+    }
 //
 //    @GetMapping("{userId}")
 //    public UserDto getById(@PathVariable Long userId) {

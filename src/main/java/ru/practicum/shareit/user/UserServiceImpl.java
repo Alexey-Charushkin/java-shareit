@@ -16,8 +16,6 @@ import java.util.*;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    //   private Long userId = 0L;
-
     private final UserDao userDao;
 
     @Override
@@ -25,8 +23,9 @@ public class UserServiceImpl implements UserService {
         return userDao.add(UserMapper.toUser(userDto));
     }
 
-//    @Override
-//    public UserDto update(Long userid, User user) {
+    @Override
+    public UserDto update(UserDto userDto) {
+        return userDao.update(UserMapper.toUser(userDto));
 //        User userToUpdate = userDao.get(userid);
 //        if (userToUpdate != null) {
 //            if (user.getName() != null) userToUpdate.setName(user.getName());
@@ -40,8 +39,8 @@ public class UserServiceImpl implements UserService {
 //            throw new NotFoundException("User not found.");
 //        }
 //        log.info("User updated.");
-//        return userMapper.userToUserDto(userToUpdate);
-//    }
+
+    }
 //
 //    @Override
 //    public UserDto getById(Long userId) {

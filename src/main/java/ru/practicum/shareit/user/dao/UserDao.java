@@ -9,6 +9,8 @@ public interface UserDao {
 
     UserDto add(User user);
 
+    public UserDto update(UserDto user);
+
     List<User> getAll();
 
     void remove(Long id);
