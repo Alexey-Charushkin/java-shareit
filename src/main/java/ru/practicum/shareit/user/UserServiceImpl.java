@@ -41,39 +41,34 @@ public class UserServiceImpl implements UserService {
 //        log.info("User updated.");
 
     }
-//
-//    @Override
-//    public UserDto getById(Long userId) {
-//        if (userDao.containsKey(userId)) {
-//            log.warn("User with id: {} found", userId);
-//            return userMapper.userToUserDto(userDao.get(userId));
-//        } else {
-//            log.warn("User with id: {} not found", userId);
-//            throw new NotFoundException("User not found.");
-//        }
-//    }
 
-//    @Override
-//    public List<UserDto> getAll() {
-//        ArrayList<UserDto> usersDto = new ArrayList<>();
-//        Map<Long, User> users = userDao.getAll();
-//
-//        for (User user : users.values()) {
-//            usersDto.add(userMapper.userToUserDto(user));
-//        }
-//        return usersDto;
-//    }
-//
-//    @Override
-//    public UserDto deleteById(Long userId) {
-//        if (userDao.containsKey(userId)) {
-//            log.info("User with id: {} deleted.", userId);
-//            return userMapper.userToUserDto(userDao.remove(userId));
-//        } else {
-//            log.warn("User with id: {} not found.", userId);
-//            throw new NotFoundException("User not found.");
-//        }
-//    }
+    @Override
+    public UserDto getById(Long userId) {
+        UserDto userDto = userDao.get(userId);
+        if (userDto == null) {
+            log.warn("User with id: {} not found", userId);
+            throw new NotFoundException("User not found.");
+        } else {
+            log.info("User with id: {} found", userId);
+            return userDto;
+        }
+    }
+
+    @Override
+    public List<UserDto> getAll() {
+        return userDao.getAll();
+    }
+
+    @Override
+    public UserDto deleteById(Long userId) {
+        UserDto user = userDao.remove(userId);
+        if (user == null) {
+            log.warn("User with id: {} not found.", userId);
+            throw new NotFoundException("User not found.");
+        }
+        log.info("User with id: {} deleted.", userId);
+        return user;
+    }
 
 //    public void addItem(Long userId, Item item) {
 //        User user = userDao.get(userId);

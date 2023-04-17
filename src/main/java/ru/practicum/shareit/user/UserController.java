@@ -21,33 +21,33 @@ public class UserController {
 
     @PostMapping()
     public UserDto create(@Valid @RequestBody UserDto userDto) {
-        log.info("Post user.");
+        log.info("Post /users");
         return userService.create(userDto);
     }
 
     @PatchMapping("{userId}")
-    public UserDto update(@PathVariable Long userId, @Valid @RequestBody UserDto userDto) {
-        log.info("Patch user.");
+    public UserDto update(@PathVariable Long userId, @RequestBody UserDto userDto) {
+        log.info("Patch /users");
         userDto.setId(userId);
         return userService.update(userDto);
     }
-//
-//    @GetMapping("{userId}")
-//    public UserDto getById(@PathVariable Long userId) {
-//        log.info("Get user.");
-//        return userService.getById(userId);
-//    }
-//
-//    @GetMapping()
-//    public List<UserDto> gelAll() {
-//        log.info("Get all users.");
-//        return userService.getAll();
-//    }
 
-//    @DeleteMapping("{userId}")
-//    public UserDto deleteById(@PathVariable Long userId) {
-//        log.info("Delete user by Id.");
-//        return userService.deleteById(userId);
-//    }
+    @GetMapping("{userId}")
+    public UserDto getById(@PathVariable Long userId) {
+        log.info("Get /users/{userId}");
+        return userService.getById(userId);
+    }
+
+    @GetMapping()
+    public List<UserDto> gelAll() {
+        log.info("Get /users");
+        return userService.getAll();
+    }
+
+    @DeleteMapping("{userId}")
+    public UserDto deleteById(@PathVariable Long userId) {
+        log.info("Delete /users/{userId}");
+        return userService.deleteById(userId);
+    }
 
 }

@@ -7,15 +7,15 @@ import javax.validation.Valid;
 import java.util.List;
 
 public interface UserService {
-    UserDto create(UserDto user);
+    UserDto create(UserDto userDto);
 
-//    UserDto update(Long userid, User user);
-//
-//    UserDto getById(Long userId);
-//
-//    List<UserDto> getAll();
-//
-//    UserDto deleteById(Long userId);
+    UserDto update(UserDto userDto);
+
+    UserDto getById(Long userId);
+
+    List<UserDto> getAll();
+
+    UserDto deleteById(Long userId);
 //
 //    void addItem(Long userId, Item item);
 //

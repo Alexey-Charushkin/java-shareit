@@ -9,12 +9,12 @@ public interface UserDao {
 
     UserDto add(User user);
 
-    public UserDto update(UserDto user);
+    UserDto update(User user);
 
-    List<User> getAll();
+    List<UserDto> getAll();
 
-    void remove(Long id);
+    UserDto remove(Long id);
 
-    User get(Long id);
+    UserDto get(Long id);
 
 }
