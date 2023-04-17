@@ -1,27 +1,21 @@
 package ru.practicum.shareit.user;
 
-import lombok.Data;
-import ru.practicum.shareit.item.model.Item;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import java.util.HashMap;
-import java.util.Map;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * TODO Sprint add-controllers.
  */
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 public class User {
 
-    private Long userId;
+    private Long Id;
 
-    @NotBlank
     private String name;
 
-    @NotBlank
-    @Email
     private String email;
 
-    private Map<Long, Item> items = new HashMap<>();
 }

@@ -3,6 +3,8 @@ package ru.practicum.shareit.item.dto;
 import lombok.Data;
 import ru.practicum.shareit.item.model.Item;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * TODO Sprint add-controllers.
  */
@@ -10,9 +12,9 @@ import ru.practicum.shareit.item.model.Item;
 public class ItemDto {
 
     private Long id;
-
+    @NotBlank
     private String name;
-
+    @NotBlank
     private String description;
 
     private boolean available;

@@ -1,6 +1,6 @@
 package ru.practicum.shareit.item.dao;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import ru.practicum.shareit.servise.BoyerMoore;
 import ru.practicum.shareit.item.model.Item;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Repository
 class InMemoryItemDao implements ItemDao {
 
     private final BoyerMoore boyerMoore = new BoyerMoore();

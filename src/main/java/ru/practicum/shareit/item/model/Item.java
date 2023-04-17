@@ -1,30 +1,28 @@
 package ru.practicum.shareit.item.model;
 
-import lombok.Data;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+import ru.practicum.shareit.user.User;
 
 import java.util.Optional;
 
 /**
  * TODO Sprint add-controllers.
  */
-@Data
+@Getter
+@Setter
 public class Item {
 
     private Long itemId;
 
-    private Long ownerId;
-
-    @NotBlank
     private String name;
 
-    @NotBlank
     private String description;
-    @NotNull
     private Boolean available;
 
+    private User owner;
+
+    private String request;
     public Optional<Boolean> getAvailable() {
         return Optional.ofNullable(available);
     }

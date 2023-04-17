@@ -10,7 +10,7 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse handleUserIsPresentException(final UserIsPresentException e) {
+    public ErrorResponse handleUserIsPresentException(final DataAlreadyExistException e) {
         return new ErrorResponse(e.getMessage());
     }
 

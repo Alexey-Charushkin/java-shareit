@@ -1,22 +1,18 @@
 package ru.practicum.shareit.user.dao;
 
 import ru.practicum.shareit.user.User;
+import ru.practicum.shareit.user.dto.UserDto;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public interface UserDao {
 
-    Map<Long, User> users = new HashMap<>();
+    UserDto add(User user);
 
-    void add(Long id, User user);
+    List<User> getAll();
 
-    Map<Long, User> getAll();
-
-    User remove(Long id);
+    void remove(Long id);
 
     User get(Long id);
-
-    boolean containsKey(Long id);
 
 }
