@@ -1,9 +1,6 @@
 package ru.practicum.shareit.item.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import ru.practicum.shareit.item.model.Item;
 
 import javax.validation.constraints.NotBlank;
@@ -13,6 +10,7 @@ import javax.validation.constraints.NotBlank;
  */
 @Getter
 @Setter
+@ToString
 public class ItemDto {
 
     private Long id;
@@ -20,16 +18,19 @@ public class ItemDto {
     private String name;
     @NotBlank
     private String description;
-
     private boolean available;
 
-    private Integer countRent;
+    private Integer countRent = 0;
 
     public Boolean getAvailable() {
         return available;
     }
 
     public ItemDto(Long id, String name, String description, Boolean available) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.available = available;
     }
 
 //    public ItemDto(Item item, Integer countRent) {

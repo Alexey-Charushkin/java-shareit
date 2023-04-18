@@ -4,7 +4,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Repository;
 import ru.practicum.shareit.exceptions.DataAlreadyExistException;
 import ru.practicum.shareit.exceptions.NotFoundException;
-import ru.practicum.shareit.user.User;
+import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.UserMapper;
 import ru.practicum.shareit.user.dto.UserDto;
 
@@ -69,7 +69,7 @@ public class InMemoryUserDao implements UserDao {
     public List<UserDto> getAll() {
         List<User> userList = new ArrayList<>(users.values());
         List<UserDto> userDtos = new ArrayList<>();
-        for (User user: userList) {
+        for (User user : userList) {
             userDtos.add(UserMapper.toUserDto(user));
         }
         return userDtos;
@@ -78,13 +78,20 @@ public class InMemoryUserDao implements UserDao {
     @Override
     public UserDto remove(Long id) {
         final User user = users.remove(id);
-                emails.remove(user.getEmail());
+        emails.remove(user.getEmail());
         return UserMapper.toUserDto(user);
     }
 
     @Override
     public UserDto get(Long id) {
-        return UserMapper.toUserDto(users.getOrDefault(id , null));
+
+        User user = users.getOrDefault(id, null);
+        if (user == null) {
+            log.warn("User with id: {} not found", id);
+            throw new NotFoundException("User not found.");
+        }
+        log.info("User with id: {} found", id);
+        return UserMapper.toUserDto(user);
     }
 
 }

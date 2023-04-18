@@ -22,7 +22,7 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleAvailableNotFoundException(final BadRequestException e) {
+    public ErrorResponse handleAvailableBadRequestException(final BadRequestException e) {
         return new ErrorResponse(e.getMessage());
     }
 }

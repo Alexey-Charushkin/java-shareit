@@ -44,14 +44,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getById(Long userId) {
-        UserDto userDto = userDao.get(userId);
-        if (userDto == null) {
-            log.warn("User with id: {} not found", userId);
-            throw new NotFoundException("User not found.");
-        } else {
-            log.info("User with id: {} found", userId);
-            return userDto;
-        }
+        return userDao.get(userId);
     }
 
     @Override

@@ -8,15 +8,15 @@ import java.util.Map;
 
 public interface ItemDao {
 
-    void add(Long id, Item item);
+    void add(Item item);
 
-    Map<Long, Item> getAll();
-
-    Item remove(Long id);
-
-    Item get(Long id);
-
-    List<Item> search(String query);
-
-    boolean containsKey(Long id);
+//    Map<Long, Item> getAll();
+//
+//    Item remove(Long id);
+//
+//    Item get(Long id);
+//
+//    List<Item> search(String query);
+//
+//    boolean containsKey(Long id);
 }

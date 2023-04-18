@@ -1,20 +1,19 @@
 package ru.practicum.shareit.item.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import ru.practicum.shareit.user.User;
-
-import java.util.Optional;
+import lombok.ToString;
+import ru.practicum.shareit.user.model.User;
 
 /**
  * TODO Sprint add-controllers.
  */
 @Getter
 @Setter
+@ToString
 public class Item {
 
-    private Long Id;
+    private Long id;
 
     private String name;
 
@@ -26,6 +25,11 @@ public class Item {
     private String request;
 
     public Item(User user, Long id, String name, String description, Boolean available) {
+        this.owner = user;
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.available = available;
     }
 
     public Boolean getAvailable() {

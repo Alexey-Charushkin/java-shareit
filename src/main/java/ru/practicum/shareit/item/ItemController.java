@@ -20,9 +20,9 @@ public class ItemController {
     private final ItemService itemService;
 
     @PostMapping()
-    public ItemDto create(@RequestHeader("X-Sharer-User-Id") Long userId,  @Valid @RequestBody ItemDto item) {
+    public ItemDto create(@RequestHeader("X-Sharer-User-Id") Long userId,  @Valid @RequestBody ItemDto itemDto) {
         log.info("Post X-Sharer-User-Id");
-        return itemService.create(userId, item);
+        return itemService.create(userId, itemDto);
     }
 
 //    @PatchMapping("{itemId}")
