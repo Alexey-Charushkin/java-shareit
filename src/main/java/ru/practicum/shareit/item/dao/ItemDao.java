@@ -8,8 +8,6 @@ import java.util.Map;
 
 public interface ItemDao {
 
-    Map<Long, Item> items = new HashMap<>();
-
     void add(Long id, Item item);
 
     Map<Long, Item> getAll();

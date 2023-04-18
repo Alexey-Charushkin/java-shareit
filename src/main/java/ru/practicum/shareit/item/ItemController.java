@@ -1,6 +1,7 @@
 package ru.practicum.shareit.item;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.item.dto.ItemDto;
 
@@ -12,38 +13,45 @@ import java.util.List;
  */
 @RestController
 @RequiredArgsConstructor
+@Log4j2
 @RequestMapping("/items")
 public class ItemController {
 
-//    private final ItemService itemService;
-//
-//    @PostMapping()
-//    public ItemDto create(@RequestHeader("X-Sharer-User-Id") Long userId,  @Valid @RequestBody ItemDto item) {
-//        return itemService.create(userId, item);
-//    }
-//
+    private final ItemService itemService;
+
+    @PostMapping()
+    public ItemDto create(@RequestHeader("X-Sharer-User-Id") Long userId,  @Valid @RequestBody ItemDto item) {
+        log.info("Post X-Sharer-User-Id");
+        return itemService.create(userId, item);
+    }
+
 //    @PatchMapping("{itemId}")
 //    public ItemDto update(@RequestHeader("X-Sharer-User-Id") Long userId, @Valid @PathVariable Long itemId, @RequestBody ItemDto item) {
+//        log.info("Patch X-Sharer-User-Id /{itemId}");
 //        return itemService.update(userId, itemId, item);
 //    }
 //
 //    @GetMapping("{itemId}")
 //    public ItemDto getById(@PathVariable Long itemId) {
+//        log.info("Get /{itemId}");
 //        return itemService.getItemById(itemId);
 //    }
 //
 //    @GetMapping()
 //    public List<ItemDto> gelAllByUserId(@RequestHeader("X-Sharer-User-Id") Long userId) {
+//        log.info("Get X-Sharer-User-Id");
 //        return itemService.getAllItemsByUser(userId);
 //    }
 //
 //    @DeleteMapping("{itemId}")
 //    public ItemDto deleteById(@PathVariable Long itemId) {
+//        log.info("Delete /{itemId}");
 //        return itemService.deleteById(itemId);
 //    }
 //
 //    @GetMapping("search")
 //    public List<ItemDto> searchItems(@RequestParam("text") String query) {
+//        log.info("Get =search");
 //        return itemService.searchItems(query);
 //    }
 

@@ -36,6 +36,7 @@ public class InMemoryUserDao implements UserDao {
 //map.put("name", "Joan");
 //
 // map.computeIfPresent("name", (key, value) -> key + ", " + value);
+
     public UserDto update(User user) {
         final String email = user.getEmail();
         final User oldUser = users.get(user.getId());

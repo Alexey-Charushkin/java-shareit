@@ -1,5 +1,6 @@
 package ru.practicum.shareit.item.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import ru.practicum.shareit.user.User;
@@ -13,18 +14,25 @@ import java.util.Optional;
 @Setter
 public class Item {
 
-    private Long itemId;
+    private Long Id;
 
     private String name;
 
     private String description;
-    private Boolean available;
+    private boolean available = false;
 
     private User owner;
 
     private String request;
-    public Optional<Boolean> getAvailable() {
-        return Optional.ofNullable(available);
+
+    public Item(User user, Long id, String name, String description, Boolean available) {
     }
+
+    public Boolean getAvailable() {
+        return available;
+    }
+//    public Optional<Boolean> getAvailable() {
+//        return Optional.ofNullable(available);
+//    }
 }
 

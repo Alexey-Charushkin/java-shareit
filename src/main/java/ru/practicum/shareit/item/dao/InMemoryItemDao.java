@@ -5,11 +5,15 @@ import ru.practicum.shareit.servise.BoyerMoore;
 import ru.practicum.shareit.item.model.Item;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Repository
 class InMemoryItemDao implements ItemDao {
+
+    private Long itemId = 0L;
+    Map<Long, Item> items = new HashMap<>();
 
     private final BoyerMoore boyerMoore = new BoyerMoore();
 
