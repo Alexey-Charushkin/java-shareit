@@ -1,5 +1,6 @@
 package ru.practicum.shareit.item.dao;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Repository;
 import ru.practicum.shareit.servise.BoyerMoore;
 import ru.practicum.shareit.item.model.Item;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
+@Log4j2
 class InMemoryItemDao implements ItemDao {
 
     private Long itemId = 0L;
@@ -20,6 +22,7 @@ class InMemoryItemDao implements ItemDao {
     @Override
     public void add(Item item) {
         item.setId(++itemId);
+        log.info("Item create.");
         items.put(item.getId(), item);
     }
 

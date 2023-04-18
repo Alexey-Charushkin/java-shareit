@@ -84,7 +84,6 @@ public class InMemoryUserDao implements UserDao {
 
     @Override
     public UserDto get(Long id) {
-
         User user = users.getOrDefault(id, null);
         if (user == null) {
             log.warn("User with id: {} not found", id);

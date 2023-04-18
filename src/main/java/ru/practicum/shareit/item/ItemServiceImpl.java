@@ -31,8 +31,6 @@ public class ItemServiceImpl implements ItemService {
 
         System.out.println(item);
 
-        log.info("Item create.");
-
         return ItemMapper.toItemDto(item);
     }
 
