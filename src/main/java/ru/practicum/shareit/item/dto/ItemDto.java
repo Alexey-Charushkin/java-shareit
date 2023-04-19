@@ -30,7 +30,8 @@ public class ItemDto {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.available = available;
+        if (available != null) this.available = available;
+
     }
 
 //    public ItemDto(Item item, Integer countRent) {

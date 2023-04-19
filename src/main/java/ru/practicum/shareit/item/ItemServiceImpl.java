@@ -29,24 +29,24 @@ public class ItemServiceImpl implements ItemService {
 
         itemDao.add(item);
 
-        System.out.println(item);
-
         return ItemMapper.toItemDto(item);
     }
 
-//    @Override
-//    public static ItemDto update(Long userId, Long itemId, ItemDto itemDto) {
-//
-//        Item itemToUpdate = itemDao.get(itemId);
-//
+    @Override
+    public ItemDto update(Long userId, ItemDto itemDto) {
+
+      //  Item itemToUpdate = itemDao.get(itemDto.getId());
+
+      return itemDao.update(userId, itemDto);
+
 //        if (itemToUpdate != null) {
-//            if (!itemToUpdate.getOwnerId().equals(userId)) {
+//            if (!itemToUpdate.getOwner().getId().equals(userId)) {
 //                log.warn("This item belongs to another user.");
 //                throw new NotFoundException("This item belongs to another user.");
 //            }
-//            if (item.getName() != null) itemToUpdate.setName(item.getName());
-//            if (item.getDescription() != null) itemToUpdate.setDescription(item.getDescription());
-//            if (item.getAvailable().isPresent()) itemToUpdate.setAvailable(item.getAvailable().get());
+//            if (itemDto.getName() != null) itemToUpdate.setName(itemDto.getName());
+//            if (itemDto.getDescription() != null) itemToUpdate.setDescription(itemDto.getDescription());
+//            if (itemDto.getAvailable() != null) itemToUpdate.setAvailable(itemDto.getAvailable());
 //
 //            userService.addItem(userId, itemToUpdate);
 //
@@ -54,13 +54,13 @@ public class ItemServiceImpl implements ItemService {
 //
 //            itemDao.add(itemId, itemToUpdate);
 //        } else {
-//            log.warn("Item with id: {} not found", item.getItemId());
+//            log.warn("Item with id: {} not found", itemDto.getId());
 //            throw new NotFoundException("Item not found.");
 //        }
 //        log.info("Item updated.");
-//        return itemMapper.itemToItemDto(itemToUpdate);
-//    }
-
+      //  return (itemDto);
+    }
+//
 //    @Override
 //    public static ItemDto getItemById(Long itemId) {
 //        if (itemDao.containsKey(itemId)) {

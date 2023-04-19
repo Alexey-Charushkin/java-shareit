@@ -25,11 +25,12 @@ public class ItemController {
         return itemService.create(userId, itemDto);
     }
 
-//    @PatchMapping("{itemId}")
-//    public ItemDto update(@RequestHeader("X-Sharer-User-Id") Long userId, @Valid @PathVariable Long itemId, @RequestBody ItemDto item) {
-//        log.info("Patch X-Sharer-User-Id /{itemId}");
-//        return itemService.update(userId, itemId, item);
-//    }
+    @PatchMapping("{itemId}")
+    public ItemDto update(@RequestHeader("X-Sharer-User-Id") Long userId, @Valid @PathVariable Long itemId, @RequestBody ItemDto itemDto) {
+        log.info("Patch X-Sharer-User-Id /{itemId}");
+        itemDto.setId(itemId);
+        return itemService.update(userId, itemDto);
+    }
 //
 //    @GetMapping("{itemId}")
 //    public ItemDto getById(@PathVariable Long itemId) {

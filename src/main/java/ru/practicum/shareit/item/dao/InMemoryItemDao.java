@@ -2,6 +2,9 @@ package ru.practicum.shareit.item.dao;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Repository;
+import ru.practicum.shareit.exceptions.NotFoundException;
+import ru.practicum.shareit.item.ItemMapper;
+import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.servise.BoyerMoore;
 import ru.practicum.shareit.item.model.Item;
 
@@ -26,7 +29,29 @@ class InMemoryItemDao implements ItemDao {
         items.put(item.getId(), item);
     }
 
-//    @Override
+    public ItemDto update(Long userId, ItemDto itemDto) {
+
+        Item itemToUpdate = items.get(itemDto.getId());
+
+        if (itemToUpdate == null || !itemToUpdate.getOwner().getId().equals(userId)) {
+            log.warn("Item width id={} not found.", itemDto.getId());
+            throw new NotFoundException("Item width id=" + itemDto.getId() + " not found.");
+        }
+        if (itemDto.getName() != null) itemToUpdate.setName(itemDto.getName());
+        if (itemDto.getDescription() != null) itemToUpdate.setDescription(itemDto.getDescription());
+        if (itemDto.getAvailable() != null) itemToUpdate.setAvailable(itemDto.getAvailable());
+
+        // userService.addItem(userId, itemToUpdate);
+
+        System.out.println(itemToUpdate);
+
+          items.put(itemId, itemToUpdate);
+
+        log.info("Item updated.");
+        return ItemMapper.toItemDto(itemToUpdate);
+}
+
+    //    @Override
 //    public Map<Long, Item> getAll() {
 //        return items;
 //    }
@@ -36,10 +61,10 @@ class InMemoryItemDao implements ItemDao {
 //        return items.remove(id);
 //    }
 //
-//    @Override
-//    public Item get(Long id) {
-//        return items.get(id);
-//    }
+    @Override
+    public Item get(Long id) {
+        return items.get(id);
+    }
 //
 //    @Override
 //    public List<Item> search(String query) {

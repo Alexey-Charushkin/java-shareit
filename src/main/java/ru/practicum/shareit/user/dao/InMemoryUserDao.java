@@ -15,8 +15,8 @@ import java.util.*;
 public class InMemoryUserDao implements UserDao {
 
     private Long count = 0L;
-    private Map<Long, User> users = new HashMap<>();
-    private Set<String> emails = new HashSet<>();
+    private final Map<Long, User> users = new HashMap<>();
+    private final Set<String> emails = new HashSet<>();
 
     @Override
     public UserDto add(User user) {
@@ -32,17 +32,11 @@ public class InMemoryUserDao implements UserDao {
         return UserMapper.toUserDto(user);
     }
 
-    //    Map<String, String> map = new HashMap<>();
-//map.put("name", "Joan");
-//
-// map.computeIfPresent("name", (key, value) -> key + ", " + value);
-
     public UserDto update(User user) {
-        final String email = user.getEmail();
         final String name = user.getName();
+        final String email = user.getEmail();
 
         User updateUser = users.computeIfPresent(user.getId(), (id, u
-
                 ) -> {
                     if (name != null) u.setName(user.getName());
                     if (email != null) {
@@ -59,9 +53,6 @@ public class InMemoryUserDao implements UserDao {
                 }
         );
         log.info("User update.");
-
-        System.out.println(updateUser);
-
         return UserMapper.toUserDto(updateUser);
     }
 
@@ -77,6 +68,7 @@ public class InMemoryUserDao implements UserDao {
 
     @Override
     public UserDto remove(Long id) {
+        if (id == null) return null;
         final User user = users.remove(id);
         emails.remove(user.getEmail());
         return UserMapper.toUserDto(user);
