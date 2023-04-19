@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Repository
 @Log4j2
@@ -26,7 +27,6 @@ class InMemoryItemDao implements ItemDao {
     @Override
     public void add(Item item) {
         item.setId(++itemId);
-
         log.info("Item create.");
         items.put(item.getId(), item);
     }
@@ -49,11 +49,14 @@ class InMemoryItemDao implements ItemDao {
         return ItemMapper.toItemDto(itemToUpdate);
     }
 
-    //    @Override
-//    public Map<Long, Item> getAll() {
-//        return items;
-//    }
-//
+    @Override
+    public List<Item> getAllItemsByUser(Long userId) {
+        return items.values().stream()
+                .filter(item -> item.getOwner().getId().equals(userId))
+                .collect(Collectors.toList());
+    }
+
+    //
 //    @Override
 //    public Item remove(Long id) {
 //        return items.remove(id);
@@ -61,7 +64,13 @@ class InMemoryItemDao implements ItemDao {
 //
     @Override
     public Item get(Long id) {
-        return items.get(id);
+        Item item = items.get(id);
+        if (item == null) {
+            log.warn("Item with id: {} not found", itemId);
+            throw new NotFoundException("Item not found.");
+        }
+        log.info("Item with id: {} found.", itemId);
+        return item;
     }
 //
 //    @Override

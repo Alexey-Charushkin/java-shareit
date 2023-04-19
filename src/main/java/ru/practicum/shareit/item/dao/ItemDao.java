@@ -13,7 +13,7 @@ public interface ItemDao {
 
     ItemDto update(Long userId, ItemDto itemDto);
 
-    //    Map<Long, Item> getAll();
+    List<Item> getAllItemsByUser(Long userId);
 //
 //    Item remove(Long id);
 //

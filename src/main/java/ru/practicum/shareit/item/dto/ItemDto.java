@@ -33,7 +33,6 @@ public class ItemDto {
         this.id = id;
         this.name = name;
         this.description = description;
-    //    if (available != null)
-            this.available = available;
+        this.available = available;
     }
 }

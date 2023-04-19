@@ -9,11 +9,11 @@ public interface ItemService {
     ItemDto create(Long userId, ItemDto itemDto);
 
     ItemDto update(Long itemId, ItemDto itemDto);
-//
-//    ItemDto getItemById(Long itemId);
-//
-//    List<ItemDto> getAllItemsByUser(Long userId);
-//
+
+    ItemDto getItemById(Long itemId);
+
+    List<ItemDto> getAllItemsByUser(Long userId);
+
 //    ItemDto deleteById(Long itemId);
 //
 //    List<ItemDto> searchItems(String query);

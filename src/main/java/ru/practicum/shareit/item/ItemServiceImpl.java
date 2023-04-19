@@ -14,6 +14,7 @@ import ru.practicum.shareit.user.dao.UserDao;
 import ru.practicum.shareit.user.model.User;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Log4j2
 @Service
@@ -25,60 +26,31 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ItemDto create(Long userId, ItemDto itemDto) {
-    if (!itemDto.getAvailable().isPresent()) {
-
-    }
         Item item = ItemMapper.toItem(UserMapper.toUser(userDao.get(userId)), itemDto);
-
         itemDao.add(item);
-
         return ItemMapper.toItemDto(item);
     }
 
     @Override
     public ItemDto update(Long userId, ItemDto itemDto) {
-
-      //  Item itemToUpdate = itemDao.get(itemDto.getId());
-
-      return itemDao.update(userId, itemDto);
-
-//        if (itemToUpdate != null) {
-//            if (!itemToUpdate.getOwner().getId().equals(userId)) {
-//                log.warn("This item belongs to another user.");
-//                throw new NotFoundException("This item belongs to another user.");
-//            }
-//            if (itemDto.getName() != null) itemToUpdate.setName(itemDto.getName());
-//            if (itemDto.getDescription() != null) itemToUpdate.setDescription(itemDto.getDescription());
-//            if (itemDto.getAvailable() != null) itemToUpdate.setAvailable(itemDto.getAvailable());
-//
-//            userService.addItem(userId, itemToUpdate);
-//
-//            System.out.println(itemToUpdate);
-//
-//            itemDao.add(itemId, itemToUpdate);
-//        } else {
-//            log.warn("Item with id: {} not found", itemDto.getId());
-//            throw new NotFoundException("Item not found.");
-//        }
-//        log.info("Item updated.");
-      //  return (itemDto);
+        return itemDao.update(userId, itemDto);
     }
-//
-//    @Override
-//    public static ItemDto getItemById(Long itemId) {
-//        if (itemDao.containsKey(itemId)) {
-//            log.info("Item with id: {} found.", itemId);
-//            return itemMapper.itemToItemDto(itemDao.get(itemId));
-//        } else {
-//            log.warn("Item with id: {} not found", itemId);
-//            throw new NotFoundException("Item not found.");
-//        }
-//    }
-//
-//    @Override
-//    public static List<ItemDto> getAllItemsByUser(Long userId) {
-//        return itemMapper.getItemDtoList(userService.getItemsByIdUser(userId));
-//    }
+
+    @Override
+    public ItemDto getItemById(Long itemId) {
+        if (itemId == null) {
+            log.warn("Item id id null");
+            throw new BadRequestException("Item id is null.");
+        }
+        return ItemMapper.toItemDto(itemDao.get(itemId));
+    }
+
+    @Override
+    public List<ItemDto> getAllItemsByUser(Long userId) {
+        return itemDao.getAllItemsByUser(userId).stream()
+                .map(item -> ItemMapper.toItemDto(item))
+                .collect(Collectors.toList());
+    }
 
 //    public List<ItemDto> searchItems(String query) {
 //        List<ItemDto> items = itemMapper.getItemDtoList(itemDao.search(query));

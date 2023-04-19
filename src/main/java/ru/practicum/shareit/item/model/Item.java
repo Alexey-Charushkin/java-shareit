@@ -31,13 +31,13 @@ public class Item {
         this.id = id;
         this.name = name;
         this.description = description;
-       // this.available = available;
         if (available == null) {
             throw new BadRequestException("Available is null.");
         } else {
             this.available = available;
         }
     }
+
     public Optional<Boolean> getAvailable() {
         return Optional.ofNullable(available);
     }

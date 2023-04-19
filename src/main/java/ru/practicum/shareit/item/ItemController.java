@@ -37,12 +37,12 @@ public class ItemController {
         log.info("Get /{itemId}");
         return itemService.getItemById(itemId);
     }
-//
-//    @GetMapping()
-//    public List<ItemDto> gelAllByUserId(@RequestHeader("X-Sharer-User-Id") Long userId) {
-//        log.info("Get X-Sharer-User-Id");
-//        return itemService.getAllItemsByUser(userId);
-//    }
+
+    @GetMapping()
+    public List<ItemDto> gelAllByUserId(@RequestHeader("X-Sharer-User-Id") Long userId) {
+        log.info("Get X-Sharer-User-Id");
+        return itemService.getAllItemsByUser(userId);
+    }
 //
 //    @DeleteMapping("{itemId}")
 //    public ItemDto deleteById(@PathVariable Long itemId) {
