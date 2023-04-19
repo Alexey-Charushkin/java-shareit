@@ -18,6 +18,7 @@ public class ItemDto {
     private String name;
     @NotBlank
     private String description;
+    @NonNull
     private boolean available;
 
     private Integer countRent = 0;
