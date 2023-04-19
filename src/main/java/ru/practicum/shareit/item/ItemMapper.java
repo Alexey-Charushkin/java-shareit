@@ -10,35 +10,29 @@ public class ItemMapper {
                 item.getId(),
                 item.getName(),
                 item.getDescription(),
-                item.getAvailable()
+                item.getAvailable().get()
         );
     }
 
     public static Item toItem(User user, ItemDto itemDto) {
-        return new Item(
-                user,
-                itemDto.getId(),
-                itemDto.getName(),
-                itemDto.getDescription(),
-                itemDto.getAvailable()
-        );
-
+        if (itemDto.getAvailable().isEmpty()) {
+            return new Item(
+                    user,
+                    itemDto.getId(),
+                    itemDto.getName(),
+                    itemDto.getDescription(),
+                    null
+            );
+        } else {
+            return new Item(
+                    user,
+                    itemDto.getId(),
+                    itemDto.getName(),
+                    itemDto.getDescription(),
+                    itemDto.getAvailable().get()
+            );
+        }
     }
 }
 
-//    public ItemDto itemToItemDto(Item item) {
-//        return new ItemDto(item, getCountRent(item));
-//    }
-
-//    public List<ItemDto> getItemDtoList(List<Item> items) {
-//        List<ItemDto> itemDtoList = new ArrayList<>();
-//        for (Item item : items) {
-//            itemDtoList.add(itemToItemDto(item));
-//        }
-//        return itemDtoList;
-//    }
-//
-//    private Integer getCountRent(Item item) {
-//        return null;
-//    }
 

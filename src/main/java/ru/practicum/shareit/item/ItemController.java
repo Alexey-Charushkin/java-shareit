@@ -31,12 +31,12 @@ public class ItemController {
         itemDto.setId(itemId);
         return itemService.update(userId, itemDto);
     }
-//
-//    @GetMapping("{itemId}")
-//    public ItemDto getById(@PathVariable Long itemId) {
-//        log.info("Get /{itemId}");
-//        return itemService.getItemById(itemId);
-//    }
+
+    @GetMapping("{itemId}")
+    public ItemDto getById(@PathVariable Long itemId) {
+        log.info("Get /{itemId}");
+        return itemService.getItemById(itemId);
+    }
 //
 //    @GetMapping()
 //    public List<ItemDto> gelAllByUserId(@RequestHeader("X-Sharer-User-Id") Long userId) {

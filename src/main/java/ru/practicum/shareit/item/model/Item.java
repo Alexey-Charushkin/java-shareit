@@ -3,7 +3,10 @@ package ru.practicum.shareit.item.model;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import ru.practicum.shareit.exceptions.BadRequestException;
 import ru.practicum.shareit.user.model.User;
+
+import java.util.Optional;
 
 /**
  * TODO Sprint add-controllers.
@@ -18,7 +21,7 @@ public class Item {
     private String name;
 
     private String description;
-    private boolean available = false;
+    private boolean available;
     private User owner;
 
     private String request;
@@ -28,14 +31,15 @@ public class Item {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.available = available;
+       // this.available = available;
+        if (available == null) {
+            throw new BadRequestException("Available is null.");
+        } else {
+            this.available = available;
+        }
     }
-
-    public Boolean getAvailable() {
-        return available;
+    public Optional<Boolean> getAvailable() {
+        return Optional.ofNullable(available);
     }
-//    public Optional<Boolean> getAvailable() {
-//        return Optional.ofNullable(available);
-//    }
 }
 
