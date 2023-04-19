@@ -39,13 +39,13 @@ public class InMemoryUserDao implements UserDao {
 
     public UserDto update(User user) {
         final String email = user.getEmail();
-        final User oldUser = users.get(user.getId());
-        if (user.getName() == null || user.getName().isBlank()) user.setName(oldUser.getName());
-        if (user.getEmail() == null || user.getEmail().isBlank()) user.setEmail(oldUser.getEmail());
+        final String name = user.getName();
 
-        if (email != null) {
-            users.computeIfPresent(user.getId(), (id, u) -> {
+        User updateUser = users.computeIfPresent(user.getId(), (id, u
 
+                ) -> {
+                    if (name != null) u.setName(user.getName());
+                    if (email != null) {
                         if (!email.equals(u.getEmail())) {
                             if (emails.contains(email)) {
                                 throw new DataAlreadyExistException("Email:" + user.getEmail() + "is already exists.");
@@ -53,16 +53,16 @@ public class InMemoryUserDao implements UserDao {
                             emails.remove(u.getEmail());
                             emails.add(email);
                         }
-                        return user;
+                        u.setEmail(user.getEmail());
                     }
-            );
-        }
-        users.put(user.getId(), user);
+                    return u;
+                }
+        );
         log.info("User update.");
 
-        System.out.println(user);
+        System.out.println(updateUser);
 
-        return UserMapper.toUserDto(user);
+        return UserMapper.toUserDto(updateUser);
     }
 
     @Override
