@@ -4,14 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.exceptions.BadRequestException;
-import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.item.dao.ItemDao;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.UserMapper;
-import ru.practicum.shareit.user.UserService;
 import ru.practicum.shareit.user.dao.UserDao;
-import ru.practicum.shareit.user.model.User;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,25 +45,19 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<ItemDto> getAllItemsByUser(Long userId) {
         return itemDao.getAllItemsByUser(userId).stream()
-                .map(item -> ItemMapper.toItemDto(item))
+                .map(ItemMapper::toItemDto)
                 .collect(Collectors.toList());
     }
 
-//    public List<ItemDto> searchItems(String query) {
-//        List<ItemDto> items = itemMapper.getItemDtoList(itemDao.search(query));
-//        log.info("Request search films, query = {}.", query);
-//        return items;
-//    }
+    public List<ItemDto> searchItems(String query) {
+        log.info("Request search films, query = {}.", query);
+        return itemDao.search(query)
+                .map(ItemMapper::toItemDto)
+                .collect(Collectors.toList());
+    }
 
-//    @Override
-//    public static ItemDto deleteById(Long itemId) {
-//        if (itemDao.containsKey(itemId)) {
-//            log.info("Item with id: {} deleted.", itemId);
-//            return itemMapper.itemToItemDto(itemDao.get(itemId));
-//        } else {
-//            log.warn("Item with id: {} not found.", itemId);
-//            throw new NotFoundException("Item not found.");
-//        }
-//    }
+    @Override
+    public ItemDto deleteById(Long itemId) {
+        return ItemMapper.toItemDto(itemDao.remove(itemId));
+    }
 }
-//

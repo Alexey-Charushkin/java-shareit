@@ -3,9 +3,8 @@ package ru.practicum.shareit.item.dao;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.model.Item;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Stream;
 
 public interface ItemDao {
 
@@ -14,12 +13,11 @@ public interface ItemDao {
     ItemDto update(Long userId, ItemDto itemDto);
 
     List<Item> getAllItemsByUser(Long userId);
-//
-//    Item remove(Long id);
-//
+
+    Item remove(Long id);
+
     Item get(Long id);
-//
-//    List<Item> search(String query);
-//
-//    boolean containsKey(Long id);
+
+    Stream<Item> search(String query);
+
 }

@@ -2,18 +2,14 @@ package ru.practicum.shareit.item.dao;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Repository;
-import ru.practicum.shareit.exceptions.BadRequestException;
 import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.item.ItemMapper;
 import ru.practicum.shareit.item.dto.ItemDto;
-import ru.practicum.shareit.servise.BoyerMoore;
 import ru.practicum.shareit.item.model.Item;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Repository
 @Log4j2
@@ -21,8 +17,6 @@ class InMemoryItemDao implements ItemDao {
 
     private Long itemId = 0L;
     Map<Long, Item> items = new HashMap<>();
-
-    private final BoyerMoore boyerMoore = new BoyerMoore();
 
     @Override
     public void add(Item item) {
@@ -56,12 +50,17 @@ class InMemoryItemDao implements ItemDao {
                 .collect(Collectors.toList());
     }
 
-    //
-//    @Override
-//    public Item remove(Long id) {
-//        return items.remove(id);
-//    }
-//
+
+    @Override
+    public Item remove(Long id) {
+        if (!items.containsKey(itemId)) {
+            log.warn("Item with id: {} not found.", itemId);
+            throw new NotFoundException("Item not found.");
+        }
+        log.info("Item with id: {} deleted.", itemId);
+        return items.remove(id);
+    }
+
     @Override
     public Item get(Long id) {
         Item item = items.get(id);
@@ -72,25 +71,15 @@ class InMemoryItemDao implements ItemDao {
         log.info("Item with id: {} found.", itemId);
         return item;
     }
-//
-//    @Override
-//    public List<Item> search(String query) {
-//        List<Item> itemsSearch = new ArrayList<>();
-//        if (query.isBlank()) return itemsSearch;
-//        for (Item item : getAll().values()) {
-//            int i = boyerMoore.search(item.getName().toLowerCase(), query.toLowerCase());
-//            int j = boyerMoore.search(item.getDescription().toLowerCase(), query.toLowerCase());
-//            if (item.getAvailable().isPresent()) {
-//                if (item.getAvailable().get()) {
-//                    if (i >= 0 || j >= 0) itemsSearch.add(item);
-//                }
-//            }
-//        }
-//        return itemsSearch;
-//    }
-//
-//    @Override
-//    public boolean containsKey(Long id) {
-//        return items.containsKey(id);
-//    }
+
+    @Override
+    public Stream search(String query) {
+        final String searchText = query.toLowerCase(Locale.ENGLISH);
+        return items.values()
+                .stream()
+                .filter(i -> i.getAvailable().get()
+                        && (i.getName().toLowerCase(Locale.ENGLISH).contains(searchText)
+                        || (i.getDescription().toLowerCase(Locale.ENGLISH)).contains(searchText)));
+
+    }
 }

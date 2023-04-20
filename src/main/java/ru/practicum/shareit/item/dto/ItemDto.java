@@ -1,11 +1,8 @@
 package ru.practicum.shareit.item.dto;
 
 import lombok.*;
-import ru.practicum.shareit.exceptions.BadRequestException;
-import ru.practicum.shareit.item.model.Item;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 /**
@@ -22,6 +19,7 @@ public class ItemDto {
     @NotBlank
     private String description;
     private Boolean available;
+    private String request;
 
     private Integer countRent = 0;
 
@@ -29,10 +27,11 @@ public class ItemDto {
         return Optional.ofNullable(available);
     }
 
-    public ItemDto(Long id, String name, String description, Boolean available) {
+    public ItemDto(Long id, String name, String description, Boolean available, String request) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.available = available;
+        this.request = request;
     }
 }

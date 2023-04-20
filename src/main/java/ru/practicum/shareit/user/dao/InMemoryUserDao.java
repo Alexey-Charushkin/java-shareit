@@ -9,6 +9,7 @@ import ru.practicum.shareit.user.UserMapper;
 import ru.practicum.shareit.user.dto.UserDto;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 @Log4j2
@@ -58,12 +59,9 @@ public class InMemoryUserDao implements UserDao {
 
     @Override
     public List<UserDto> getAll() {
-        List<User> userList = new ArrayList<>(users.values());
-        List<UserDto> userDtos = new ArrayList<>();
-        for (User user : userList) {
-            userDtos.add(UserMapper.toUserDto(user));
-        }
-        return userDtos;
+        return users.values().stream()
+                .map(UserMapper::toUserDto)
+                .collect(Collectors.toList());
     }
 
     @Override
