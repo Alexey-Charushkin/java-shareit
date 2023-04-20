@@ -26,6 +26,6 @@ public class BookingDto {
 
     private Status status;
 
-    private enum Status {WAITING, APPROVED, REJECTED, CANCELED}
+    private enum Status { WAITING, APPROVED, REJECTED, CANCELED }
 
 }
