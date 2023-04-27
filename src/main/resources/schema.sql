@@ -1,9 +1,17 @@
+/*
+drop table IF EXISTS users;
+drop table IF EXISTS requests;
+drop table IF EXISTS items;
+drop table IF EXISTS bookings;
+drop table IF EXISTS comments;
+*/
+
 CREATE TABLE IF NOT EXISTS users
 (
     id    BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL,
     name  varchar(100),
     email varchar(320),
-    UNIQUE (email)
+    UNIQUE (id, email)
 );
 
 CREATE TABLE IF NOT EXISTS requests
