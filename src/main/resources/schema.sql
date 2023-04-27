@@ -2,7 +2,8 @@ CREATE TABLE IF NOT EXISTS users
 (
     id    BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL,
     name  varchar(100),
-    email varchar(320)
+    email varchar(320),
+    UNIQUE (email)
 );
 
 CREATE TABLE IF NOT EXISTS requests
