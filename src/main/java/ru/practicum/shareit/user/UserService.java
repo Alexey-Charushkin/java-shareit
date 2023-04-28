@@ -11,8 +11,8 @@ public interface UserService {
 
     UserDto getById(Long userId);
 
+
     List<UserDto> getAll();
 
-    UserDto deleteById(Long userId);
-
+    void deleteById(Long userId);
 }

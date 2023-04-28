@@ -2,6 +2,7 @@ package ru.practicum.shareit.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.user.dto.UserDto;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/users")
+@EnableJpaRepositories
 public class UserController {
 
     private final UserService userService;
@@ -45,9 +47,9 @@ public class UserController {
     }
 
     @DeleteMapping("{userId}")
-    public UserDto deleteById(@PathVariable Long userId) {
+    public void deleteById(@PathVariable Long userId) {
         log.info("Delete /users/{userId}");
-        return userService.deleteById(userId);
+        userService.deleteById(userId);
     }
 
 }
