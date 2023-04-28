@@ -11,10 +11,10 @@ public interface ItemService {
 
     ItemDto getItemById(Long itemId);
 
-    List<ItemDto> getAllItemsByUser(Long userId);
-
-    ItemDto deleteById(Long itemId);
-
-    List<ItemDto> searchItems(String query);
+   // List<ItemDto> getAllItemsByUser(Long userId);
+//
+//    ItemDto deleteById(Long itemId);
+//
+//    List<ItemDto> searchItems(String query);
 
 }

@@ -29,10 +29,10 @@ class InMemoryItemDao implements ItemDao {
 
         Item itemToUpdate = items.get(itemDto.getId());
 
-        if (itemToUpdate == null || !itemToUpdate.getOwner().getId().equals(userId)) {
-            log.warn("Item width id={} not found.", itemDto.getId());
-            throw new NotFoundException("Item width id=" + itemDto.getId() + " not found.");
-        }
+//        if (itemToUpdate == null || !itemToUpdate.getOwner().getId().equals(userId)) {
+//            log.warn("Item width id={} not found.", itemDto.getId());
+//            throw new NotFoundException("Item width id=" + itemDto.getId() + " not found.");
+//        }
         if (itemDto.getName() != null) itemToUpdate.setName(itemDto.getName());
         if (itemDto.getDescription() != null) itemToUpdate.setDescription(itemDto.getDescription());
         if (itemDto.getAvailable().isPresent()) itemToUpdate.setAvailable(itemDto.getAvailable().get());
@@ -46,7 +46,7 @@ class InMemoryItemDao implements ItemDao {
     @Override
     public List<Item> getAllItemsByUser(Long userId) {
         return items.values().stream()
-                .filter(item -> item.getOwner().getId().equals(userId))
+//                .filter(item -> item.getOwner().getId().equals(userId))
                 .collect(Collectors.toList());
     }
 

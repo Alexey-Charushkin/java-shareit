@@ -3,9 +3,7 @@ package ru.practicum.shareit.user;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
-import ru.practicum.shareit.exceptions.DataAlreadyExistException;
 import ru.practicum.shareit.exceptions.NotFoundException;
-import ru.practicum.shareit.user.dao.UserDao;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.model.User;
 
@@ -55,13 +53,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteById(Long userId) {
-        // UserDto user =
         userRepository.deleteById(userId);
-//        if (user == null) {
-//            log.warn("User with id: {} not found.", userId);
-//            throw new NotFoundException("User not found.");
-//        }
-//        log.info("User with id: {} deleted.", userId);
-//        return user;
     }
 }

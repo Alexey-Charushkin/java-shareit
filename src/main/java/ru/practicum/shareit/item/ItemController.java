@@ -2,6 +2,7 @@ package ru.practicum.shareit.item;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.item.dto.ItemDto;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Log4j2
 @RequestMapping("/items")
+@EnableJpaRepositories
 public class ItemController {
 
     private final ItemService itemService;
@@ -39,23 +41,23 @@ public class ItemController {
         return itemService.getItemById(itemId);
     }
 
-    @GetMapping()
-    public List<ItemDto> gelAllByUserId(@RequestHeader("X-Sharer-User-Id") Long userId) {
-        log.info("Get X-Sharer-User-Id");
-        return itemService.getAllItemsByUser(userId);
-    }
+//    @GetMapping()
+//    public List<ItemDto> gelAllByUserId(@RequestHeader("X-Sharer-User-Id") Long userId) {
+//        log.info("Get X-Sharer-User-Id");
+//        return itemService.getAllItemsByUser(userId);
+//    }
+//
+//    @DeleteMapping("{itemId}")
+//    public ItemDto deleteById(@PathVariable Long itemId) {
+//        log.info("Delete /{itemId}");
+//        return itemService.deleteById(itemId);
+//    }
 
-    @DeleteMapping("{itemId}")
-    public ItemDto deleteById(@PathVariable Long itemId) {
-        log.info("Delete /{itemId}");
-        return itemService.deleteById(itemId);
-    }
-
-    @GetMapping("search")
-    public List<ItemDto> searchItems(@RequestParam("text") String query) {
-        log.info("Get =search");
-        if (query == null || query.isBlank()) return Collections.emptyList();
-        return itemService.searchItems(query);
-    }
+//    @GetMapping("search")
+//    public List<ItemDto> searchItems(@RequestParam("text") String query) {
+//        log.info("Get =search");
+//        if (query == null || query.isBlank()) return Collections.emptyList();
+//        return itemService.searchItems(query);
+//    }
 
 }
