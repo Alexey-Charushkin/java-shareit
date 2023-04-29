@@ -46,18 +46,18 @@ public class ItemController {
         log.info("Get X-Sharer-User-Id");
         return itemService.getAllItemsByUserId(userId);
     }
-//
-//    @DeleteMapping("{itemId}")
-//    public ItemDto deleteById(@PathVariable Long itemId) {
-//        log.info("Delete /{itemId}");
-//        return itemService.deleteById(itemId);
-//    }
 
-//    @GetMapping("search")
-//    public List<ItemDto> searchItems(@RequestParam("text") String query) {
-//        log.info("Get =search");
-//        if (query == null || query.isBlank()) return Collections.emptyList();
-//        return itemService.searchItems(query);
-//    }
+    @DeleteMapping("{itemId}")
+    public void deleteById(@PathVariable Long itemId) {
+        log.info("Delete /{itemId}");
+        itemService.deleteById(itemId);
+    }
+
+    @GetMapping("search")
+    public List<ItemDto> searchItems(@RequestParam("text") String query) {
+        log.info("Get =search");
+        if (query == null || query.isBlank()) return Collections.emptyList();
+        return itemService.searchItems(query);
+    }
 
 }

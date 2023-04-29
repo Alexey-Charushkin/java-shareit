@@ -4,6 +4,7 @@ import lombok.*;
 import ru.practicum.shareit.request.ItemRequest;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 /**
@@ -19,6 +20,7 @@ public class ItemDto {
     private String name;
     @NotBlank
     private String description;
+    @NotNull
     private Boolean available;
     private ItemRequest request;
 

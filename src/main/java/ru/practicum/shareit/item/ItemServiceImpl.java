@@ -35,14 +35,14 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ItemDto create(Long userId, ItemDto itemDto) {
-        Item item;
         try {
-            item = ItemMapper.toItem(userRepository.getReferenceById(userId), itemDto);
-            itemRepository.save(item);
-        } catch (DataIntegrityViolationException e) {
+            UserMapper.toUserDto(userRepository.getById(userId));
+        } catch (EntityNotFoundException e) {
             log.warn("User with id: {} not found", userId);
             throw new NotFoundException("User not found.");
         }
+        Item item = ItemMapper.toItem(userRepository.getById(userId), itemDto);
+        itemRepository.save(item);
         log.info("Item create.");
         return ItemMapper.toItemDto(item);
     }
@@ -60,6 +60,9 @@ public class ItemServiceImpl implements ItemService {
 
         itemRepository.save(itemToUpdate);
         log.info("Item updated.");
+
+        System.out.println(itemToUpdate);
+
         return ItemMapper.toItemDto(itemToUpdate);
     }
 
@@ -71,7 +74,7 @@ public class ItemServiceImpl implements ItemService {
             throw new BadRequestException("Item id is null.");
         }
         try {
-          item = ItemMapper.toItemDto(itemRepository.getById(itemId));
+            item = ItemMapper.toItemDto(itemRepository.getById(itemId));
         } catch (EntityNotFoundException e) {
             log.warn("Item with id: {} not found", itemId);
             throw new NotFoundException("Item not found.");
@@ -86,16 +89,24 @@ public class ItemServiceImpl implements ItemService {
                 .map(ItemMapper::toItemDto)
                 .collect(Collectors.toList());
     }
-//
-//    public List<ItemDto> searchItems(String query) {
-//        log.info("Request search films, query = {}.", query);
-//        return itemDao.search(query)
-//                .map(ItemMapper::toItemDto)
-//                .collect(Collectors.toList());
-//    }
-//
-//    @Override
-//    public ItemDto deleteById(Long itemId) {
-//        return ItemMapper.toItemDto(itemDao.remove(itemId));
-//    }
+
+
+    public List<ItemDto> searchItems(String query) {
+        List<Item> itemList;
+        try {
+            log.info("Request search films, query = {}.", query);
+            itemList = itemRepository.search(query);
+        } catch (EntityNotFoundException e) {
+            log.warn("Items not found");
+            throw new NotFoundException("Item not found.");
+        }
+        return itemList.stream()
+                .map(ItemMapper::toItemDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteById(Long itemId) {
+        itemRepository.deleteById(itemId);
+    }
 }
