@@ -11,7 +11,7 @@ public interface ItemService {
 
     ItemDto getItemById(Long itemId);
 
-   // List<ItemDto> getAllItemsByUser(Long userId);
+    List<ItemDto> getAllItemsByUserId(Long userId);
 //
 //    ItemDto deleteById(Long itemId);
 //
