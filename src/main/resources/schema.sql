@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS requests
     id           BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL UNIQUE,
     description  VARCHAR(1000),
     requestor_id BIGINT,
+    created TIMESTAMP WITHOUT TIME ZONE,
     CONSTRAINT fk_requests_to_users FOREIGN KEY (requestor_id) REFERENCES users (id)
 );
 
@@ -25,11 +26,11 @@ CREATE TABLE IF NOT EXISTS items
     id          BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL UNIQUE,
     name        VARCHAR(100),
     description VARCHAR(1000),
-    is_avaible  VARCHAR(100),
+    is_available  VARCHAR(100),
     owner_id    BIGINT,
-    reqest_id   BIGINT,
+    request_id   BIGINT,
     CONSTRAINT fk_items_to_users FOREIGN KEY (owner_id) REFERENCES users (id),
-    CONSTRAINT fk_items_to_requests FOREIGN KEY (reqest_id) REFERENCES requests (id)
+    CONSTRAINT fk_items_to_requests FOREIGN KEY (request_id) REFERENCES requests (id)
 );
 
 CREATE TABLE IF NOT EXISTS bookings

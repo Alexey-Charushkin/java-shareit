@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.practicum.shareit.exceptions.BadRequestException;
+import ru.practicum.shareit.request.ItemRequest;
 import ru.practicum.shareit.user.model.User;
 
 import javax.persistence.*;
@@ -28,17 +29,16 @@ public class Item {
     @Column(nullable = false)
     private String description;
 
-    @Column(name = "is_avaible")
+    @Column(name = "is_available")
     private boolean available;
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
 
-//    @OneToOne
-//    @JoinColumn(name = "request_id")
-    @Transient
-    private String request;
+    @OneToOne
+    @JoinColumn(name = "request_id")
+    private ItemRequest request;
 
     public Item(User user, Long id, String name, String description, Boolean available) {
         this.owner = user;
