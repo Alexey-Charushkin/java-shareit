@@ -3,6 +3,7 @@ package ru.practicum.shareit.booking.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
@@ -35,8 +36,18 @@ public class Booking {
     private User booker;
 
     @Enumerated(EnumType.STRING)
+    @ColumnDefault("WAITING")
     private Status status;
 
-    private enum Status { WAITING, APPROVED, REJECTED, CANCELED }
+    public Booking(Long id, LocalDateTime start, LocalDateTime end, Item item, User booker, String status) {
+        this.id = id;
+        this.start = start;
+        this.end = end;
+        this.item = item;
+        this.booker = booker;
+        this.status = Status.valueOf(status);
+    }
+
+    private enum Status {WAITING, APPROVED, REJECTED, CANCELED}
 
 }

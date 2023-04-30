@@ -10,11 +10,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findByOwnerId(Long userId);
 
     @Query("SELECT i FROM Item i " +
-            "WHERE CAST (i.available AS boolean) = true " +
+            "WHERE (CAST (i.available AS boolean) = true) " +
             "AND (UPPER(i.name) LIKE UPPER(CONCAT('%', ?1, '%')) " +
             "OR UPPER(i.description) LIKE UPPER(CONCAT('%', ?1, '%')))")
     List<Item> search(String text);
-
-
-
 }
