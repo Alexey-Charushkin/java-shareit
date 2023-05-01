@@ -35,7 +35,7 @@ class InMemoryItemDao implements ItemDao {
 //        }
         if (itemDto.getName() != null) itemToUpdate.setName(itemDto.getName());
         if (itemDto.getDescription() != null) itemToUpdate.setDescription(itemDto.getDescription());
-        if (itemDto.getAvailable().isPresent()) itemToUpdate.setAvailable(itemDto.getAvailable().get());
+        if (itemDto.getAvailable() !=null) itemToUpdate.setAvailable(itemDto.getAvailable());
 
         items.put(itemId, itemToUpdate);
 

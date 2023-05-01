@@ -1,5 +1,6 @@
 package ru.practicum.shareit.item.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import ru.practicum.shareit.exceptions.BadRequestException;
 import ru.practicum.shareit.request.ItemRequest;
@@ -30,7 +31,7 @@ public class Item {
     @Column(name = "is_available")
     private boolean available;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "owner_id")
     private User owner;
 

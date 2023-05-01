@@ -13,7 +13,7 @@ public class BookingMapper {
                 booking.getStart(),
                 booking.getEnd(),
                 booking.getItem().getId(),
-                ItemMapper.toItemDto(booking.getItem()),
+                booking.getItem(),
                 booking.getBooker(),
                 String.valueOf(booking.getStatus())
         );
@@ -25,7 +25,7 @@ public class BookingMapper {
                 bookingDto.getId(),
                 bookingDto.getStart(),
                 bookingDto.getEnd(),
-                ItemMapper.toItem(bookingDto.getBooker(), bookingDto.getItemDto()),
+                bookingDto.getItem(),
                 bookingDto.getBooker(),
                 String.valueOf(bookingDto.getStatus())
         );

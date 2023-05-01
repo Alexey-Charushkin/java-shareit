@@ -13,6 +13,7 @@ import java.util.Optional;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class ItemDto {
 
     private Long id;
@@ -26,10 +27,12 @@ public class ItemDto {
 
     private Integer countRent = 0;
 
-    public Optional<Boolean> getAvailable() {
-        return Optional.ofNullable(available);
+    // public Optional<Boolean> getAvailable() {
+//        return Optional.ofNullable(available);
+//    }
+    public Boolean getAvailable() {
+        return available;
     }
-
     public ItemDto(Long id, String name, String description, Boolean available, ItemRequest request) {
         this.id = id;
         this.name = name;

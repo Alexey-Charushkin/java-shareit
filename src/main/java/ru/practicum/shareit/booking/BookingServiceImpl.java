@@ -2,6 +2,11 @@ package ru.practicum.shareit.booking;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.model.Booking;
@@ -14,6 +19,7 @@ import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.UserMapper;
 import ru.practicum.shareit.user.UserRepository;
 
+import javax.imageio.spi.ServiceRegistry;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,16 +45,19 @@ public class BookingServiceImpl implements BookingService {
         }
 
         Item item = (itemRepository.getById(bookingDto.getItemId()));
-        bookingDto.setItemDto(ItemMapper.toItemDto(item));
+        bookingDto.setItem(item);
         bookingDto.setBooker(userRepository.getById(userId));
-
+        bookingDto.setStatus(BookingDto.Status.WAITING);
         Booking booking = BookingMapper.toBooking(bookingDto);
-      //  booking.setItem(item);
-       // booking.setBooker(userRepository.getById(userId));
 
+      //  booking.setItem(item);
+      //  booking.setBooker(userRepository.getById(userId));
         bookingRepository.save(booking);
 
+
         log.info("Booking create.");
+        Hibernate.initialize(booking.getItem());
+        Hibernate.initialize(booking.getBooker());
         return BookingMapper.toBookingDto(booking);
     }
 
