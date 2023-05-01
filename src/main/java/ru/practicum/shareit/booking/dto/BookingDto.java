@@ -2,6 +2,7 @@ package ru.practicum.shareit.booking.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
@@ -20,16 +21,17 @@ public class BookingDto {
 
     private LocalDateTime end;
 
-    private Item item;
-
+    private Long itemId;
+    private ItemDto itemDto;
     private User booker;
     private Status status;
 
-    public BookingDto(Long id, LocalDateTime start, LocalDateTime end, Item item, User booker, String status) {
+    public BookingDto(Long id, LocalDateTime start, LocalDateTime end, Long itemId, ItemDto itemDto, User booker, String status) {
         this.id = id;
         this.start = start;
         this.end = end;
-        this.item = item;
+        this.itemId = itemId;
+        this.itemDto = itemDto;
         this.booker = booker;
         if (status == null) this.status = Status.WAITING;
         else this.status = Status.valueOf(status);

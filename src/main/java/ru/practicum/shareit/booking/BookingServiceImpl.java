@@ -37,12 +37,17 @@ public class BookingServiceImpl implements BookingService {
             log.warn("User with id: {} not found", userId);
             throw new NotFoundException("User not found.");
         }
-        //   Item item = ItemMapper.toItem(userRepository.getById(userId), itemDto);
-      //  bookingDto.setBooker(userRepository.getById(userId));
-       // bookingDto.setItem(itemRepository.getReferenceById(bookingDto.g);
+
+        Item item = (itemRepository.getById(bookingDto.getItemId()));
+        bookingDto.setItemDto(ItemMapper.toItemDto(item));
+        bookingDto.setBooker(userRepository.getById(userId));
+
         Booking booking = BookingMapper.toBooking(bookingDto);
+      //  booking.setItem(item);
+       // booking.setBooker(userRepository.getById(userId));
 
         bookingRepository.save(booking);
+
         log.info("Booking create.");
         return BookingMapper.toBookingDto(booking);
     }
