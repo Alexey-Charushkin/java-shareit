@@ -7,7 +7,6 @@ import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.model.User;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,7 +24,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto update(UserDto userDto) {
-        User oldUser = userRepository.getById(userDto.getId());
+        User oldUser = userRepository.findById(userDto.getId())
+                .orElseThrow(() -> new NotFoundException("User not found."));
         if (userDto.getName() == null) userDto.setName(oldUser.getName());
         if (userDto.getEmail() == null) userDto.setEmail(oldUser.getEmail());
         return UserMapper.toUserDto(userRepository.save(UserMapper.toUser(userDto)));
@@ -33,15 +33,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getById(Long userId) {
-        UserDto user;
-        try {
-            user = UserMapper.toUserDto(userRepository.getById(userId));
-        } catch (EntityNotFoundException e) {
-            log.warn("User with id: {} not found", userId);
-            throw new NotFoundException("User not found.");
-        }
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User not found."));
         log.info("User with id: {} found", userId);
-        return user;
+        return UserMapper.toUserDto(user);
     }
 
     @Override

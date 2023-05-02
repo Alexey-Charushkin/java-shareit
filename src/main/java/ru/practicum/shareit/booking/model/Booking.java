@@ -8,6 +8,7 @@ import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import java.time.LocalDateTime;
 
 @Getter
@@ -21,9 +22,11 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Future
     @Column(name = "start_date", nullable = false)
     private LocalDateTime start;
 
+    @Future
     @Column(name = "end_date", nullable = false)
     private LocalDateTime end;
 

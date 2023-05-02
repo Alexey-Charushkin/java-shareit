@@ -36,10 +36,10 @@ CREATE TABLE IF NOT EXISTS items
 CREATE TABLE IF NOT EXISTS bookings
 (
     id         BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL UNIQUE,
-    start_date TIMESTAMP WITHOUT TIME ZONE,
-    end_date   TIMESTAMP WITHOUT TIME ZONE,
-    item_id    BIGINT,
-    booker_id  BIGINT,
+    start_date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    end_date   TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    item_id    BIGINT NOT NULL,
+    booker_id  BIGINT NOT NULL,
     status     VARCHAR(100),
     CONSTRAINT fk_bookings_to_items FOREIGN KEY (item_id) REFERENCES items (id),
     CONSTRAINT fk_bookings_to_users FOREIGN KEY (booker_id) REFERENCES users (id)

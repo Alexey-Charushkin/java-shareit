@@ -18,9 +18,12 @@ import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.UserMapper;
 import ru.practicum.shareit.user.UserRepository;
+import ru.practicum.shareit.user.model.User;
 
 import javax.imageio.spi.ServiceRegistry;
 import javax.persistence.EntityNotFoundException;
+import javax.validation.ConstraintViolationException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,27 +40,25 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingDto create(Long userId, BookingDto bookingDto) {
-        try {
-            UserMapper.toUserDto(userRepository.getById(userId));
-        } catch (EntityNotFoundException e) {
-            log.warn("User with id: {} not found", userId);
-            throw new NotFoundException("User not found.");
+        if (bookingDto.getStart() == null
+                || bookingDto.getEnd() == null
+                || bookingDto.getStart().isAfter(bookingDto.getEnd())
+                || bookingDto.getStart().equals(bookingDto.getEnd())
+                || bookingDto.getStart().isBefore(LocalDateTime.now())) {
+            throw new BadRequestException("Date time not correct.");
         }
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User not found."));
+        Item item = (itemRepository.findById(bookingDto.getItemId())
+                .orElseThrow(() -> new NotFoundException("Item not found.")));
 
-        Item item = (itemRepository.getById(bookingDto.getItemId()));
         bookingDto.setItem(item);
-        bookingDto.setBooker(userRepository.getById(userId));
+        bookingDto.setBooker(user);
         bookingDto.setStatus(BookingDto.Status.WAITING);
         Booking booking = BookingMapper.toBooking(bookingDto);
 
-      //  booking.setItem(item);
-      //  booking.setBooker(userRepository.getById(userId));
         bookingRepository.save(booking);
-
-
         log.info("Booking create.");
-        Hibernate.initialize(booking.getItem());
-        Hibernate.initialize(booking.getBooker());
         return BookingMapper.toBookingDto(booking);
     }
 

@@ -1,19 +1,15 @@
 package ru.practicum.shareit.item;
 
-import lombok.NoArgsConstructor;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.exceptions.BadRequestException;
 import ru.practicum.shareit.exceptions.NotFoundException;
-import ru.practicum.shareit.item.dao.ItemDao;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.model.Item;
-import ru.practicum.shareit.user.UserMapper;
 import ru.practicum.shareit.user.UserRepository;
+import ru.practicum.shareit.user.model.User;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -30,13 +26,10 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ItemDto create(Long userId, ItemDto itemDto) {
-        try {
-            UserMapper.toUserDto(userRepository.getById(userId));
-        } catch (EntityNotFoundException e) {
-            log.warn("User with id: {} not found", userId);
-            throw new NotFoundException("User not found.");
-        }
-        Item item = ItemMapper.toItem(userRepository.getById(userId), itemDto);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User not found."));
+
+        Item item = ItemMapper.toItem(user, itemDto);
         itemRepository.save(item);
         log.info("Item create.");
         return ItemMapper.toItemDto(item);
@@ -55,9 +48,6 @@ public class ItemServiceImpl implements ItemService {
 
         itemRepository.save(itemToUpdate);
         log.info("Item updated.");
-
-        System.out.println(itemToUpdate);
-
         return ItemMapper.toItemDto(itemToUpdate);
     }
 
@@ -68,12 +58,9 @@ public class ItemServiceImpl implements ItemService {
             log.warn("Item id id null");
             throw new BadRequestException("Item id is null.");
         }
-        try {
-            item = ItemMapper.toItemDto(itemRepository.getById(itemId));
-        } catch (EntityNotFoundException e) {
-            log.warn("Item with id: {} not found", itemId);
-            throw new NotFoundException("Item not found.");
-        }
+        item = ItemMapper.toItemDto(itemRepository.findById(itemId)
+                .orElseThrow(() -> new NotFoundException("Item not found.")));
+
         log.info("Item with id: {} found", itemId);
         return (item);
     }
