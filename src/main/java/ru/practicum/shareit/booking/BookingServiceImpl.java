@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.model.Booking;
@@ -68,8 +69,14 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingDto findByBookingId(Long userId, Long bookingId) {
+
         Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new NotFoundException("Booking not found."));
+
+        if (!booking.getBooker().getId().equals(userId)
+        || !booking.getItem().getOwner().getId().equals(userId)) {
+            throw new BadRequestException("This User is not Owner or not Booker of this Item.");
+        }
 
         return BookingMapper.toBookingDto(booking);
     }
@@ -84,11 +91,39 @@ public class BookingServiceImpl implements BookingService {
             log.warn("The user with id: {} is not the owner of the item", userId);
             throw new NotFoundException("The user is not the owner of the item.");
         }
-        if (approved) booking.setStatus(Booking.Status.APPROVED);
+        if (approved) {
+            booking.setStatus(Booking.Status.APPROVED);
+        } else {
+            booking.setStatus(Booking.Status.REJECTED);
+        }
 
         bookingRepository.save(booking);
         log.info("Booking status update.");
         return BookingMapper.toBookingDto(booking);
+    }
+
+    @Override
+    public List<BookingDto> getAllBookingsByUserId(Long userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new NotFoundException("User not found.");
+        }
+        List<Booking> bookings = bookingRepository.findByBookerId(userId, Sort.by(Sort.Direction.DESC,
+                "id"));
+        return bookings.stream()
+                .map(BookingMapper::toBookingDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookingDto> getAllBookingsByOwnerId(Long ownerId) {
+        if (!userRepository.existsById(ownerId)) {
+            throw new NotFoundException("User not found.");
+        }
+        List<Booking> bookings = bookingRepository.findByOwnerId(ownerId, Sort.by(Sort.Direction.DESC,
+                "id"));
+        return bookings.stream()
+                .map(BookingMapper::toBookingDto)
+                .collect(Collectors.toList());
     }
 
 //    @Override

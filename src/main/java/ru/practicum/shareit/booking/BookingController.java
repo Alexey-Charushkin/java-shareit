@@ -5,8 +5,10 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.booking.dto.BookingDto;
+import ru.practicum.shareit.booking.model.Booking;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * TODO Sprint add-bookings.
@@ -19,6 +21,7 @@ import javax.validation.Valid;
 public class BookingController {
 
     private final BookingService bookingService;
+
     @PostMapping()
     public BookingDto create(@RequestHeader("X-Sharer-User-Id") Long userId, @Valid @RequestBody BookingDto bookingDto) {
         log.info("Post X-Sharer-User-Id");
@@ -33,7 +36,7 @@ public class BookingController {
         return bookingService.approveBooking(userId, bookingId, approved);
     }
 
-//    @PatchMapping("{itemId}")
+    //    @PatchMapping("{itemId}")
 //    public ItemDto update(@RequestHeader("X-Sharer-User-Id") Long userId, @Valid @PathVariable Long itemId, @RequestBody ItemDto itemDto) {
 //        log.info("Patch X-Sharer-User-Id /{itemId}");
 //        itemDto.setId(itemId);
@@ -48,15 +51,23 @@ public class BookingController {
 //
     @GetMapping("{bookingId}")
     public BookingDto findByBookingId(@RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long bookingId) {
-        log.info("Get X-Sharer-User-Id and bookingId" );
+        log.info("Get X-Sharer-User-Id and bookingId");
         return bookingService.findByBookingId(userId, bookingId);
     }
-//    @GetMapping()
-//    public List<ItemDto> gelAllByUserId(@RequestHeader("X-Sharer-User-Id") Long userId) {
-//        log.info("Get X-Sharer-User-Id");
-//        return itemService.getAllItemsByUserId(userId);
-//    }
-//
+
+    @GetMapping()
+    public List<BookingDto> gelAllBookingsByUserId(@RequestHeader("X-Sharer-User-Id") Long userId,
+                                                   @RequestParam(value = "state", required = false) String state) {
+        log.info("Get X-Sharer-User-Id, userId");
+        return bookingService.getAllBookingsByUserId(userId, state);
+    }
+
+    @GetMapping("owner")
+    public List<BookingDto> gelAllBookingsByOwnerId(@RequestHeader("X-Sharer-User-Id") Long ownerId,
+                                                    @RequestParam(value = "state", required = false) String state) {
+        log.info("Get X-Sharer-User-Id, ownerId");
+        return bookingService.getAllBookingsByOwnerId(ownerId, state);
+    }
 //    @DeleteMapping("{itemId}")
 //    public void deleteById(@PathVariable Long itemId) {
 //        log.info("Delete /{itemId}");
@@ -68,7 +79,7 @@ public class BookingController {
 //        log.info("Get =search");
 //        if (query == null || query.isBlank()) return Collections.emptyList();
 //        return itemService.searchItems(query);
- //   }
+    //   }
 
 
 }
