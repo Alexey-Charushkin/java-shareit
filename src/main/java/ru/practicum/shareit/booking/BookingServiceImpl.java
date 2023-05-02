@@ -52,6 +52,10 @@ public class BookingServiceImpl implements BookingService {
         Item item = (itemRepository.findById(bookingDto.getItemId())
                 .orElseThrow(() -> new NotFoundException("Item not found.")));
 
+        if (!item.getAvailable()) {
+            throw new BadRequestException("Available is false.");
+        }
+
         bookingDto.setItem(item);
         bookingDto.setBooker(user);
         bookingDto.setStatus(BookingDto.Status.WAITING);
@@ -59,6 +63,31 @@ public class BookingServiceImpl implements BookingService {
 
         bookingRepository.save(booking);
         log.info("Booking create.");
+        return BookingMapper.toBookingDto(booking);
+    }
+
+    @Override
+    public BookingDto findByBookingId(Long userId, Long bookingId) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new NotFoundException("Booking not found."));
+
+        return BookingMapper.toBookingDto(booking);
+    }
+
+    @Override
+    public BookingDto approveBooking(Long userId, Long bookingId, Boolean approved) {
+
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new NotFoundException("Booking not found."));
+        User owner = booking.getItem().getOwner();
+        if (owner.getId() != userId) {
+            log.warn("The user with id: {} is not the owner of the item", userId);
+            throw new NotFoundException("The user is not the owner of the item.");
+        }
+        if (approved) booking.setStatus(Booking.Status.APPROVED);
+
+        bookingRepository.save(booking);
+        log.info("Booking status update.");
         return BookingMapper.toBookingDto(booking);
     }
 

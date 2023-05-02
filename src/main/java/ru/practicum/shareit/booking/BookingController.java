@@ -5,11 +5,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.booking.dto.BookingDto;
-import ru.practicum.shareit.item.dto.ItemDto;
 
 import javax.validation.Valid;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * TODO Sprint add-bookings.
@@ -28,6 +25,14 @@ public class BookingController {
         return bookingService.create(userId, bookingDto);
     }
 
+    @PatchMapping("{bookingId}")
+    public BookingDto approveBooking(@RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long bookingId,
+                                     @RequestParam("approved") Boolean approved) {
+
+        log.info("Patch X-Sharer-User-Id /:bookindId");
+        return bookingService.approveBooking(userId, bookingId, approved);
+    }
+
 //    @PatchMapping("{itemId}")
 //    public ItemDto update(@RequestHeader("X-Sharer-User-Id") Long userId, @Valid @PathVariable Long itemId, @RequestBody ItemDto itemDto) {
 //        log.info("Patch X-Sharer-User-Id /{itemId}");
@@ -41,6 +46,11 @@ public class BookingController {
 //        return itemService.getItemById(itemId);
 //    }
 //
+    @GetMapping("{bookingId}")
+    public BookingDto findByBookingId(@RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long bookingId) {
+        log.info("Get X-Sharer-User-Id and bookingId" );
+        return bookingService.findByBookingId(userId, bookingId);
+    }
 //    @GetMapping()
 //    public List<ItemDto> gelAllByUserId(@RequestHeader("X-Sharer-User-Id") Long userId) {
 //        log.info("Get X-Sharer-User-Id");

@@ -22,12 +22,10 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Future
-    @Column(name = "start_date", nullable = false)
+    @Column(name = "start_date")
     private LocalDateTime start;
 
-    @Future
-    @Column(name = "end_date", nullable = false)
+    @Column(name = "end_date")
     private LocalDateTime end;
 
     @ManyToOne
@@ -42,6 +40,10 @@ public class Booking {
     @ColumnDefault("WAITING")
     private Status status;
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public Booking(Long id, LocalDateTime start, LocalDateTime end, Item item, User booker, String status) {
         this.id = id;
         this.start = start;
@@ -51,6 +53,6 @@ public class Booking {
         this.status = Status.valueOf(status);
     }
 
-    private enum Status {WAITING, APPROVED, REJECTED, CANCELED}
+    public enum Status {WAITING, APPROVED, REJECTED, CANCELED}
 
 }

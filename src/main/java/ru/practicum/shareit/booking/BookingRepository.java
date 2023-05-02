@@ -16,4 +16,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 //            "AND (UPPER(i.name) LIKE UPPER(CONCAT('%', ?1, '%')) " +
 //            "OR UPPER(i.description) LIKE UPPER(CONCAT('%', ?1, '%')))")
 //    List<Item> search(String text);
+
+ //   Item findItemByb(Long bookingId);
 }

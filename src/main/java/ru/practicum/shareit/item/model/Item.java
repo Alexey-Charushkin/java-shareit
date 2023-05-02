@@ -1,6 +1,5 @@
 package ru.practicum.shareit.item.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import ru.practicum.shareit.exceptions.BadRequestException;
 import ru.practicum.shareit.request.ItemRequest;
@@ -51,8 +50,8 @@ public class Item {
         }
     }
 
-    public Optional<Boolean> getAvailable() {
-        return Optional.ofNullable(available);
+    public boolean getAvailable() {
+        return available;
     }
 }
 
