@@ -2,31 +2,23 @@ package ru.practicum.shareit.booking;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.exceptions.BadRequestException;
 import ru.practicum.shareit.exceptions.NotFoundException;
-import ru.practicum.shareit.item.ItemMapper;
 import ru.practicum.shareit.item.ItemRepository;
-import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.model.Item;
-import ru.practicum.shareit.user.UserMapper;
 import ru.practicum.shareit.user.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
-import javax.imageio.spi.ServiceRegistry;
-import javax.persistence.EntityNotFoundException;
-import javax.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static ru.practicum.shareit.booking.dto.BookingDto.Status.APPROVED;
 
 @Log4j2
 @Service
@@ -52,6 +44,9 @@ public class BookingServiceImpl implements BookingService {
                 .orElseThrow(() -> new NotFoundException("User not found."));
         Item item = (itemRepository.findById(bookingDto.getItemId())
                 .orElseThrow(() -> new NotFoundException("Item not found.")));
+        if (item.getOwner().getId() == userId) {
+            throw new NotFoundException("Owner is not be booker.");
+        }
 
         if (!item.getAvailable()) {
             throw new BadRequestException("Available is false.");
@@ -73,12 +68,13 @@ public class BookingServiceImpl implements BookingService {
         Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new NotFoundException("Booking not found."));
 
-        if (!booking.getBooker().getId().equals(userId)
-        || !booking.getItem().getOwner().getId().equals(userId)) {
-            throw new BadRequestException("This User is not Owner or not Booker of this Item.");
-        }
+        if (booking.getBooker().getId() == userId ||
+                booking.getItem().getOwner().getId() == userId) {
+            return BookingMapper.toBookingDto(booking);
 
-        return BookingMapper.toBookingDto(booking);
+        } else {
+            throw new NotFoundException("This User is not Owner or not Booker of this Item.");
+        }
     }
 
     @Override
@@ -86,8 +82,11 @@ public class BookingServiceImpl implements BookingService {
 
         Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new NotFoundException("Booking not found."));
+        if (booking.getStatus().equals(Booking.Status.APPROVED)) {
+            throw new BadRequestException("Status already updated.");
+        }
         User owner = booking.getItem().getOwner();
-        if (owner.getId() != userId) {
+        if (!Objects.equals(owner.getId(), userId)) {
             log.warn("The user with id: {} is not the owner of the item", userId);
             throw new NotFoundException("The user is not the owner of the item.");
         }
@@ -103,24 +102,116 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingDto> getAllBookingsByUserId(Long userId) {
+    public List<BookingDto> getAllBookingsByUserId(Long userId, String state) {
+        List<Booking> bookings = null;
+
         if (!userRepository.existsById(userId)) {
             throw new NotFoundException("User not found.");
         }
-        List<Booking> bookings = bookingRepository.findByBookerId(userId, Sort.by(Sort.Direction.DESC,
-                "id"));
+
+        switch (state) {
+
+            case ("ALL"): {
+                bookings = bookingRepository.findByBookerId(userId, Sort.by(Sort.Direction.DESC,
+                        "id"));
+            }
+            case ("CURRENT"): {
+//                bookings = bookingRepository.findByBookerId(userId, Sort.by(Sort.Direction.DESC,
+//                        "id"));
+                break;
+            }
+            case ("PAST"): {
+                bookings = bookingRepository.findByBooker_IdAndEndIsBefore(userId, LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
+                        "id"));
+                break;
+            }
+            case ("FUTURE"): {
+                bookings = bookingRepository.findByBooker_IdAndStartIsAfter(userId, LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
+                        "id"));
+                break;
+            }
+            case ("WAITING"): {
+                bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.WAITING, Sort.by(Sort.Direction.DESC,
+                        "id"));
+                break;
+            }
+            case ("APPROVED"): {
+                bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.APPROVED, Sort.by(Sort.Direction.DESC,
+                        "id"));
+                break;
+            }
+            case ("REJECTED"): {
+                bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.REJECTED, Sort.by(Sort.Direction.DESC,
+                        "id"));
+                break;
+            }
+            case ("CANCELED"): {
+                bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.CANCELED, Sort.by(Sort.Direction.DESC,
+                        "id"));
+                break;
+            }
+            default:
+                throw new BadRequestException("UNSUPPORTED_STATUS");
+        }                                    //Unknown state: UNSUPPORTED_STATUS
+
+
         return bookings.stream()
                 .map(BookingMapper::toBookingDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<BookingDto> getAllBookingsByOwnerId(Long ownerId) {
+    public List<BookingDto> getAllBookingsByOwnerId(Long ownerId, String state) {
+        List<Booking> bookings = null;
+
         if (!userRepository.existsById(ownerId)) {
-            throw new NotFoundException("User not found.");
+            throw new NotFoundException("User not correct.");
         }
-        List<Booking> bookings = bookingRepository.findByOwnerId(ownerId, Sort.by(Sort.Direction.DESC,
-                "id"));
+        switch (state) {
+
+            case ("ALL"): {
+                bookings = bookingRepository.findByOwnerId(ownerId, Sort.by(Sort.Direction.DESC,
+                        "id"));
+                break;
+            }
+            case ("CURRENT"): {
+
+                break;
+            }
+            case ("PAST"): {
+                bookings = bookingRepository.findByOwnerIdAndEndBefore(ownerId, LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
+                        "id"));
+                break;
+            }
+            case ("FUTURE"): {
+                bookings = bookingRepository.findByOwnerIdAndSAndStartIsAfter(ownerId, LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
+                        "id"));
+                break;
+            }
+            case ("WAITING"): {
+                bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.WAITING, Sort.by(Sort.Direction.DESC,
+                        "id"));
+                break;
+            }
+            case ("APPROVED"): {
+                bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.APPROVED, Sort.by(Sort.Direction.DESC,
+                        "id"));
+                break;
+            }
+            case ("REJECTED"): {
+                bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.REJECTED, Sort.by(Sort.Direction.DESC,
+                        "id"));
+                break;
+            }
+            case ("CANCELED"): {
+                bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.CANCELED, Sort.by(Sort.Direction.DESC,
+                        "id"));
+                break;
+            }
+            default:
+                throw new BadRequestException(BookingDto.State.UNSUPPORTED_STATUS.toString());
+        }
+
         return bookings.stream()
                 .map(BookingMapper::toBookingDto)
                 .collect(Collectors.toList());
