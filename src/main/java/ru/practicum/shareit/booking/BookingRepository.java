@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
-    // ..  List<Booking> findByBookerIdOrderByDesc(Long userId);
+    List<Booking> findByItemId(Long itemId);
     List<Booking> findByBookerId(Long bookerId, Sort sort);
 
     List<Booking> findByBookerIdAndStatus(Long bookerId, Booking.Status status, Sort sort);
@@ -19,9 +19,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     List<Booking> findByBooker_IdAndStartIsAfter(Long bookerId, LocalDateTime start, Sort sort);
 
-  //  List<Booking> findByBookerIdAndBetweenStartEnd(Long bookerId, LocalDateTime start, LocalDateTime end, Sort sort);
-
-    @Query("SELECT b FROM Booking b JOIN b.item i JOIN i.owner o WHERE o.id = ?1")
+      @Query("SELECT b FROM Booking b JOIN b.item i JOIN i.owner o WHERE o.id = ?1")
     List<Booking> findByOwnerId(Long ownerId, Sort sort);
 
     @Query("SELECT b FROM Booking b JOIN b.item i JOIN i.owner o WHERE o.id = ?1 AND b.status = ?2")
@@ -32,11 +30,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query("SELECT b FROM Booking b JOIN b.item i JOIN i.owner o WHERE o.id = ?1 AND b.start > ?2")
     List<Booking> findByOwnerIdAndSAndStartIsAfter(Long ownerId, LocalDateTime time, Sort sort);
-
-    //           (CAST (i.available AS boolean) = true) " +
-//            "AND (UPPER(i.name) LIKE UPPER(CONCAT('%', ?1, '%')) " +
-//            "OR UPPER(i.description) LIKE UPPER(CONCAT('%', ?1, '%')))")
-    //    List<Item> search(String text);
 
     //   Item findItemByb(Long bookingId);
 }

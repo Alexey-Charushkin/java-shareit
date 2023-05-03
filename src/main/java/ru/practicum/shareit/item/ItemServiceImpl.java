@@ -4,6 +4,8 @@ package ru.practicum.shareit.item;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import ru.practicum.shareit.booking.BookingRepository;
+import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.exceptions.BadRequestException;
 import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.item.dto.ItemDto;
@@ -12,6 +14,8 @@ import ru.practicum.shareit.user.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +26,8 @@ public class ItemServiceImpl implements ItemService {
 
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
+
+    private final BookingRepository bookingRepository;
 
 
     @Override
@@ -67,11 +73,38 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemDto> getAllItemsByUserId(Long userId) {
-        return itemRepository.findByOwnerId(userId).stream()
-                .map(ItemMapper::toItemDto)
-                .collect(Collectors.toList());
+
+        List<Item> items = itemRepository.findByOwnerId(userId);
+        List<ItemDto> itemDtos = new ArrayList<>();
+
+        for (Item item : items) {
+            List<LocalDateTime> localDateTimes = getDates(item.getId());
+            ItemDto itemDto = ItemMapper.toItemDto(item);
+            itemDto.setLastBooking(localDateTimes.get(0));
+            itemDto.setNextBooking(localDateTimes.get(1));
+            itemDtos.add(itemDto);
+        }
+        return itemDtos;
+//        return itemRepository.findByOwnerId(userId).stream()
+//                .map(ItemMapper::toItemDto)
+//                .collect(Collectors.toList());
     }
 
+    private List<LocalDateTime> getDates(Long itemId) {
+        LocalDateTime lastBooking;
+        LocalDateTime nextBooking;
+        List<LocalDateTime> dateTimes = new ArrayList<>();
+
+        List<Booking> bookings = bookingRepository.findByItemId(itemId);
+        if (bookings == null) return dateTimes;
+        for (Booking booking : bookings) {
+            if (booking.getEnd().isAfter(lastBooking)) lastBooking = booking.getEnd();
+            if (booking.getStart().isAfter(nextBooking)) nextBooking = booking.getStart();
+        }
+        dateTimes.add(lastBooking);
+        dateTimes.add(nextBooking);
+        return dateTimes;
+    }
 
     public List<ItemDto> searchItems(String query) {
         List<Item> itemList;

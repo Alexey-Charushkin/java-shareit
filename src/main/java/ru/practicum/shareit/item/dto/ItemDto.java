@@ -5,6 +5,7 @@ import ru.practicum.shareit.request.ItemRequest;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
@@ -26,6 +27,10 @@ public class ItemDto {
     private ItemRequest request;
 
     private Integer countRent = 0;
+
+    private LocalDateTime lastBooking;
+
+    private LocalDateTime nextBooking;
 
     // public Optional<Boolean> getAvailable() {
 //        return Optional.ofNullable(available);

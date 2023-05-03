@@ -13,6 +13,7 @@ import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -151,7 +152,7 @@ public class BookingServiceImpl implements BookingService {
                 break;
             }
             default:
-                throw new BadRequestException("UNSUPPORTED_STATUS");
+                throw new BadRequestException("Unknown state: UNSUPPORTED_STATUS");
         }                                    //Unknown state: UNSUPPORTED_STATUS
 
 
@@ -209,7 +210,7 @@ public class BookingServiceImpl implements BookingService {
                 break;
             }
             default:
-                throw new BadRequestException(BookingDto.State.UNSUPPORTED_STATUS.toString());
+                throw new BadRequestException("Unknown state: UNSUPPORTED_STATUS");
         }
 
         return bookings.stream()
