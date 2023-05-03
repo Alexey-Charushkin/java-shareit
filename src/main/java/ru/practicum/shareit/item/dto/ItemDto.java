@@ -1,6 +1,8 @@
 package ru.practicum.shareit.item.dto;
 
 import lombok.*;
+import ru.practicum.shareit.item.model.LastBooking;
+import ru.practicum.shareit.item.model.NextBooking;
 import ru.practicum.shareit.request.ItemRequest;
 
 import javax.validation.constraints.NotBlank;
@@ -28,9 +30,9 @@ public class ItemDto {
 
     private Integer countRent = 0;
 
-    private LocalDateTime lastBooking;
+    private LastBooking lastBooking;
 
-    private LocalDateTime nextBooking;
+    private NextBooking nextBooking;
 
     // public Optional<Boolean> getAvailable() {
 //        return Optional.ofNullable(available);
