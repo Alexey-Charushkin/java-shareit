@@ -22,7 +22,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String text;
+    private String text = new String();
 
     @ManyToOne
     @JoinColumn(name = "item_id", nullable = false)
@@ -32,6 +32,9 @@ public class Comment {
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
 
+    @Transient
+    private String authorName;
+
     private LocalDateTime created;
 
     public Comment(Long id, String text, Item item, User author, LocalDateTime created) {
@@ -39,6 +42,7 @@ public class Comment {
         this.text = text;
         this.item = item;
         this.author = author;
+        this.authorName = author.getName();
         this.created = created;
     }
 

@@ -9,6 +9,7 @@ import ru.practicum.shareit.booking.BookingRepository;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.comment.dto.CommentDto;
 import ru.practicum.shareit.comment.model.Comment;
+import ru.practicum.shareit.exceptions.BadRequestException;
 import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.item.ItemRepository;
 import ru.practicum.shareit.item.model.Item;
@@ -35,6 +36,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentDto create(Long userId, Long itemId, CommentDto commentDto) {
+        if (commentDto.getText().isBlank() || commentDto.getText() == null) {
+            throw new BadRequestException("Text is blank.");
+        }
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found."));
@@ -45,28 +49,23 @@ public class CommentServiceImpl implements CommentService {
 
         boolean isBooker = bookings.stream()
                 .anyMatch(b -> b.getBooker().equals(user) && b.getStatus().equals(Booking.Status.APPROVED) &&
-                        b.getEnd().isAfter(LocalDateTime.now()));
-        if (!isBooker) throw new NotFoundException("User is not booker.");
+                         b.getEnd().isBefore(LocalDateTime.now()));
+        if (!isBooker) throw new BadRequestException("User is not booker.");
 
-        // comment = new Comment();
-//        comment.setText(text);
         commentDto.setItem(item);
         commentDto.setAuthor(user);
         commentDto.setCreated(LocalDateTime.now());
 
-        commentRepository.save(CommentMapper.toComment(commentDto));
+        Comment comment = CommentMapper.toComment(commentDto);
 
-        return commentDto;
+        commentRepository.save(comment);
+
+        return CommentMapper.toCommentDto(comment);
     }
-
-//    @Override
-//    public List<Comment> findByItemId(Long itemId, Sort sort) {
-//        return null;
-//    }
 
     @Override
     public List<Comment> findByItemId(Long itemId) {
-        return commentRepository.findByItemId(itemId, Sort.by(Sort.Direction.ASC, "end"));
+        return commentRepository.findByItemId(itemId, Sort.by(Sort.Direction.ASC, "id"));
     }
 
 }

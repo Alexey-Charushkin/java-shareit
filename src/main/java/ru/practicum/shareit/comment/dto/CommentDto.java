@@ -19,11 +19,11 @@ public class CommentDto {
 
         private String text;
 
-
         private Item item;
 
-
         private User author;
+
+        private String authorName;
 
         LocalDateTime created;
 

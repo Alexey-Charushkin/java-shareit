@@ -1,6 +1,7 @@
 package ru.practicum.shareit.item.dto;
 
 import lombok.*;
+import ru.practicum.shareit.comment.dto.CommentDto;
 import ru.practicum.shareit.comment.model.Comment;
 import ru.practicum.shareit.item.model.LastBooking;
 import ru.practicum.shareit.item.model.NextBooking;
@@ -8,9 +9,7 @@ import ru.practicum.shareit.request.ItemRequest;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * TODO Sprint add-controllers.
@@ -36,11 +35,7 @@ public class ItemDto {
 
     private NextBooking nextBooking;
 
-    private List<Comment> comments;
-
-    // public Optional<Boolean> getAvailable() {
-//        return Optional.ofNullable(available);
-//    }
+    private List<CommentDto> comments;
     public Boolean getAvailable() {
         return available;
     }

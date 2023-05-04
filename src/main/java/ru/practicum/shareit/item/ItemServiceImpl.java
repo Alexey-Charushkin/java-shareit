@@ -8,6 +8,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.booking.BookingRepository;
+import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.comment.CommentMapper;
 import ru.practicum.shareit.comment.CommentRepository;
@@ -97,34 +98,48 @@ public class ItemServiceImpl implements ItemService {
 
         for (Item item : items) {
             ItemDto itemDto = ItemMapper.toItemDto(item);
-
-            // if (item.getOwner().getId() == userId) {
             itemDto = getBookings(itemDto);
             itemDto = getComments(itemDto);
-            //      }
             itemDtos.add(itemDto);
         }
-
         return itemDtos;
-//        return itemRepository.findByOwnerId(userId).stream()
-//                .map(ItemMapper::toItemDto)
-//                .collect(Collectors.toList());
     }
 
     private ItemDto getBookings(ItemDto itemDto) {
-
+        LocalDateTime lastEnd = null;
+        LocalDateTime nextStart = null;
         LastBooking lastBooking = new LastBooking();
         NextBooking nextBooking = new NextBooking();
 
-        List<Booking> bookings = bookingRepository.findByItemId(itemDto.getId(),
-                Sort.by(Sort.Direction.ASC, "end"));
+        List<Booking> bookings = bookingRepository.findByItemIdAndStatus(itemDto.getId(),
+                Booking.Status.APPROVED, Sort.by(Sort.Direction.ASC, "end"));
 
         if (!bookings.isEmpty()) {
-            lastBooking.setId(bookings.get(0).getId());
-            lastBooking.setBookerId(bookings.get(0).getBooker().getId());
-            if (bookings.size() > 1) {
-                nextBooking.setId(bookings.get(1).getId());
-                nextBooking.setBookerId(bookings.get(1).getBooker().getId());
+            for (Booking booking : bookings) {
+
+                if (lastEnd == null) {
+                    lastBooking.setId(booking.getId());
+                    lastBooking.setBookerId(booking.getBooker().getId());
+                    lastEnd = booking.getEnd();
+
+                }
+                if (nextStart == null) {
+                    nextBooking.setId(booking.getId());
+                    nextBooking.setBookerId(booking.getBooker().getId());
+                    nextStart = booking.getStart();
+                }
+                if (lastEnd.isBefore(LocalDateTime.now()) && lastEnd.isAfter(booking.getEnd())) {
+                    lastBooking.setId(booking.getId());
+                    lastBooking.setBookerId(booking.getBooker().getId());
+                    lastEnd = booking.getEnd();
+                }
+                if (booking.getStart().isAfter(LocalDateTime.now())
+                        && nextStart.isAfter(LocalDateTime.now())
+                        && nextStart.isAfter(booking.getStart())) {
+                    nextBooking.setId(booking.getId());
+                    nextBooking.setBookerId(booking.getBooker().getId());
+                    nextStart = booking.getStart();
+                }
             }
             itemDto.setLastBooking(lastBooking);
             itemDto.setNextBooking(nextBooking);
@@ -151,11 +166,12 @@ public class ItemServiceImpl implements ItemService {
 
 
     private ItemDto getComments(ItemDto itemDto) {
-
         List<Comment> comments = commentService.findByItemId(itemDto.getId());
-        if (!comments.isEmpty()) {
-            itemDto.setComments(comments);
-        }
+        List<CommentDto> commentDtos = comments.stream()
+                .map(comment -> CommentMapper.toCommentDto(comment))
+                .collect(Collectors.toList());
+
+        itemDto.setComments(commentDtos);
         return itemDto;
     }
 

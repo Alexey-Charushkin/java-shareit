@@ -13,5 +13,4 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     List<Comment> findByItemId(Long id, Sort sort);
 
-
 }
