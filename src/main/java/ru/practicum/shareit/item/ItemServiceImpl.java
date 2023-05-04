@@ -152,9 +152,10 @@ public class ItemServiceImpl implements ItemService {
 
     private ItemDto getComments(ItemDto itemDto) {
 
-        List<Comment> comments = commentService.findByItemId(itemDto.getId(),
-                Sort.by(Sort.Direction.ASC, "end"));
-        itemDto.setComments(comments);
+        List<Comment> comments = commentService.findByItemId(itemDto.getId());
+        if (!comments.isEmpty()) {
+            itemDto.setComments(comments);
+        }
         return itemDto;
     }
 

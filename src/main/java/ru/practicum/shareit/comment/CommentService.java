@@ -10,6 +10,6 @@ public interface CommentService {
 
     CommentDto create(Long userId, Long itemId, CommentDto commentDtoDto);
 
-    List<Comment> findByItemId(Long itemId, Sort sort);
+    List<Comment> findByItemId(Long item);
 
 }

@@ -3,6 +3,7 @@ package ru.practicum.shareit.comment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.booking.BookingRepository;
 import ru.practicum.shareit.booking.model.Booking;
@@ -20,6 +21,7 @@ import java.util.List;
 @Log4j2
 @Service
 @RequiredArgsConstructor
+@EnableJpaRepositories
 public class CommentServiceImpl implements CommentService {
 
     private final BookingRepository bookingRepository;
@@ -63,7 +65,7 @@ public class CommentServiceImpl implements CommentService {
 //    }
 
     @Override
-    public List<Comment> findByItemId(Long itemId, Sort sort) {
+    public List<Comment> findByItemId(Long itemId) {
         return commentRepository.findByItemId(itemId, Sort.by(Sort.Direction.ASC, "end"));
     }
 
