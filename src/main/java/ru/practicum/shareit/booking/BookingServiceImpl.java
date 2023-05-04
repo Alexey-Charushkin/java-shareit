@@ -210,7 +210,7 @@ public class BookingServiceImpl implements BookingService {
                 break;
             }
             default:
-                throw new BadRequestException("Unknown state: UNSUPPORTED_STATUS");
+                throw new BadRequestException("Unknown state: UNSUPPORTED_STATUS"); //Unknown state: UNSUPPORTED_STATUS
         }
 
         return bookings.stream()
@@ -218,66 +218,5 @@ public class BookingServiceImpl implements BookingService {
                 .collect(Collectors.toList());
     }
 
-//    @Override
-//    public ItemDto update(Long userId, ItemDto itemDto) {
-//        Item itemToUpdate = itemRepository.getReferenceById(itemDto.getId());
-//        if (!itemToUpdate.getOwner().getId().equals(userId)) {
-//            log.warn("The user with id: {} is not the owner of the item", userId);
-//            throw new NotFoundException("The user is not the owner of the item.");
-//        }
-//        if (itemDto.getName() != null) itemToUpdate.setName(itemDto.getName());
-//        if (itemDto.getDescription() != null) itemToUpdate.setDescription(itemDto.getDescription());
-//        if (itemDto.getAvailable().isPresent()) itemToUpdate.setAvailable(itemDto.getAvailable().get());
-//
-//        itemRepository.save(itemToUpdate);
-//        log.info("Item updated.");
-//
-//        System.out.println(itemToUpdate);
-//
-//        return ItemMapper.toItemDto(itemToUpdate);
-//    }
-//
-//    @Override
-//    public ItemDto getItemById(Long itemId) {
-//        ItemDto item;
-//        if (itemId == null) {
-//            log.warn("Item id id null");
-//            throw new BadRequestException("Item id is null.");
-//        }
-//        try {
-//            item = ItemMapper.toItemDto(itemRepository.getById(itemId));
-//        } catch (EntityNotFoundException e) {
-//            log.warn("Item with id: {} not found", itemId);
-//            throw new NotFoundException("Item not found.");
-//        }
-//        log.info("Item with id: {} found", itemId);
-//        return (item);
-//    }
-//
-//    @Override
-//    public List<ItemDto> getAllItemsByUserId(Long userId) {
-//        return itemRepository.findByOwnerId(userId).stream()
-//                .map(ItemMapper::toItemDto)
-//                .collect(Collectors.toList());
-//    }
-//
-//
-//    public List<ItemDto> searchItems(String query) {
-//        List<Item> itemList;
-//        try {
-//            log.info("Request search films, query = {}.", query);
-//            itemList = itemRepository.search(query);
-//        } catch (EntityNotFoundException e) {
-//            log.warn("Items not found");
-//            throw new NotFoundException("Item not found.");
-//        }
-//        return itemList.stream()
-//                .map(ItemMapper::toItemDto)
-//                .collect(Collectors.toList());
-//    }
-//
-//    @Override
-//    public void deleteById(Long itemId) {
-//        itemRepository.deleteById(itemId);
-//    }
+
 }

@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.shareit.comment.CommentService;
+import ru.practicum.shareit.comment.dto.CommentDto;
 import ru.practicum.shareit.item.dto.ItemDto;
 
 import javax.validation.Valid;
@@ -21,6 +23,8 @@ import java.util.List;
 public class ItemController {
 
     private final ItemService itemService;
+
+    private final CommentService commentService;
 
     @PostMapping()
     public ItemDto create(@RequestHeader("X-Sharer-User-Id") Long userId, @Valid @RequestBody ItemDto itemDto) {
@@ -58,6 +62,13 @@ public class ItemController {
         log.info("Get =search");
         if (query == null || query.isBlank()) return Collections.emptyList();
         return itemService.searchItems(query);
+    }
+
+    @PostMapping("{itemId}/comment")
+    public CommentDto create(@RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long itemId,
+                             @Valid @RequestBody CommentDto commentDto) {
+        log.info("Post X-Sharer-User-Id {itemId}/comment");
+        return commentService.create(userId, itemId, commentDto);
     }
 
 }
