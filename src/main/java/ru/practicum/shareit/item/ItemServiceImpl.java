@@ -113,13 +113,16 @@ public class ItemServiceImpl implements ItemService {
         if (!bookings.isEmpty()) {
             for (Booking booking : bookings) {
 
-                if (booking.getEnd().isBefore(LocalDateTime.now())) {
+                if (booking.getStart().isBefore(LocalDateTime.now()) && booking.getEnd().isAfter(LocalDateTime.now())
+                || booking.getEnd().isBefore(LocalDateTime.now())) {
                     if (lastEnd == null) {
                         lastBooking.setId(booking.getId());
                         lastBooking.setBookerId(booking.getBooker().getId());
                         lastEnd = booking.getEnd();
                     }
-                    if (lastEnd.isBefore(booking.getEnd())) {
+
+                    if (booking.getStart().isBefore(LocalDateTime.now()) && booking.getEnd().isAfter(LocalDateTime.now())
+                    || lastEnd.isBefore(booking.getEnd())) {
                         lastBooking.setId(booking.getId());
                         lastBooking.setBookerId(booking.getBooker().getId());
                         lastEnd = booking.getEnd();
@@ -128,9 +131,9 @@ public class ItemServiceImpl implements ItemService {
 
                 if (booking.getStart().isAfter(LocalDateTime.now())) {
                     if (nextStart == null) {
-                            nextBooking.setId(booking.getId());
-                            nextBooking.setBookerId(booking.getBooker().getId());
-                            nextStart = booking.getStart();
+                        nextBooking.setId(booking.getId());
+                        nextBooking.setBookerId(booking.getBooker().getId());
+                        nextStart = booking.getStart();
                     }
                     if (nextStart.isAfter(booking.getStart())) {
                         nextBooking.setId(booking.getId());
@@ -138,9 +141,8 @@ public class ItemServiceImpl implements ItemService {
                         nextStart = booking.getStart();
                     }
                 }
-
-                itemDto.setLastBooking(lastBooking);
-                itemDto.setNextBooking(nextBooking);
+                if (lastBooking.getId() != null) itemDto.setLastBooking(lastBooking);
+                if (nextBooking.getId() != null) itemDto.setNextBooking(nextBooking);
 
             }
         } else {

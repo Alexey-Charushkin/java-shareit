@@ -25,20 +25,18 @@ public class BookingDto {
     private User booker;
     private Status status;
 
-    private State state;
-
-    public BookingDto(Long id, LocalDateTime start, LocalDateTime end, Long itemId, Item item, User booker, String status) {
+    public BookingDto(Long id, LocalDateTime start, LocalDateTime end, Long itemId, Item item, User booker,
+                      String status) {
         this.id = id;
         this.start = start;
         this.end = end;
         this.itemId = itemId;
         this.item = item;
         this.booker = booker;
-        if (status == null) this.status = Status.WAITING;
-        else this.status = Status.valueOf(status);
+        this.status = Status.valueOf(status);
+
     }
 
-    public enum Status { WAITING, APPROVED, REJECTED, CANCELED }
+    public enum Status { ALL, APPROVED, CURRENT, PAST, FUTURE, WAITING, REJECTED, CANCELED, UNSUPPORTED_STATUS }
 
-    public enum State { ALL, CURRENT, PAST, FUTURE, WAITING, REJECTED, UNSUPPORTED_STATUS }
 }

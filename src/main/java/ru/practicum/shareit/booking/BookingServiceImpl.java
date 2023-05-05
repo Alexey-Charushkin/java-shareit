@@ -101,7 +101,8 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<BookingDto> getAllBookingsByUserId(Long userId, String state) {
-        List<Booking> bookings;
+
+        List<Booking> bookings = null;
 
         if (!userRepository.existsById(userId)) {
             throw new NotFoundException("User not found.");
@@ -149,16 +150,15 @@ public class BookingServiceImpl implements BookingService {
                         "start"));
                 break;
             }
-            default: {
-
+            case ("UNSUPPORTED_STATUS"): {
                 throw new BadRequestException("Unknown state: UNSUPPORTED_STATUS");
             }
-        }                                    //Unknown state: UNSUPPORTED_STATUS
 
-
+        }
         return bookings.stream()
                 .map(BookingMapper::toBookingDto)
                 .collect(Collectors.toList());
+
     }
 
     @Override
