@@ -117,33 +117,36 @@ public class ItemServiceImpl implements ItemService {
         if (!bookings.isEmpty()) {
             for (Booking booking : bookings) {
 
-                if (lastEnd == null) {
-                    lastBooking.setId(booking.getId());
-                    lastBooking.setBookerId(booking.getBooker().getId());
-                    lastEnd = booking.getEnd();
+                if (booking.getEnd().isBefore(LocalDateTime.now())) {
+                    if (lastEnd == null) {
+                        lastBooking.setId(booking.getId());
+                        lastBooking.setBookerId(booking.getBooker().getId());
+                        lastEnd = booking.getEnd();
+                    }
+                    if (lastEnd.isBefore(booking.getEnd())) {
+                        lastBooking.setId(booking.getId());
+                        lastBooking.setBookerId(booking.getBooker().getId());
+                        lastEnd = booking.getEnd();
+                    }
+                }
 
+                if (booking.getStart().isAfter(LocalDateTime.now())) {
+                    if (nextStart == null) {
+                            nextBooking.setId(booking.getId());
+                            nextBooking.setBookerId(booking.getBooker().getId());
+                            nextStart = booking.getStart();
+                    }
+                    if (nextStart.isAfter(booking.getStart())) {
+                        nextBooking.setId(booking.getId());
+                        nextBooking.setBookerId(booking.getBooker().getId());
+                        nextStart = booking.getStart();
+                    }
                 }
-                if (nextStart == null) {
-                    nextBooking.setId(booking.getId());
-                    nextBooking.setBookerId(booking.getBooker().getId());
-                    nextStart = booking.getStart();
-                }
-                if (lastEnd.isBefore(LocalDateTime.now()) && lastEnd.isAfter(booking.getEnd())) {
-                    lastBooking.setId(booking.getId());
-                    lastBooking.setBookerId(booking.getBooker().getId());
-                    lastEnd = booking.getEnd();
-                }
-                if (booking.getStart().isAfter(LocalDateTime.now())
-                        && nextStart.isAfter(LocalDateTime.now())
-                        && nextStart.isAfter(booking.getStart())) {
-                    nextBooking.setId(booking.getId());
-                    nextBooking.setBookerId(booking.getBooker().getId());
-                    nextStart = booking.getStart();
-                }
+
+                itemDto.setLastBooking(lastBooking);
+                itemDto.setNextBooking(nextBooking);
+
             }
-            itemDto.setLastBooking(lastBooking);
-            itemDto.setNextBooking(nextBooking);
-
         } else {
             return itemDto;
         }

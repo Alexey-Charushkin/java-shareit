@@ -23,6 +23,8 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     List<Booking> findByBooker_IdAndStartIsAfter(Long bookerId, LocalDateTime start, Sort sort);
 
+    List<Booking> findByBooker_IdAndStartIsBeforeAndEndIsAfter(Long bookerId, LocalDateTime dateTime, LocalDateTime dateTime2, Sort sort);
+
     @Query("SELECT b FROM Booking b JOIN b.item i JOIN i.owner o WHERE o.id = ?1")
     List<Booking> findByOwnerId(Long ownerId, Sort sort);
 
@@ -34,4 +36,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query("SELECT b FROM Booking b JOIN b.item i JOIN i.owner o WHERE o.id = ?1 AND b.start > ?2")
     List<Booking> findByOwnerIdAndSAndStartIsAfter(Long ownerId, LocalDateTime time, Sort sort);
+
+    @Query("SELECT b FROM Booking b JOIN b.item i JOIN i.owner o WHERE o.id = ?1 AND (b.start < ?2 AND b.end > ?3)")
+    List<Booking> findByOwnerIdAndStartIsBeforeAndEndIsAfter(Long ownerId, LocalDateTime time, LocalDateTime time2, Sort sort);
 }

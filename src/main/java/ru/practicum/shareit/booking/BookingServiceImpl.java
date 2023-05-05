@@ -115,10 +115,11 @@ public class BookingServiceImpl implements BookingService {
             case ("ALL"): {
                 bookings = bookingRepository.findByBookerId(userId, Sort.by(Sort.Direction.DESC,
                         "id"));
+                break;
             }
             case ("CURRENT"): {
-//                bookings = bookingRepository.findByBookerId(userId, Sort.by(Sort.Direction.DESC,
-//                        "id"));
+                bookings = bookingRepository.findByBooker_IdAndStartIsBeforeAndEndIsAfter(userId, LocalDateTime.now(), LocalDateTime.now(), Sort.by(Sort.Direction.ASC,
+                        "id"));
                 break;
             }
             case ("PAST"): {
@@ -176,7 +177,8 @@ public class BookingServiceImpl implements BookingService {
                 break;
             }
             case ("CURRENT"): {
-
+                bookings = bookingRepository.findByOwnerIdAndStartIsBeforeAndEndIsAfter(ownerId, LocalDateTime.now(), LocalDateTime.now(),
+                        Sort.by(Sort.Direction.DESC, "id"));
                 break;
             }
             case ("PAST"): {
