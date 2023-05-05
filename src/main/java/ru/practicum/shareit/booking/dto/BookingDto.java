@@ -37,6 +37,8 @@ public class BookingDto {
         if (status == null) this.status = Status.WAITING;
         else this.status = Status.valueOf(status);
     }
-    public enum Status {WAITING, APPROVED, REJECTED, CANCELED}
-    public enum State {ALL, CURRENT, PAST, FUTURE, WAITING, REJECTED, UNSUPPORTED_STATUS}
+
+    public enum Status { WAITING, APPROVED, REJECTED, CANCELED }
+
+    public enum State { ALL, CURRENT, PAST, FUTURE, WAITING, REJECTED, UNSUPPORTED_STATUS }
 }

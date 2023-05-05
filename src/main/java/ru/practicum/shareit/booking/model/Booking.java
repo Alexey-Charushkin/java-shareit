@@ -51,7 +51,7 @@ public class Booking {
         this.status = Status.valueOf(status);
     }
 
-    public enum Status {WAITING, APPROVED, REJECTED, CANCELED}
+    public enum Status { WAITING, APPROVED, REJECTED, CANCELED }
 
     @Override
     public boolean equals(Object o) {

@@ -35,9 +35,11 @@ public class ItemDto {
     private NextBooking nextBooking;
 
     private List<CommentDto> comments;
+
     public Boolean getAvailable() {
         return available;
     }
+
     public ItemDto(Long id, String name, String description, Boolean available, ItemRequest request) {
         this.id = id;
         this.name = name;
