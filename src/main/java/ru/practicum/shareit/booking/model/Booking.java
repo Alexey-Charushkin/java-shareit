@@ -4,11 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
 import javax.persistence.*;
-import javax.validation.constraints.Future;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -45,7 +45,7 @@ public class Booking {
         this.status = status;
     }
 
-    public Booking(Long id, LocalDateTime start, LocalDateTime end, Item item, User booker, String status) {
+    public Booking(Long id, LocalDateTime start, LocalDateTime end, Item item, User booker, String status, BookingDto.State state) {
         this.id = id;
         this.start = start;
         this.end = end;

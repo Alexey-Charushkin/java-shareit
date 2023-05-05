@@ -68,18 +68,5 @@ public class BookingController {
         log.info("Get X-Sharer-User-Id, ownerId");
         return bookingService.getAllBookingsByOwnerId(ownerId, state);
     }
-//    @DeleteMapping("{itemId}")
-//    public void deleteById(@PathVariable Long itemId) {
-//        log.info("Delete /{itemId}");
-//        itemService.deleteById(itemId);
-//    }
-//
-//    @GetMapping("search")
-//    public List<ItemDto> searchItems(@RequestParam("text") String query) {
-//        log.info("Get =search");
-//        if (query == null || query.isBlank()) return Collections.emptyList();
-//        return itemService.searchItems(query);
-    //   }
-
 
 }

@@ -26,7 +26,8 @@ public class BookingMapper {
                 bookingDto.getEnd(),
                 bookingDto.getItem(),
                 bookingDto.getBooker(),
-                String.valueOf(bookingDto.getStatus())
+                String.valueOf(bookingDto.getStatus()),
+                bookingDto.getState()
         );
     }
 }

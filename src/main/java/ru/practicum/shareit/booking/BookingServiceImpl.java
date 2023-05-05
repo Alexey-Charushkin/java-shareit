@@ -104,7 +104,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<BookingDto> getAllBookingsByUserId(Long userId, String state) {
-        List<Booking> bookings = null;
+        List<Booking> bookings;
 
         if (!userRepository.existsById(userId)) {
             throw new NotFoundException("User not found.");
@@ -114,42 +114,42 @@ public class BookingServiceImpl implements BookingService {
 
             case ("ALL"): {
                 bookings = bookingRepository.findByBookerId(userId, Sort.by(Sort.Direction.DESC,
-                        "id"));
+                        "start"));
                 break;
             }
             case ("CURRENT"): {
-                bookings = bookingRepository.findByBooker_IdAndStartIsBeforeAndEndIsAfter(userId, LocalDateTime.now(), LocalDateTime.now(), Sort.by(Sort.Direction.ASC,
-                        "id"));
+                bookings = bookingRepository.findByBooker_IdAndStartIsBeforeAndEndIsAfter(userId, LocalDateTime.now(), LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
+                        "start"));
                 break;
             }
             case ("PAST"): {
                 bookings = bookingRepository.findByBooker_IdAndEndIsBefore(userId, LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
-                        "id"));
+                        "start"));
                 break;
             }
             case ("FUTURE"): {
                 bookings = bookingRepository.findByBooker_IdAndStartIsAfter(userId, LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
-                        "id"));
+                        "start"));
                 break;
             }
             case ("WAITING"): {
                 bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.WAITING, Sort.by(Sort.Direction.DESC,
-                        "id"));
+                        "start"));
                 break;
             }
             case ("APPROVED"): {
                 bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.APPROVED, Sort.by(Sort.Direction.DESC,
-                        "id"));
+                        "start"));
                 break;
             }
             case ("REJECTED"): {
                 bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.REJECTED, Sort.by(Sort.Direction.DESC,
-                        "id"));
+                        "start"));
                 break;
             }
             case ("CANCELED"): {
                 bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.CANCELED, Sort.by(Sort.Direction.DESC,
-                        "id"));
+                        "start"));
                 break;
             }
             default:
@@ -164,7 +164,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<BookingDto> getAllBookingsByOwnerId(Long ownerId, String state) {
-        List<Booking> bookings = null;
+        List<Booking> bookings;
 
         if (!userRepository.existsById(ownerId)) {
             throw new NotFoundException("User not correct.");
@@ -173,42 +173,42 @@ public class BookingServiceImpl implements BookingService {
 
             case ("ALL"): {
                 bookings = bookingRepository.findByOwnerId(ownerId, Sort.by(Sort.Direction.DESC,
-                        "id"));
+                        "start"));
                 break;
             }
             case ("CURRENT"): {
                 bookings = bookingRepository.findByOwnerIdAndStartIsBeforeAndEndIsAfter(ownerId, LocalDateTime.now(), LocalDateTime.now(),
-                        Sort.by(Sort.Direction.DESC, "id"));
+                        Sort.by(Sort.Direction.DESC, "start"));
                 break;
             }
             case ("PAST"): {
                 bookings = bookingRepository.findByOwnerIdAndEndBefore(ownerId, LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
-                        "id"));
+                        "start"));
                 break;
             }
             case ("FUTURE"): {
                 bookings = bookingRepository.findByOwnerIdAndSAndStartIsAfter(ownerId, LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
-                        "id"));
+                        "start"));
                 break;
             }
             case ("WAITING"): {
                 bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.WAITING, Sort.by(Sort.Direction.DESC,
-                        "id"));
+                        "start"));
                 break;
             }
             case ("APPROVED"): {
                 bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.APPROVED, Sort.by(Sort.Direction.DESC,
-                        "id"));
+                        "start"));
                 break;
             }
             case ("REJECTED"): {
                 bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.REJECTED, Sort.by(Sort.Direction.DESC,
-                        "id"));
+                        "start"));
                 break;
             }
             case ("CANCELED"): {
                 bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.CANCELED, Sort.by(Sort.Direction.DESC,
-                        "id"));
+                        "start"));
                 break;
             }
             default:

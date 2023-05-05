@@ -47,5 +47,6 @@ public class BookingDto {
     }
 
     public enum Status {WAITING, APPROVED, REJECTED, CANCELED}
+
     public enum State {ALL, CURRENT, PAST, FUTURE, WAITING, REJECTED, UNSUPPORTED_STATUS}
 }
