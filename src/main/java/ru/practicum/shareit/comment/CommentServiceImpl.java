@@ -49,7 +49,7 @@ public class CommentServiceImpl implements CommentService {
 
         boolean isBooker = bookings.stream()
                 .anyMatch(b -> b.getBooker().equals(user) && b.getStatus().equals(Booking.Status.APPROVED) &&
-                         b.getEnd().isBefore(LocalDateTime.now()));
+                        b.getEnd().isBefore(LocalDateTime.now()));
         if (!isBooker) throw new BadRequestException("User is not booker.");
 
         commentDto.setItem(item);

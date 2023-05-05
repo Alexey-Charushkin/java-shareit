@@ -13,13 +13,10 @@ import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
-import static ru.practicum.shareit.booking.dto.BookingDto.Status.APPROVED;
 
 @Log4j2
 @Service
@@ -45,7 +42,7 @@ public class BookingServiceImpl implements BookingService {
                 .orElseThrow(() -> new NotFoundException("User not found."));
         Item item = (itemRepository.findById(bookingDto.getItemId())
                 .orElseThrow(() -> new NotFoundException("Item not found.")));
-        if (item.getOwner().getId() == userId) {
+        if (item.getOwner().getId().equals(userId)) {
             throw new NotFoundException("Owner is not be booker.");
         }
 
@@ -69,8 +66,8 @@ public class BookingServiceImpl implements BookingService {
         Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new NotFoundException("Booking not found."));
 
-        if (booking.getBooker().getId() == userId ||
-                booking.getItem().getOwner().getId() == userId) {
+        if (booking.getBooker().getId().equals(userId) ||
+                booking.getItem().getOwner().getId().equals(userId)) {
             return BookingMapper.toBookingDto(booking);
 
         } else {
@@ -152,8 +149,10 @@ public class BookingServiceImpl implements BookingService {
                         "start"));
                 break;
             }
-            default:
+            default: {
+
                 throw new BadRequestException("Unknown state: UNSUPPORTED_STATUS");
+            }
         }                                    //Unknown state: UNSUPPORTED_STATUS
 
 
@@ -211,8 +210,9 @@ public class BookingServiceImpl implements BookingService {
                         "start"));
                 break;
             }
-            default:
-                throw new BadRequestException("Unknown state: UNSUPPORTED_STATUS"); //Unknown state: UNSUPPORTED_STATUS
+            default: {
+                throw new BadRequestException("Unknown state: UNSUPPORTED_STATUS");
+            }
         }
 
         return bookings.stream()

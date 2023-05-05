@@ -7,7 +7,6 @@ import ru.practicum.shareit.user.model.User;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.Optional;
 
 @Getter
 @Setter

@@ -15,7 +15,6 @@ public class CommentMapper {
                 comment.getCreated()
         );
     }
-
     public static Comment toComment(CommentDto commentDto) {
 
         return new Comment(

@@ -2,12 +2,11 @@ package ru.practicum.shareit.booking.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
-import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -18,11 +17,9 @@ import java.util.Objects;
 @Entity
 @Table(name = "bookings", schema = "public")
 public class Booking {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "start_date")
     private LocalDateTime start;
 
@@ -45,7 +42,7 @@ public class Booking {
         this.status = status;
     }
 
-    public Booking(Long id, LocalDateTime start, LocalDateTime end, Item item, User booker, String status, BookingDto.State state) {
+    public Booking(Long id, LocalDateTime start, LocalDateTime end, Item item, User booker, String status) {
         this.id = id;
         this.start = start;
         this.end = end;

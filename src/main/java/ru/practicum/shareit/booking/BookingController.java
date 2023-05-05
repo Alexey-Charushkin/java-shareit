@@ -5,7 +5,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.booking.dto.BookingDto;
-import ru.practicum.shareit.booking.model.Booking;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -36,19 +35,6 @@ public class BookingController {
         return bookingService.approveBooking(userId, bookingId, approved);
     }
 
-    //    @PatchMapping("{itemId}")
-//    public ItemDto update(@RequestHeader("X-Sharer-User-Id") Long userId, @Valid @PathVariable Long itemId, @RequestBody ItemDto itemDto) {
-//        log.info("Patch X-Sharer-User-Id /{itemId}");
-//        itemDto.setId(itemId);
-//        return itemService.update(userId, itemDto);
-//    }
-//
-//    @GetMapping("{itemId}")
-//    public ItemDto getById(@PathVariable Long itemId) {
-//        log.info("Get /{itemId}");
-//        return itemService.getItemById(itemId);
-//    }
-//
     @GetMapping("{bookingId}")
     public BookingDto findByBookingId(@RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long bookingId) {
         log.info("Get X-Sharer-User-Id and bookingId");

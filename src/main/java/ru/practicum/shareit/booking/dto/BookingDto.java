@@ -1,6 +1,5 @@
 package ru.practicum.shareit.booking.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,21 +18,14 @@ import java.time.LocalDateTime;
 public class BookingDto {
 
     private Long id;
-
     private LocalDateTime start;
-
     private LocalDateTime end;
-
     private Long itemId;
-
     private Item item;
-
     private User booker;
-
     private Status status;
 
     private State state;
-
 
     public BookingDto(Long id, LocalDateTime start, LocalDateTime end, Long itemId, Item item, User booker, String status) {
         this.id = id;
@@ -45,8 +37,6 @@ public class BookingDto {
         if (status == null) this.status = Status.WAITING;
         else this.status = Status.valueOf(status);
     }
-
     public enum Status {WAITING, APPROVED, REJECTED, CANCELED}
-
     public enum State {ALL, CURRENT, PAST, FUTURE, WAITING, REJECTED, UNSUPPORTED_STATUS}
 }

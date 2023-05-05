@@ -1,6 +1,5 @@
 package ru.practicum.shareit.comment;
 
-import org.springframework.data.domain.Sort;
 import ru.practicum.shareit.comment.dto.CommentDto;
 import ru.practicum.shareit.comment.model.Comment;
 
