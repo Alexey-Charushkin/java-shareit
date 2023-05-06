@@ -8,9 +8,6 @@ import ru.practicum.shareit.user.model.User;
 
 import java.time.LocalDateTime;
 
-/**
- * TODO Sprint add-bookings.
- */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,7 +20,7 @@ public class BookingDto {
     private Long itemId;
     private Item item;
     private User booker;
-    private Status status;
+    private StatusDto status;
 
     public BookingDto(Long id, LocalDateTime start, LocalDateTime end, Long itemId, Item item, User booker,
                       String status) {
@@ -33,10 +30,10 @@ public class BookingDto {
         this.itemId = itemId;
         this.item = item;
         this.booker = booker;
-        this.status = Status.valueOf(status);
+        this.status = StatusDto.valueOf(status);
 
     }
 
-    public enum Status { ALL, APPROVED, CURRENT, PAST, FUTURE, WAITING, REJECTED, CANCELED, UNSUPPORTED_STATUS }
+    public enum StatusDto { ALL, APPROVED, CURRENT, PAST, FUTURE, WAITING, REJECTED, CANCELED, UNSUPPORTED_STATUS }
 
 }

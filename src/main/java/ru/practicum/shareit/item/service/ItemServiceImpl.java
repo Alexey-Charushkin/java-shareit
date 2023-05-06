@@ -79,9 +79,9 @@ public class ItemServiceImpl implements ItemService {
         itemDto = ItemMapper.toItemDto(item);
 
         if (item.getOwner().getId().equals(userId)) {
-            itemDto = getBookings(itemDto);
+            getBookings(itemDto);
         }
-        itemDto = getComments(itemDto);
+        getComments(itemDto);
 
         log.info("Item with id: {} found", itemId);
         return (itemDto);
@@ -96,62 +96,13 @@ public class ItemServiceImpl implements ItemService {
 
         for (Item item : items) {
             ItemDto itemDto = ItemMapper.toItemDto(item);
-            itemDto = getBookings(itemDto);
-            itemDto = getComments(itemDto);
+            getBookings(itemDto);
+            getComments(itemDto);
             itemDtos.add(itemDto);
         }
         return itemDtos;
     }
 
-    private ItemDto getBookings(ItemDto itemDto) {
-        LocalDateTime lastEnd = null;
-        LocalDateTime nextStart = null;
-        LastBooking lastBooking = new LastBooking();
-        NextBooking nextBooking = new NextBooking();
-
-        List<Booking> bookings = bookingRepository.findByItemIdAndStatus(itemDto.getId(),
-                Booking.Status.APPROVED, Sort.by(Sort.Direction.ASC, "end"));
-
-        if (!bookings.isEmpty()) {
-            for (Booking booking : bookings) {
-
-                if (booking.getStart().isBefore(LocalDateTime.now()) && booking.getEnd().isAfter(LocalDateTime.now())
-                || booking.getEnd().isBefore(LocalDateTime.now())) {
-                    if (lastEnd == null) {
-                        lastBooking.setId(booking.getId());
-                        lastBooking.setBookerId(booking.getBooker().getId());
-                        lastEnd = booking.getEnd();
-                    }
-
-                    if (booking.getStart().isBefore(LocalDateTime.now()) && booking.getEnd().isAfter(LocalDateTime.now())
-                    || lastEnd.isBefore(booking.getEnd())) {
-                        lastBooking.setId(booking.getId());
-                        lastBooking.setBookerId(booking.getBooker().getId());
-                        lastEnd = booking.getEnd();
-                    }
-                }
-
-                if (booking.getStart().isAfter(LocalDateTime.now())) {
-                    if (nextStart == null) {
-                        nextBooking.setId(booking.getId());
-                        nextBooking.setBookerId(booking.getBooker().getId());
-                        nextStart = booking.getStart();
-                    }
-                    if (nextStart.isAfter(booking.getStart())) {
-                        nextBooking.setId(booking.getId());
-                        nextBooking.setBookerId(booking.getBooker().getId());
-                        nextStart = booking.getStart();
-                    }
-                }
-                if (lastBooking.getId() != null) itemDto.setLastBooking(lastBooking);
-                if (nextBooking.getId() != null) itemDto.setNextBooking(nextBooking);
-
-            }
-        } else {
-            return itemDto;
-        }
-        return itemDto;
-    }
 
     public List<ItemDto> searchItems(String query) {
         List<Item> itemList;
@@ -167,6 +118,52 @@ public class ItemServiceImpl implements ItemService {
                 .collect(Collectors.toList());
     }
 
+    private ItemDto getBookings(ItemDto itemDto) {
+        LocalDateTime lastEnd = null;
+        LocalDateTime nextStart = null;
+        LastBooking lastBooking = new LastBooking();
+        NextBooking nextBooking = new NextBooking();
+
+        List<Booking> bookings = bookingRepository.findByItemIdAndStatus(itemDto.getId(),
+                Booking.Status.APPROVED, Sort.by(Sort.Direction.ASC, "end"));
+
+        if (!bookings.isEmpty()) {
+            for (Booking booking : bookings) {
+
+                if (booking.getStart().isBefore(LocalDateTime.now()) && booking.getEnd().isAfter(LocalDateTime.now())
+                        || booking.getEnd().isBefore(LocalDateTime.now())) {
+                    if (lastEnd == null) {
+                        lastBooking.setId(booking.getId());
+                        lastBooking.setBookerId(booking.getBooker().getId());
+                        lastEnd = booking.getEnd();
+                    }
+                    if (booking.getStart().isBefore(LocalDateTime.now()) && booking.getEnd().isAfter(LocalDateTime.now())
+                            || lastEnd.isBefore(booking.getEnd())) {
+                        lastBooking.setId(booking.getId());
+                        lastBooking.setBookerId(booking.getBooker().getId());
+                        lastEnd = booking.getEnd();
+                    }
+                }
+                if (booking.getStart().isAfter(LocalDateTime.now())) {
+                    if (nextStart == null) {
+                        nextBooking.setId(booking.getId());
+                        nextBooking.setBookerId(booking.getBooker().getId());
+                        nextStart = booking.getStart();
+                    }
+                    if (nextStart.isAfter(booking.getStart())) {
+                        nextBooking.setId(booking.getId());
+                        nextBooking.setBookerId(booking.getBooker().getId());
+                        nextStart = booking.getStart();
+                    }
+                }
+                if (lastBooking.getId() != null) itemDto.setLastBooking(lastBooking);
+                if (nextBooking.getId() != null) itemDto.setNextBooking(nextBooking);
+            }
+        } else {
+            return itemDto;
+        }
+        return itemDto;
+    }
 
     private ItemDto getComments(ItemDto itemDto) {
         List<Comment> comments = commentService.findByItemId(itemDto.getId());

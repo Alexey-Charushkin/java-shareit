@@ -26,9 +26,7 @@ import java.util.stream.Collectors;
 public class BookingServiceImpl implements BookingService {
 
     private final BookingRepository bookingRepository;
-
     private final ItemRepository itemRepository;
-
     private final UserRepository userRepository;
 
     @Override
@@ -54,7 +52,7 @@ public class BookingServiceImpl implements BookingService {
 
         bookingDto.setItem(item);
         bookingDto.setBooker(user);
-        bookingDto.setStatus(BookingDto.Status.WAITING);
+        bookingDto.setStatus(BookingDto.StatusDto.WAITING);
         Booking booking = BookingMapper.toBooking(bookingDto);
 
         bookingRepository.save(booking);
@@ -102,7 +100,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingDto> getAllBookingsByUserId(Long userId, String state) {
+    public List<BookingDto> getAllBookingsByUserId(Long userId, BookingDto.StatusDto statusDto) {
 
         List<Booking> bookings = null;
 
@@ -110,49 +108,49 @@ public class BookingServiceImpl implements BookingService {
             throw new NotFoundException("User not found.");
         }
 
-        switch (state) {
+        switch (statusDto) {
 
-            case ("ALL"): {
+            case ALL: {
                 bookings = bookingRepository.findByBookerId(userId, Sort.by(Sort.Direction.DESC,
                         "start"));
                 break;
             }
-            case ("CURRENT"): {
+            case CURRENT: {
                 bookings = bookingRepository.findByBooker_IdAndStartIsBeforeAndEndIsAfter(userId, LocalDateTime.now(), LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
                         "start"));
                 break;
             }
-            case ("PAST"): {
+            case PAST: {
                 bookings = bookingRepository.findByBooker_IdAndEndIsBefore(userId, LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
                         "start"));
                 break;
             }
-            case ("FUTURE"): {
+            case FUTURE: {
                 bookings = bookingRepository.findByBooker_IdAndStartIsAfter(userId, LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
                         "start"));
                 break;
             }
-            case ("WAITING"): {
+            case WAITING: {
                 bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.WAITING, Sort.by(Sort.Direction.DESC,
                         "start"));
                 break;
             }
-            case ("APPROVED"): {
+            case APPROVED: {
                 bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.APPROVED, Sort.by(Sort.Direction.DESC,
                         "start"));
                 break;
             }
-            case ("REJECTED"): {
+            case REJECTED: {
                 bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.REJECTED, Sort.by(Sort.Direction.DESC,
                         "start"));
                 break;
             }
-            case ("CANCELED"): {
+            case CANCELED: {
                 bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.CANCELED, Sort.by(Sort.Direction.DESC,
                         "start"));
                 break;
             }
-            case ("UNSUPPORTED_STATUS"): {
+            case UNSUPPORTED_STATUS: {
                 throw new BadRequestException("Unknown state: UNSUPPORTED_STATUS");
             }
 
@@ -164,50 +162,50 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingDto> getAllBookingsByOwnerId(Long ownerId, String state) {
+    public List<BookingDto> getAllBookingsByOwnerId(Long ownerId, BookingDto.StatusDto statusDto) {
         List<Booking> bookings;
 
         if (!userRepository.existsById(ownerId)) {
             throw new NotFoundException("User not correct.");
         }
-        switch (state) {
+        switch (statusDto) {
 
-            case ("ALL"): {
+            case ALL: {
                 bookings = bookingRepository.findByOwnerId(ownerId, Sort.by(Sort.Direction.DESC,
                         "start"));
                 break;
             }
-            case ("CURRENT"): {
+            case CURRENT: {
                 bookings = bookingRepository.findByOwnerIdAndStartIsBeforeAndEndIsAfter(ownerId, LocalDateTime.now(), LocalDateTime.now(),
                         Sort.by(Sort.Direction.DESC, "start"));
                 break;
             }
-            case ("PAST"): {
+            case PAST: {
                 bookings = bookingRepository.findByOwnerIdAndEndBefore(ownerId, LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
                         "start"));
                 break;
             }
-            case ("FUTURE"): {
+            case FUTURE: {
                 bookings = bookingRepository.findByOwnerIdAndSAndStartIsAfter(ownerId, LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
                         "start"));
                 break;
             }
-            case ("WAITING"): {
+            case WAITING: {
                 bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.WAITING, Sort.by(Sort.Direction.DESC,
                         "start"));
                 break;
             }
-            case ("APPROVED"): {
+            case APPROVED: {
                 bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.APPROVED, Sort.by(Sort.Direction.DESC,
                         "start"));
                 break;
             }
-            case ("REJECTED"): {
+            case REJECTED: {
                 bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.REJECTED, Sort.by(Sort.Direction.DESC,
                         "start"));
                 break;
             }
-            case ("CANCELED"): {
+            case CANCELED: {
                 bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.CANCELED, Sort.by(Sort.Direction.DESC,
                         "start"));
                 break;

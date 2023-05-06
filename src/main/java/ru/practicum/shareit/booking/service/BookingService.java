@@ -13,8 +13,8 @@ public interface BookingService {
 
     BookingDto approveBooking(Long userId, Long bookingId, Boolean approved);
 
-    List<BookingDto> getAllBookingsByUserId(Long userId, String state);
+    List<BookingDto> getAllBookingsByUserId(Long userId, BookingDto.StatusDto statusDto);
 
-    List<BookingDto> getAllBookingsByOwnerId(Long ownerId, String state);
+    List<BookingDto> getAllBookingsByOwnerId(Long ownerId, BookingDto.StatusDto statusDto);
 
 }
