@@ -2,9 +2,9 @@ package ru.practicum.shareit.item.dto;
 
 import lombok.*;
 import ru.practicum.shareit.comment.dto.CommentDto;
-import ru.practicum.shareit.item.model.LastBooking;
-import ru.practicum.shareit.item.model.NextBooking;
-import ru.practicum.shareit.request.ItemRequest;
+import ru.practicum.shareit.booking.dto.LastBooking;
+import ru.practicum.shareit.booking.dto.NextBooking;
+import ru.practicum.shareit.request.model.ItemRequest;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
