@@ -15,6 +15,7 @@ import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.dao.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -29,6 +30,7 @@ public class BookingServiceImpl implements BookingService {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
 
+    @Transactional
     @Override
     public BookingDto create(Long userId, BookingDto bookingDto) {
         if (bookingDto.getStart() == null
@@ -60,6 +62,7 @@ public class BookingServiceImpl implements BookingService {
         return BookingMapper.toBookingDto(booking);
     }
 
+    @Transactional
     @Override
     public BookingDto findByBookingId(Long userId, Long bookingId) {
 
@@ -75,6 +78,7 @@ public class BookingServiceImpl implements BookingService {
         }
     }
 
+    @Transactional
     @Override
     public BookingDto approveBooking(Long userId, Long bookingId, Boolean approved) {
 
@@ -99,6 +103,7 @@ public class BookingServiceImpl implements BookingService {
         return BookingMapper.toBookingDto(booking);
     }
 
+    @Transactional
     @Override
     public List<BookingDto> getAllBookingsByUserId(Long userId, BookingDto.StatusDto statusDto) {
 
@@ -161,6 +166,7 @@ public class BookingServiceImpl implements BookingService {
 
     }
 
+    @Transactional
     @Override
     public List<BookingDto> getAllBookingsByOwnerId(Long ownerId, BookingDto.StatusDto statusDto) {
         List<Booking> bookings;
@@ -219,6 +225,4 @@ public class BookingServiceImpl implements BookingService {
                 .map(BookingMapper::toBookingDto)
                 .collect(Collectors.toList());
     }
-
-
 }

@@ -10,6 +10,7 @@ import ru.practicum.shareit.user.dto.UserMapper;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.service.UserService;
 
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,7 @@ public class UserServiceImpl implements UserService {
         return UserMapper.toUserDto(userRepository.save(UserMapper.toUser(userDto)));
     }
 
+    @Transactional
     @Override
     public UserDto update(UserDto userDto) {
         User oldUser = userRepository.findById(userDto.getId())
