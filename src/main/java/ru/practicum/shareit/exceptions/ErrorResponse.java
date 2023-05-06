@@ -2,15 +2,15 @@ package ru.practicum.shareit.exceptions;
 
 public class ErrorResponse {
 
-    private final String description;
+    private final String error;
 
-    public ErrorResponse(String description) {
+    public ErrorResponse(String error) {
 
-        this.description = description;
+        this.error = error;
     }
 
-    public String getDescription() {
-        return description;
+    public String getError() {
+        return error;
     }
 
 }
