@@ -2,7 +2,6 @@ package ru.practicum.shareit.item;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.comment.service.CommentService;
 import ru.practicum.shareit.comment.dto.CommentDto;
@@ -17,7 +16,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Log4j2
 @RequestMapping("/items")
-@EnableJpaRepositories
 public class ItemController {
 
     private final ItemService itemService;

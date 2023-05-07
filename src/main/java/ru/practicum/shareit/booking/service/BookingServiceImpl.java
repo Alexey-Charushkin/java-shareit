@@ -24,13 +24,13 @@ import java.util.stream.Collectors;
 @Log4j2
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class BookingServiceImpl implements BookingService {
 
     private final BookingRepository bookingRepository;
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
 
-    @Transactional
     @Override
     public BookingDto create(Long userId, BookingDto bookingDto) {
         if (bookingDto.getStart() == null
@@ -62,7 +62,6 @@ public class BookingServiceImpl implements BookingService {
         return BookingMapper.toBookingDto(booking);
     }
 
-    @Transactional
     @Override
     public BookingDto findByBookingId(Long userId, Long bookingId) {
 
@@ -78,7 +77,6 @@ public class BookingServiceImpl implements BookingService {
         }
     }
 
-    @Transactional
     @Override
     public BookingDto approveBooking(Long userId, Long bookingId, Boolean approved) {
 
@@ -103,7 +101,6 @@ public class BookingServiceImpl implements BookingService {
         return BookingMapper.toBookingDto(booking);
     }
 
-    @Transactional
     @Override
     public List<BookingDto> getAllBookingsByUserId(Long userId, BookingDto.StatusDto statusDto) {
 
@@ -166,7 +163,6 @@ public class BookingServiceImpl implements BookingService {
 
     }
 
-    @Transactional
     @Override
     public List<BookingDto> getAllBookingsByOwnerId(Long ownerId, BookingDto.StatusDto statusDto) {
         List<Booking> bookings;
