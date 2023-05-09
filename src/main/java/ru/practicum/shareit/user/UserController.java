@@ -4,13 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.user.dto.UserDto;
+import ru.practicum.shareit.user.service.UserService;
 
 import javax.validation.Valid;
 import java.util.List;
 
-/**
- * TODO Sprint add-controllers.
- */
 @Log4j2
 @RestController
 @RequiredArgsConstructor
@@ -45,9 +43,9 @@ public class UserController {
     }
 
     @DeleteMapping("{userId}")
-    public UserDto deleteById(@PathVariable Long userId) {
+    public void deleteById(@PathVariable Long userId) {
         log.info("Delete /users/{userId}");
-        return userService.deleteById(userId);
+        userService.deleteById(userId);
     }
 
 }

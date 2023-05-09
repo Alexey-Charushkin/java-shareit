@@ -1,16 +1,19 @@
 package ru.practicum.shareit.item.dto;
 
 import lombok.*;
+import ru.practicum.shareit.comment.dto.CommentDto;
+import ru.practicum.shareit.booking.dto.LastBooking;
+import ru.practicum.shareit.booking.dto.NextBooking;
+import ru.practicum.shareit.request.model.ItemRequest;
 
 import javax.validation.constraints.NotBlank;
-import java.util.Optional;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
-/**
- * TODO Sprint add-controllers.
- */
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class ItemDto {
 
     private Long id;
@@ -18,16 +21,23 @@ public class ItemDto {
     private String name;
     @NotBlank
     private String description;
+    @NotNull
     private Boolean available;
-    private String request;
+    private ItemRequest request;
 
     private Integer countRent = 0;
 
-    public Optional<Boolean> getAvailable() {
-        return Optional.ofNullable(available);
+    private LastBooking lastBooking;
+
+    private NextBooking nextBooking;
+
+    private List<CommentDto> comments;
+
+    public Boolean getAvailable() {
+        return available;
     }
 
-    public ItemDto(Long id, String name, String description, Boolean available, String request) {
+    public ItemDto(Long id, String name, String description, Boolean available, ItemRequest request) {
         this.id = id;
         this.name = name;
         this.description = description;

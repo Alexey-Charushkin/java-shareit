@@ -3,7 +3,7 @@ package ru.practicum.shareit.item.dao;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Repository;
 import ru.practicum.shareit.exceptions.NotFoundException;
-import ru.practicum.shareit.item.ItemMapper;
+import ru.practicum.shareit.item.dto.ItemMapper;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.model.Item;
 
@@ -29,13 +29,9 @@ class InMemoryItemDao implements ItemDao {
 
         Item itemToUpdate = items.get(itemDto.getId());
 
-        if (itemToUpdate == null || !itemToUpdate.getOwner().getId().equals(userId)) {
-            log.warn("Item width id={} not found.", itemDto.getId());
-            throw new NotFoundException("Item width id=" + itemDto.getId() + " not found.");
-        }
         if (itemDto.getName() != null) itemToUpdate.setName(itemDto.getName());
         if (itemDto.getDescription() != null) itemToUpdate.setDescription(itemDto.getDescription());
-        if (itemDto.getAvailable().isPresent()) itemToUpdate.setAvailable(itemDto.getAvailable().get());
+        if (itemDto.getAvailable() != null) itemToUpdate.setAvailable(itemDto.getAvailable());
 
         items.put(itemId, itemToUpdate);
 
@@ -77,7 +73,7 @@ class InMemoryItemDao implements ItemDao {
         final String searchText = query.toLowerCase(Locale.ENGLISH);
         return items.values()
                 .stream()
-                .filter(i -> i.getAvailable().get()
+                .filter(i -> i.getAvailable()
                         && (i.getName().toLowerCase(Locale.ENGLISH).contains(searchText)
                         || (i.getDescription().toLowerCase(Locale.ENGLISH)).contains(searchText)));
 
