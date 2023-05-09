@@ -1,12 +1,14 @@
-package ru.practicum.shareit.request.model;
+package ru.practicum.shareit.item_request.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
 import javax.persistence.*;
-import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,6 +28,16 @@ public class ItemRequest {
     @JoinColumn(name = "requestor_id")
     private User requestor;
 
+    @ManyToMany
+    @JoinColumn(name = "request_id")
+    private List<Item> items;
     @Column(nullable = false)
-    private Instant created;
+    private LocalDateTime created;
+
+    public ItemRequest(Long id, String description, User requestor) {
+        this.id = id;
+        this.description = description;
+        this.requestor = requestor;
+        this.created = LocalDateTime.now();
+    }
 }

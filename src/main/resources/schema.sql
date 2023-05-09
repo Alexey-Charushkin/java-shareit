@@ -1,8 +1,8 @@
-drop table IF EXISTS users CASCADE;
-drop table IF EXISTS requests CASCADE;
-drop table IF EXISTS items CASCADE;
-drop table IF EXISTS bookings CASCADE;
-drop table IF EXISTS comments CASCADE;
+-- drop table IF EXISTS users CASCADE;
+-- drop table IF EXISTS requests CASCADE;
+-- drop table IF EXISTS items CASCADE;
+-- drop table IF EXISTS bookings CASCADE;
+-- drop table IF EXISTS comments CASCADE;
 
 CREATE TABLE IF NOT EXISTS users
 (
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS users
 
 CREATE TABLE IF NOT EXISTS requests
 (
-    id           BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL UNIQUE,
+    id   BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL UNIQUE,
     description  VARCHAR(1000),
     requestor_id BIGINT,
     created      TIMESTAMP WITHOUT TIME ZONE,

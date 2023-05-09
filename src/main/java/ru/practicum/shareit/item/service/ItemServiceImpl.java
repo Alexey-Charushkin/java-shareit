@@ -19,6 +19,9 @@ import ru.practicum.shareit.item.dto.ItemMapper;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.booking.dto.LastBooking;
 import ru.practicum.shareit.booking.dto.NextBooking;
+import ru.practicum.shareit.item_request.dto.ItemRequestDto;
+import ru.practicum.shareit.item_request.dto.ItemRequestMapper;
+import ru.practicum.shareit.item_request.service.ItemRequestService;
 import ru.practicum.shareit.user.dao.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
@@ -39,13 +42,17 @@ public class ItemServiceImpl implements ItemService {
     private final BookingRepository bookingRepository;
     private final CommentService commentService;
 
+    private final ItemRequestService itemRequestService;
+
     @Override
     public ItemDto create(Long userId, ItemDto itemDto) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found."));
 
+        ItemRequestDto itemRequestDto = itemRequestService.findById(userId, itemDto.getRequest());
         Item item = ItemMapper.toItem(user, itemDto);
-        itemRepository.save(item);
+        item.setRequest(ItemRequestMapper.toItemRequest(itemRequestDto));
+    //    itemRepository.save(item);
         log.info("Item create.");
         return ItemMapper.toItemDto(item);
     }
