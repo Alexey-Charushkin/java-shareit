@@ -3,6 +3,7 @@ package ru.practicum.shareit.item_request.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
@@ -28,9 +29,8 @@ public class ItemRequest {
     @JoinColumn(name = "requestor_id")
     private User requestor;
 
-    @ManyToMany
-    @JoinColumn(name = "request_id")
-    private List<Item> items;
+    @Transient
+    private List<ItemDto> items;
     @Column(nullable = false)
     private LocalDateTime created;
 

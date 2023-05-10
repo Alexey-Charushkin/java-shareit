@@ -23,7 +23,8 @@ public class ItemDto {
     private String description;
     @NotNull
     private Boolean available;
-    private ItemRequest request;
+
+    private Long requestId;
 
     private Integer countRent = 0;
 
@@ -42,6 +43,8 @@ public class ItemDto {
         this.name = name;
         this.description = description;
         this.available = available;
-        this.request = request;
+        if (request != null) {
+            this.requestId = request.getId();
+        }
     }
 }

@@ -3,6 +3,7 @@ package ru.practicum.shareit.item.service;
 import ru.practicum.shareit.item.dto.ItemDto;
 
 import java.util.List;
+import java.util.ListIterator;
 
 public interface ItemService {
     ItemDto create(Long userId, ItemDto itemDto);
