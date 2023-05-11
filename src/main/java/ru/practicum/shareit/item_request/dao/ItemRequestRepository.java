@@ -13,6 +13,6 @@ public interface ItemRequestRepository extends JpaRepository<ItemRequest, Long> 
 
     List<ItemRequest> findAllById(Long userId, Sort id);
 
-   // Page<ItemRequest> findAllById(Long userId, Pageable pageable, Sort sort);
+    Page<ItemRequest> findAllByRequestorIdNot(Long userId, Pageable pageable);
 
 }
