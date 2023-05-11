@@ -2,11 +2,8 @@ package ru.practicum.shareit.item_request;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.item_request.dto.ItemRequestDto;
-import ru.practicum.shareit.item_request.model.ItemRequest;
 import ru.practicum.shareit.item_request.service.ItemRequestService;
 
 import javax.validation.Valid;
@@ -32,6 +29,7 @@ public class ItemRequestController {
         log.info("Get/requests");
         return itemRequestService.findAllByUserId(userId);
     }
+
     @GetMapping("{requestId}")
     public ItemRequestDto findById(@RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long requestId) {
         log.info("Get/requests/requestId");

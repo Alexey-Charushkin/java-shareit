@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.practicum.shareit.item.dto.ItemDto;
-import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
 import java.time.LocalDateTime;
@@ -33,14 +32,4 @@ public class ItemRequestDto {
         this.created = created;
         this.items = items;
     }
-}
-
-class response {
-
-    private Long itemId;
-
-    private String itemName;
-
-    private LocalDateTime created;
-
 }

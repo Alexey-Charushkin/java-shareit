@@ -3,6 +3,8 @@ package ru.practicum.shareit.item.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.booking.dao.BookingRepository;
@@ -28,7 +30,6 @@ import ru.practicum.shareit.user.model.User;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,9 +53,9 @@ public class ItemServiceImpl implements ItemService {
 
 
         Item item = ItemMapper.toItem(user, itemDto);
-         if (itemDto.getRequestId() != null)  {
-             itemRequestDto = itemRequestService.findById(userId, itemDto.getRequestId());
-         }
+        if (itemDto.getRequestId() != null) {
+            itemRequestDto = itemRequestService.findById(userId, itemDto.getRequestId());
+        }
 
         if (itemRequestDto != null) {
             item.setRequest(ItemRequestMapper.toItemRequest(itemRequestDto));
@@ -106,26 +107,35 @@ public class ItemServiceImpl implements ItemService {
 
     @Transactional
     @Override
-    public List<ItemDto> getAllItemsByUserId(Long userId) {
+    public List<ItemDto> getAllItemsByUserId(Long userId, Integer from, Integer size) {
+        List<Item> item;
 
-        List<Item> items = itemRepository.findByOwnerId(userId, Sort.by(Sort.Direction.ASC, "id"));
-        List<ItemDto> itemDtos = new ArrayList<>();
-
-        for (Item item : items) {
-            ItemDto itemDto = ItemMapper.toItemDto(item);
-            getBookings(itemDto);
-            getComments(itemDto);
-            itemDtos.add(itemDto);
+        if (from == null || size == null) {
+            item = itemRepository.findByOwnerId(userId, Sort.by(Sort.Direction.ASC, "id"));
+        } else {
+            Sort sort = Sort.by(Sort.Direction.ASC, "id");
+            Pageable page = PageRequest.of(from, size, sort);
+            item = itemRepository.findByOwnerId(userId, page);
         }
-        return itemDtos;
+        return item.stream()
+                .map(ItemMapper::toItemDto)
+                .peek(this::getBookings)
+                .peek(this::getComments)
+                .collect(Collectors.toList());
     }
 
-
-    public List<ItemDto> searchItems(String query) {
+    public List<ItemDto> searchItems(String query, Integer from, Integer size) {
         List<Item> itemList;
         try {
             log.info("Request search films, query = {}.", query);
-            itemList = itemRepository.search(query);
+            if (from == null || size == null) {
+                itemList = itemRepository.search(query);
+
+            } else {
+                Pageable page = PageRequest.of(from, size);
+                itemList = itemRepository.searchToPage(query, page);
+            }
+
         } catch (EntityNotFoundException e) {
             log.warn("Items not found");
             throw new NotFoundException("Item not found.");
@@ -185,7 +195,7 @@ public class ItemServiceImpl implements ItemService {
     private ItemDto getComments(ItemDto itemDto) {
         List<Comment> comments = commentService.findByItemId(itemDto.getId());
         List<CommentDto> commentDtos = comments.stream()
-                .map(comment -> CommentMapper.toCommentDto(comment))
+                .map(CommentMapper::toCommentDto)
                 .collect(Collectors.toList());
 
         itemDto.setComments(commentDtos);

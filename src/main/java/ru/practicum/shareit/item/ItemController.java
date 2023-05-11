@@ -42,9 +42,11 @@ public class ItemController {
     }
 
     @GetMapping()
-    public List<ItemDto> gelAllByUserId(@RequestHeader("X-Sharer-User-Id") Long userId) {
+    public List<ItemDto> gelAllByUserId(@RequestHeader("X-Sharer-User-Id") Long userId,
+                                        @RequestParam(name = "from", required = false) Integer from,
+                                        @RequestParam(name = "size", required = false) Integer size) {
         log.info("Get X-Sharer-User-Id");
-        return itemService.getAllItemsByUserId(userId);
+        return itemService.getAllItemsByUserId(userId, from, size);
     }
 
     @DeleteMapping("{itemId}")
@@ -54,10 +56,12 @@ public class ItemController {
     }
 
     @GetMapping("search")
-    public List<ItemDto> searchItems(@RequestParam("text") String query) {
+    public List<ItemDto> searchItems(@RequestParam("text") String query,
+                                     @RequestParam(name = "from", required = false) Integer from,
+                                     @RequestParam(name = "size", required = false) Integer size) {
         log.info("Get =search");
         if (query == null || query.isBlank()) return Collections.emptyList();
-        return itemService.searchItems(query);
+        return itemService.searchItems(query, from, size);
     }
 
     @PostMapping("{itemId}/comment")
