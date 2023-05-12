@@ -2,6 +2,7 @@ package ru.practicum.shareit.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.service.UserService;
@@ -18,28 +19,28 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping()
-    public UserDto create(@Valid @RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> create(@Valid @RequestBody UserDto userDto) {
         log.info("Post /users");
-        return userService.create(userDto);
+        return ResponseEntity.ok(userService.create(userDto));
     }
 
     @PatchMapping("{userId}")
-    public UserDto update(@PathVariable Long userId, @RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> update(@PathVariable Long userId, @RequestBody UserDto userDto) {
         log.info("Patch /users");
         userDto.setId(userId);
-        return userService.update(userDto);
+        return ResponseEntity.ok(userService.update(userDto));
     }
 
     @GetMapping("{userId}")
-    public UserDto getById(@PathVariable Long userId) {
+    public ResponseEntity<UserDto> getById(@PathVariable Long userId) {
         log.info("Get /users/{userId}");
-        return userService.getById(userId);
+        return ResponseEntity.ok(userService.getById(userId));
     }
 
     @GetMapping()
-    public List<UserDto> gelAll() {
+    public ResponseEntity<List<UserDto>> gelAll() {
         log.info("Get /users");
-        return userService.getAll();
+        return ResponseEntity.ok(userService.getAll());
     }
 
     @DeleteMapping("{userId}")
