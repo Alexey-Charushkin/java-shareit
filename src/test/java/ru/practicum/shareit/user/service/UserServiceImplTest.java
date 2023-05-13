@@ -1,12 +1,12 @@
 package ru.practicum.shareit.user.service;
 
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import org.powermock.core.classloader.annotations.PrepareForTest;
+import static org.mockito.Mockito.*;
+
 
 import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.user.dao.UserRepository;
@@ -21,8 +21,6 @@ import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
@@ -35,14 +33,29 @@ class UserServiceImplTest {
     @Captor
     private ArgumentCaptor<User> userArgumentCaptor;
 
-    @PrepareForTest(UserMapper.class)
+    @Test
+    void setUserMapper() {
+        UserDto userToSave = new UserDto(0L, "userName", "email@mail.com");
+        User user = UserMapper.toUser(userToSave);
+
+        try (MockedStatic<UserMapper> mockedStaticUserMapper = mockStatic(UserMapper.class)) {
+            mockedStaticUserMapper.when(() -> UserMapper.toUser(userToSave)).thenReturn(user);
+            User result = UserMapper.toUser(userToSave);
+            assertEquals(user, result);
+        }
+
+        try (MockedStatic<UserMapper> mockedStaticUserMapper = mockStatic(UserMapper.class)) {
+            mockedStaticUserMapper.when(() -> UserMapper.toUserDto(user)).thenReturn(userToSave);
+            UserDto result = UserMapper.toUserDto(user);
+            assertEquals(userToSave, result);
+        }
+    }
+
     @Test
     void create_whenUserDtoIsValid_thenSaveUser() {
         UserDto userToSave = new UserDto(0L, "userName", "email@mail.com");
-
         User user = UserMapper.toUser(userToSave);
-        when(userRepository.save(any(User.class)))
-                .thenReturn(user);
+        when(userRepository.save(any(User.class))).thenReturn(user);
 
         UserDto actualUser = userService.create(userToSave);
 
@@ -60,7 +73,7 @@ class UserServiceImplTest {
         when(userRepository.findById(0L)).thenReturn(Optional.of(UserMapper.toUser(oldUser)));
         when(userRepository.save(any(User.class))).thenReturn(UserMapper.toUser(oldUser));
 
-        UserDto actualUserDto = userService.update(updatedUser);
+        userService.update(updatedUser);
 
         verify(userRepository).save(userArgumentCaptor.capture());
 
@@ -138,7 +151,7 @@ class UserServiceImplTest {
 
         userService.deleteById(userId);
 
-       NotFoundException notFoundException = assertThrows(NotFoundException.class,
+        NotFoundException notFoundException = assertThrows(NotFoundException.class,
                 () -> userService.getById(userId));
 
         assertEquals(notFoundException.getMessage(), "User not found.");

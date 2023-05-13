@@ -23,7 +23,6 @@ public class ItemDto {
     private String description;
     @NotNull
     private Boolean available;
-
     private Long requestId;
 
     private Integer countRent = 0;

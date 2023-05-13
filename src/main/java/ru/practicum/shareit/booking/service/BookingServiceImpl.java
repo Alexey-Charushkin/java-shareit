@@ -51,7 +51,7 @@ public class BookingServiceImpl implements BookingService {
         }
 
         if (!item.getAvailable()) {
-            throw new BadRequestException("Available is false.");
+            throw new BadRequestException("Available false.");
         }
 
         bookingDto.setItem(item);
@@ -97,7 +97,6 @@ public class BookingServiceImpl implements BookingService {
         } else {
             booking.setStatus(Booking.Status.REJECTED);
         }
-
         bookingRepository.save(booking);
         log.info("Booking status update.");
         return BookingMapper.toBookingDto(booking);
@@ -188,7 +187,7 @@ public class BookingServiceImpl implements BookingService {
                 } else {
                     Sort sort = Sort.by(Sort.Direction.DESC, "start");
                     Pageable page = PageRequest.of(from, size, sort);
-                    bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.APPROVED, page);
+                    bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.REJECTED, page);
                 }
 
                 break;
@@ -200,7 +199,7 @@ public class BookingServiceImpl implements BookingService {
                 } else {
                     Sort sort = Sort.by(Sort.Direction.DESC, "start");
                     Pageable page = PageRequest.of(from, size, sort);
-                    bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.APPROVED, page);
+                    bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.CANCELED, page);
                 }
 
                 break;
