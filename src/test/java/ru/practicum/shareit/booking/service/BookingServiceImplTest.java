@@ -97,9 +97,9 @@ class BookingServiceImplTest {
     void create_whenBookingDtoIsValidAndStartIsNull_thenBadRequestExceptionThrown() {
         Booking bookingToSave = new Booking(0L, null, LocalDateTime.now().plusMinutes(1),
                 item, booker, "WAITING");
-        BadRequestException BadRequestException = assertThrows(BadRequestException.class,
+        BadRequestException badRequestException = assertThrows(BadRequestException.class,
                 () -> bookingService.create(booker.getId(), BookingMapper.toBookingDto(bookingToSave)));
-        assertEquals(BadRequestException.getMessage(), "Date time not correct.");
+        assertEquals(badRequestException.getMessage(), "Date time not correct.");
     }
 
     @Test
