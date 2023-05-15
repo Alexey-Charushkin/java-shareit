@@ -1,9 +1,7 @@
 package ru.practicum.shareit.booking.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
@@ -14,6 +12,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "bookings", schema = "public")
 public class Booking {

@@ -20,13 +20,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class ItemRepositoryTestIT {
-
     @Autowired
     private ItemRepository itemRepository;
-
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private ItemRequestRepository itemRequestRepository;
 
@@ -72,8 +69,7 @@ class ItemRepositoryTestIT {
                 .available(true)
                 .owner(requestor)
                 .request(request)
-                .build()
-        );
+                .build());
     }
 
     @Rollback(value = false)
