@@ -7,14 +7,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
-import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item_request.dao.ItemRequestRepository;
 import ru.practicum.shareit.item_request.model.ItemRequest;
 import ru.practicum.shareit.user.dao.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
-import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -33,21 +31,10 @@ class ItemRepositoryTestIT {
     private ItemRequestRepository itemRequestRepository;
 
     User owner = new User(1L, "userName", "email@mail.com");
-    User wrongOwner = new User(99L, "user99Name", "email99@mail.com");
     User requestor = new User(2L, "requestorName", "requestorEmail@mail.com");
     ItemRequest request = new ItemRequest(1L, "requestDescription", requestor);
 
-//    ItemDto itemToSave = new ItemDto(0L, "itemName", "itemDescription",
-//            true, request);
-//    Item item = new Item(1L, "itemName", "itemDescription",
-//            true, owner, request);
-//    Item item2 = new Item(2L, "updateItemName", "updateItemDescription",
-//            true, owner, request);
-
-    //  @BeforeEach
-    // @Rollback
     void setUp() {
-
         userRepository.save(User.builder()
                 .name("userName")
                 .email("userEmail@mail.com")
@@ -89,16 +76,6 @@ class ItemRepositoryTestIT {
         );
     }
 
-//   @AfterEach
-//    void tearDown() {
-//        userRepository.deleteAll();
-//        itemRequestRepository.deleteAll();
-//        itemRepository.deleteAll();
-
-//
-//    }
-
-
     @Rollback(value = false)
     @Test
     void findByOwnerId_whenItemsFound_thenReturnListItem() {
@@ -118,8 +95,6 @@ class ItemRepositoryTestIT {
         assertEquals(itemList.size(), 0);
     }
 
-
-    @Rollback(value = false)
     @Test
     void findByOwnerId_whenItemsFoundToPage_thenReturnList() {
         int from = 0;
@@ -134,16 +109,47 @@ class ItemRepositoryTestIT {
     }
 
     @Test
-    void findAllByRequestId() {
+    void findAllByRequestId_whenItemsFound_thenReturnListItem() {
         List<Item> itemList = itemRepository.findAllByRequestId(request.getId());
 
+        assertEquals(itemList.size(), 2);
+        assertEquals(itemList.get(0).getName(), "itemName2");
+        assertEquals(itemList.get(1).getName(), "itemName3");
     }
 
     @Test
     void search() {
+        List<Item> searchResult = itemRepository.search("itemn");
+
+        assertEquals(searchResult.size(), 3);
+
+        searchResult = itemRepository.search("tIoN");
+
+        assertEquals(searchResult.size(), 3);
+
+        searchResult = itemRepository.search("2");
+
+        assertEquals(searchResult.size(), 1);
     }
 
     @Test
     void searchToPage() {
+
+        Sort sort = Sort.by(Sort.Direction.ASC, "id");
+
+        Pageable page = PageRequest.of(0, 2, sort);
+        List<Item> searchResult = itemRepository.searchToPage("itemn", page);
+
+        assertEquals(searchResult.size(), 2);
+
+        page = PageRequest.of(0, 1, sort);
+        searchResult = itemRepository.searchToPage("tIoN", page);
+
+        assertEquals(searchResult.size(), 1);
+
+        page = PageRequest.of(0, 2, sort);
+        searchResult = itemRepository.searchToPage("2", page);
+
+        assertEquals(searchResult.size(), 1);
     }
 }
