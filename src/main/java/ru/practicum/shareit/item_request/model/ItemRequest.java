@@ -1,8 +1,6 @@
 package ru.practicum.shareit.item_request.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.user.model.User;
 
@@ -13,8 +11,10 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "requests", schema = "public")
+@Builder
 public class ItemRequest {
 
     @Id
@@ -39,4 +39,6 @@ public class ItemRequest {
         this.requestor = requestor;
         this.created = LocalDateTime.now();
     }
+
+
 }

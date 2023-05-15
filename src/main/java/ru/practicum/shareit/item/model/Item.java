@@ -14,6 +14,7 @@ import javax.persistence.*;
 @ToString
 @Entity
 @Table(name = "items", schema = "public")
+@Builder
 public class Item {
 
     @Id
