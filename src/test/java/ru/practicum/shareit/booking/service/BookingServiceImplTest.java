@@ -71,8 +71,8 @@ class BookingServiceImplTest {
             item, booker, "WAITING");
     BookingDto bookingToSaveDto = BookingMapper.toBookingDto(bookingToSave);
     BookingDto bookingToSaveDto2 = BookingMapper.toBookingDto(bookingToSave2);
-
     List<Booking> bookingList = new ArrayList<>(List.of(bookingToSave, bookingToSave2));
+
     List<BookingDto> bookingDtoList = new ArrayList<>(List.of(bookingToSaveDto, bookingToSaveDto2));
 
     @Test
