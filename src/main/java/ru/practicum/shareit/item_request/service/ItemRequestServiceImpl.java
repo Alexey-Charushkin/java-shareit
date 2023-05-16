@@ -53,7 +53,7 @@ public class ItemRequestServiceImpl implements ItemRequestService {
         userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
-        List<ItemRequest> itemRequests = itemRequestRepository.findAllById(userId, Sort.by(Sort.Direction.DESC,
+        List<ItemRequest> itemRequests = itemRequestRepository.findAllByRequestorId(userId, Sort.by(Sort.Direction.DESC,
                 "id"));
         return itemRequests.stream()
                 .map(ItemRequestMapper::toItemRequestDto)

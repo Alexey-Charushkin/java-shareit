@@ -97,12 +97,12 @@ class ItemRequestServiceImplTest {
     void findAllByUserId_whenUserIdIsCorrect_thenReturnList() {
         List<ItemRequestDto> exceptedList = new ArrayList<>(itemRequestDtoList);
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(owner));
-        when(itemRequestRepository.findAllById(0L, Sort.by(Sort.Direction.DESC,
+        when(itemRequestRepository.findAllByRequestorId(0L, Sort.by(Sort.Direction.DESC,
                 "id"))).thenReturn(itemRequestList);
 
         List<ItemRequestDto> actualList = itemRequestService.findAllByUserId(0L);
 
-        verify(itemRequestRepository, times(1)).findAllById(0L, Sort.by(Sort.Direction.DESC,
+        verify(itemRequestRepository, times(1)).findAllByRequestorId(0L, Sort.by(Sort.Direction.DESC,
                 "id"));
         assertEquals(exceptedList.get(0).getId(), actualList.get(0).getId());
         assertEquals(exceptedList.get(0).getDescription(), actualList.get(0).getDescription());
