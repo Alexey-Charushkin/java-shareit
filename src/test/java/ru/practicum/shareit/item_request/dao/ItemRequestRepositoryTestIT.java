@@ -1,14 +1,12 @@
 package ru.practicum.shareit.item_request.dao;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.annotation.Rollback;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.dto.ItemMapper;
 import ru.practicum.shareit.item.model.Item;
@@ -44,7 +42,6 @@ class ItemRequestRepositoryTestIT {
     List<ItemDto> itemDtoList = List.of(itemDto, itemDto2);
 
 
-    @BeforeEach
     void setUp() {
         userRepository.save(User.builder()
                 .name("userName")
@@ -78,8 +75,11 @@ class ItemRequestRepositoryTestIT {
     }
 
 
+    @Order(1)
+    @Rollback(value = false)
     @Test
     void findAllByRequestorId() {
+        setUp();
         List<ItemRequest> itemRequestList = itemRequestRepository.findAllByRequestorId(2L,
                 Sort.by(Sort.Direction.DESC, "id"));
 
@@ -98,6 +98,6 @@ class ItemRequestRepositoryTestIT {
                 page);
 
         assertEquals(itemRequestList.size(), 1);
-        assertEquals(itemRequestList.get(0).getRequestor(), requestor);
+        assertEquals(itemRequestList.get(0).getRequestor().getName(), requestor.getName());
     }
 }
