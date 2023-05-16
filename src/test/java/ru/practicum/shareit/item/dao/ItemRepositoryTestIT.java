@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.jdbc.Sql;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item_request.dao.ItemRequestRepository;
 import ru.practicum.shareit.item_request.model.ItemRequest;
@@ -19,6 +20,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
+@Sql(scripts = {"/test-data.sql"})
 class ItemRepositoryTestIT {
     @Autowired
     private ItemRepository itemRepository;
@@ -31,56 +33,56 @@ class ItemRepositoryTestIT {
     User requestor = new User(2L, "requestorName", "requestorEmail@mail.com");
     ItemRequest request = new ItemRequest(1L, "requestDescription", requestor);
 
-    void setUp() {
-        userRepository.save(User.builder()
-                .name("userName")
-                .email("userEmail@mail.com")
-                .build());
-        userRepository.save(User.builder()
-                .name("userName2")
-                .email("userEmail2@mail.com")
-                .build());
+//    void setUp() {
+//        userRepository.save(User.builder()
+//                .name("userName")
+//                .email("userEmail@mail.com")
+//                .build());
+//        userRepository.save(User.builder()
+//                .name("userName2")
+//                .email("userEmail2@mail.com")
+//                .build());
+//
+//        itemRequestRepository.save(ItemRequest.builder()
+//                .description("requestDescription")
+//                .requestor(requestor)
+//                .items(null)
+//                .created(LocalDateTime.now())
+//                .build());
+//
+//        itemRepository.save(Item.builder()
+//                .name("itemName")
+//                .description("itemDescription")
+//                .available(true)
+//                .owner(owner)
+//                .request(null)
+//                .build());
+//
+//        itemRepository.save(Item.builder()
+//                .name("itemName2")
+//                .description("itemDescription2")
+//                .available(true)
+//                .owner(owner)
+//                .request(request)
+//                .build());
+//        itemRepository.save(Item.builder()
+//                .name("itemName3")
+//                .description("itemDescription3")
+//                .available(true)
+//                .owner(requestor)
+//                .request(request)
+//                .build());
+//    }
 
-        itemRequestRepository.save(ItemRequest.builder()
-                .description("requestDescription")
-                .requestor(requestor)
-                .items(null)
-                .created(LocalDateTime.now())
-                .build());
 
-        itemRepository.save(Item.builder()
-                .name("itemName")
-                .description("itemDescription")
-                .available(true)
-                .owner(owner)
-                .request(null)
-                .build());
-
-        itemRepository.save(Item.builder()
-                .name("itemName2")
-                .description("itemDescription2")
-                .available(true)
-                .owner(owner)
-                .request(request)
-                .build());
-        itemRepository.save(Item.builder()
-                .name("itemName3")
-                .description("itemDescription3")
-                .available(true)
-                .owner(requestor)
-                .request(request)
-                .build());
-    }
-
-    @Rollback(value = false)
     @Test
     void findByOwnerId_whenItemsFound_thenReturnListItem() {
-        setUp();
+       // setUp();
         List<Item> itemList = itemRepository.findByOwnerId(1L, Sort.by(Sort.Direction.ASC, "id"));
 
         assertEquals(itemList.size(), 2);
-        assertEquals(itemList.get(0).getOwner(), owner);
-        assertEquals(itemList.get(1).getOwner(), owner);
+        assertEquals(itemList.get(0).getOwner().getId(), owner.getId());
+        assertEquals(itemList.get(1).getOwner().getId(), owner.getId());
     }
 
     @Test
