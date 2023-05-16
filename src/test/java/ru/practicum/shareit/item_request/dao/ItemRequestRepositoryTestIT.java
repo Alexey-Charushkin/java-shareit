@@ -9,8 +9,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import ru.practicum.shareit.booking.model.Booking;
-import ru.practicum.shareit.item.dao.ItemRepository;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.dto.ItemMapper;
 import ru.practicum.shareit.item.model.Item;
@@ -30,8 +28,6 @@ class ItemRequestRepositoryTestIT {
     private UserRepository userRepository;
     @Autowired
     private ItemRequestRepository itemRequestRepository;
-    @Autowired
-    private ItemRepository itemRepository;
 
     User owner = new User(1L, "userName", "email@mail.com");
     User requestor = new User(2L, "userName2", "email2@mail.com");
@@ -79,62 +75,6 @@ class ItemRequestRepositoryTestIT {
                 .items(null)
                 .created(LocalDateTime.now())
                 .build());
-
-//        itemRepository.save(Item.builder()
-//                .name("itemName")
-//                .description("itemDescription")
-//                .available(true)
-//                .owner(owner)
-//                .request(null)
-//                .build());
-//
-//        itemRepository.save(Item.builder()
-//                .name("itemName2")
-//                .description("itemDescription2")
-//                .available(true)
-//                .owner(owner)
-//                .request(request)
-//                .build());
-//        itemRepository.save(Item.builder()
-//                .name("itemName3")
-//                .description("itemDescription3")
-//                .available(true)
-//                .owner(requestor)
-//                .request(request)
-//                .build());
-//
-//        bookingRepository.save(Booking.builder()
-//                .start(LocalDateTime.now().plusMinutes(1))
-//                .end(LocalDateTime.now().plusMinutes(5))
-//                .item(item)
-//                .booker(owner)
-//                .status(Booking.Status.WAITING)
-//                .build());
-//
-//        bookingRepository.save(Booking.builder()
-//                .start(LocalDateTime.now().plusMinutes(6))
-//                .end(LocalDateTime.now().plusMinutes(10))
-//                .item(item)
-//                .booker(owner)
-//                .status(Booking.Status.APPROVED)
-//                .build());
-//
-//        bookingRepository.save(Booking.builder()
-//                .start(LocalDateTime.now().plusMinutes(11))
-//                .end(LocalDateTime.now().plusMinutes(15))
-//                .item(item2)
-//                .booker(requestor)
-//                .status(Booking.Status.REJECTED)
-//                .build());
-//
-//        bookingRepository.save(Booking.builder()
-//                .start(LocalDateTime.now().plusMinutes(16))
-//                .end(LocalDateTime.now().plusMinutes(20))
-//                .item(item)
-//                .booker(requestor)
-//                .status(Booking.Status.APPROVED)
-//                .build());
-
     }
 
 
