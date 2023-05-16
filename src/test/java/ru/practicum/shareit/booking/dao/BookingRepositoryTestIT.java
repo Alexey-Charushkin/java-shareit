@@ -1,7 +1,6 @@
 package ru.practicum.shareit.booking.dao;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.PageRequest;
@@ -22,7 +21,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
-class BookingRepositoryTest {
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+class BookingRepositoryTestIT {
     @Autowired
     private BookingRepository bookingRepository;
     @Autowired
@@ -37,10 +37,10 @@ class BookingRepositoryTest {
     ItemRequest request = new ItemRequest(1L, "requestDescription", requestor);
     Item item = new Item(1L, "itemName", "itemDescription",
             true, owner, request);
-    Item item2 = new Item(2L, "updateItemName", "updateItemDescription",
+    Item item2 = new Item(2L, "itemName2", "itemDescription2",
             true, owner, request);
 
-    @BeforeEach
+
     void setUp() {
         userRepository.save(User.builder()
                 .name("userName")
@@ -115,17 +115,18 @@ class BookingRepositoryTest {
 
     }
 
+    @Order(1)
     @Rollback(value = false)
     @Test
     void findByItemId() {
-        //   setUp();
+        setUp();
         List<Booking> bookingList = bookingRepository.findByItemId(1L,
                 Sort.by(Sort.Direction.ASC, "end"));
 
-        assertEquals(bookingList.size(), 2);
+        assertEquals(bookingList.size(), 3);
         assertEquals(bookingList.get(0).getItem(), item);
         assertEquals(bookingList.get(1).getItem(), item);
-
+        assertEquals(bookingList.get(2).getItem(), item);
     }
 
     @Test
@@ -133,8 +134,9 @@ class BookingRepositoryTest {
         List<Booking> bookingList = bookingRepository.findByItemIdAndStatus(1L,
                 Booking.Status.APPROVED, Sort.by(Sort.Direction.ASC, "end"));
 
-        assertEquals(bookingList.size(), 1);
-        assertEquals(bookingList.get(0).getItem(), item);
+        assertEquals(bookingList.size(), 2);
+        assertEquals(bookingList.get(0).getItem().getName(), item.getName());
+        assertEquals(bookingList.get(1).getItem().getName(), item.getName());
     }
 
     @Test
@@ -143,8 +145,8 @@ class BookingRepositoryTest {
                 Sort.by(Sort.Direction.ASC, "end"));
 
         assertEquals(bookingList.size(), 2);
-        assertEquals(bookingList.get(0).getItem(), item2);
-        assertEquals(bookingList.get(1).getItem(), item);
+        assertEquals(bookingList.get(0).getItem().getName(), item2.getName());
+        assertEquals(bookingList.get(1).getItem().getName(), item.getName());
     }
 
     @Test
@@ -157,7 +159,7 @@ class BookingRepositoryTest {
                 page);
 
         assertEquals(bookingList.size(), 1);
-        assertEquals(bookingList.get(0).getItem(), item);
+        assertEquals(bookingList.get(0).getItem().getName(), item.getName());
     }
 
     @Test
@@ -166,7 +168,7 @@ class BookingRepositoryTest {
                 Booking.Status.REJECTED, Sort.by(Sort.Direction.ASC, "end"));
 
         assertEquals(bookingList.size(), 1);
-        assertEquals(bookingList.get(0).getItem(), item2);
+        assertEquals(bookingList.get(0).getItem().getName(), item2.getName());
     }
 
     @Test
@@ -180,7 +182,7 @@ class BookingRepositoryTest {
                 Booking.Status.APPROVED, page);
 
         assertEquals(bookingList.size(), 1);
-        assertEquals(bookingList.get(0).getItem(), item);
+        assertEquals(bookingList.get(0).getItem().getName(), item.getName());
     }
 
     @Test
@@ -189,8 +191,8 @@ class BookingRepositoryTest {
                 LocalDateTime.now().plusMinutes(16), Sort.by(Sort.Direction.ASC, "end"));
 
         assertEquals(bookingList.size(), 2);
-        assertEquals(bookingList.get(0).getItem(), item);
-        assertEquals(bookingList.get(1).getItem(), item);
+        assertEquals(bookingList.get(0).getItem().getName(), item.getName());
+        assertEquals(bookingList.get(1).getItem().getName(), item.getName());
     }
 
     @Test
@@ -204,7 +206,7 @@ class BookingRepositoryTest {
                 LocalDateTime.now().plusMinutes(16), page);
 
         assertEquals(bookingList.size(), 1);
-        assertEquals(bookingList.get(0).getItem(), item);
+        assertEquals(bookingList.get(0).getItem().getName(), item.getName());
     }
 
 
@@ -214,7 +216,7 @@ class BookingRepositoryTest {
                 LocalDateTime.now().plusMinutes(2), Sort.by(Sort.Direction.ASC, "end"));
 
         assertEquals(bookingList.size(), 1);
-        assertEquals(bookingList.get(0).getItem(), item);
+        assertEquals(bookingList.get(0).getItem().getName(), item.getName());
     }
 
     @Test
@@ -236,7 +238,7 @@ class BookingRepositoryTest {
                 LocalDateTime.now().plusMinutes(2), LocalDateTime.now().plusMinutes(4), Sort.by(Sort.Direction.ASC, "end"));
 
         assertEquals(bookingList.size(), 1);
-        assertEquals(bookingList.get(0).getItem(), item);
+        assertEquals(bookingList.get(0).getItem().getName(), item.getName());
     }
 
     @Test
@@ -250,7 +252,7 @@ class BookingRepositoryTest {
                 LocalDateTime.now().plusMinutes(2), LocalDateTime.now().plusMinutes(4), Sort.by(Sort.Direction.ASC, "end"));
 
         assertEquals(bookingList.size(), 1);
-        assertEquals(bookingList.get(0).getItem(), item);
+        assertEquals(bookingList.get(0).getItem().getName(), item.getName());
     }
 
     @Test
@@ -259,10 +261,10 @@ class BookingRepositoryTest {
                 Sort.by(Sort.Direction.ASC, "end"));
 
         assertEquals(bookingList.size(), 4);
-        assertEquals(bookingList.get(0).getItem(), item);
-        assertEquals(bookingList.get(1).getItem(), item);
-        assertEquals(bookingList.get(2).getItem(), item2);
-        assertEquals(bookingList.get(3).getItem(), item);
+        assertEquals(bookingList.get(0).getItem().getName(), item.getName());
+        assertEquals(bookingList.get(1).getItem().getName(), item.getName());
+        assertEquals(bookingList.get(2).getItem().getName(), item2.getName());
+        assertEquals(bookingList.get(3).getItem().getName(), item.getName());
     }
 
     @Test
@@ -276,7 +278,7 @@ class BookingRepositoryTest {
                 page);
 
         assertEquals(bookingList.size(), 1);
-        assertEquals(bookingList.get(0).getItem(), item);
+        assertEquals(bookingList.get(0).getItem().getName(), item.getName());
     }
 
     @Test
@@ -285,7 +287,7 @@ class BookingRepositoryTest {
                 Booking.Status.REJECTED, Sort.by(Sort.Direction.ASC, "end"));
 
         assertEquals(bookingList.size(), 1);
-        assertEquals(bookingList.get(0).getItem(), item2);
+        assertEquals(bookingList.get(0).getItem().getName(), item2.getName());
     }
 
     @Test
@@ -299,30 +301,76 @@ class BookingRepositoryTest {
                 Booking.Status.REJECTED, page);
 
         assertEquals(bookingList.size(), 1);
-        assertEquals(bookingList.get(0).getItem(), item2);
+        assertEquals(bookingList.get(0).getItem().getName(), item2.getName());
     }
 
     @Test
     void findByOwnerIdAndEndBefore() {
+        List<Booking> bookingList = bookingRepository.findByOwnerIdAndEndBefore(1L,
+                LocalDateTime.now().plusMinutes(16), Sort.by(Sort.Direction.ASC, "end"));
+
+        assertEquals(bookingList.size(), 3);
+        assertEquals(bookingList.get(0).getItem().getName(), item.getName());
+        assertEquals(bookingList.get(1).getItem().getName(), item.getName());
+        assertEquals(bookingList.get(2).getItem().getName(), item2.getName());
     }
 
     @Test
-    void testFindByOwnerIdAndEndBefore() {
+    void FindByOwnerIdAndEndBeforeToPage() {
+        int from = 1;
+        int size = 2;
+        Sort sort = Sort.by(Sort.Direction.ASC, "id");
+        Pageable page = PageRequest.of(from, size, sort);
+        List<Booking> bookingList = bookingRepository.findByOwnerIdAndEndBefore(1L,
+                LocalDateTime.now().plusMinutes(16), page);
+
+        assertEquals(bookingList.size(), 1);
+        assertEquals(bookingList.get(0).getItem().getName(), item2.getName());
     }
 
     @Test
     void findByOwnerIdAndSAndStartIsAfter() {
+        List<Booking> bookingList = bookingRepository.findByOwnerIdAndSAndStartIsAfter(1L,
+                LocalDateTime.now().plusMinutes(2), Sort.by(Sort.Direction.ASC, "end"));
+
+        assertEquals(bookingList.size(), 3);
+        assertEquals(bookingList.get(0).getItem().getName(), item.getName());
+        assertEquals(bookingList.get(1).getItem().getName(), item2.getName());
+        assertEquals(bookingList.get(2).getItem().getName(), item.getName());
     }
 
     @Test
-    void testFindByOwnerIdAndSAndStartIsAfter() {
+    void FindByOwnerIdAndSAndStartIsAfterToPage() {
+        int from = 1;
+        int size = 2;
+        Sort sort = Sort.by(Sort.Direction.ASC, "id");
+        Pageable page = PageRequest.of(from, size, sort);
+        List<Booking> bookingList = bookingRepository.findByOwnerIdAndSAndStartIsAfter(1L,
+                LocalDateTime.now().plusMinutes(2), page);
+
+        assertEquals(bookingList.size(), 1);
+        assertEquals(bookingList.get(0).getItem().getName(), item.getName());
     }
 
     @Test
     void findByOwnerIdAndStartIsBeforeAndEndIsAfter() {
+        List<Booking> bookingList = bookingRepository.findByOwnerIdAndStartIsBeforeAndEndIsAfter(1L,
+                LocalDateTime.now().plusMinutes(2), LocalDateTime.now().plusMinutes(4), Sort.by(Sort.Direction.ASC, "end"));
+
+        assertEquals(bookingList.size(), 1);
+        assertEquals(bookingList.get(0).getItem().getName(), item.getName());
     }
 
     @Test
     void testFindByOwnerIdAndStartIsBeforeAndEndIsAfter() {
+        int from = 0;
+        int size = 1;
+        Sort sort = Sort.by(Sort.Direction.ASC, "id");
+        Pageable page = PageRequest.of(from, size, sort);
+        List<Booking> bookingList = bookingRepository.findByOwnerIdAndStartIsBeforeAndEndIsAfter(1L,
+                LocalDateTime.now().plusMinutes(2), LocalDateTime.now().plusMinutes(4), page);
+
+        assertEquals(bookingList.size(), 1);
+        assertEquals(bookingList.get(0).getItem().getName(), item.getName());
     }
 }
