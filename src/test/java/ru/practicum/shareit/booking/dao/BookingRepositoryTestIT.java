@@ -6,14 +6,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.jdbc.Sql;
 import ru.practicum.shareit.booking.model.Booking;
-import ru.practicum.shareit.item.dao.ItemRepository;
 import ru.practicum.shareit.item.model.Item;
-import ru.practicum.shareit.item_request.dao.ItemRequestRepository;
 import ru.practicum.shareit.item_request.model.ItemRequest;
-import ru.practicum.shareit.user.dao.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
 import java.time.LocalDateTime;
@@ -26,13 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class BookingRepositoryTestIT {
     @Autowired
     private BookingRepository bookingRepository;
-    @Autowired
-    private ItemRepository itemRepository;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private ItemRequestRepository itemRequestRepository;
-
     User owner = new User(1L, "userName", "email@mail.com");
     User requestor = new User(2L, "requestorName", "requestorEmail@mail.com");
     ItemRequest request = new ItemRequest(1L, "requestDescription", requestor);
@@ -167,13 +156,13 @@ class BookingRepositoryTestIT {
 
     @Test
     void testFindByBooker_IdAndStartIsBeforeAndEndIsAfterToPage() {
-        int from = 3;
-        int size = 1;
+        int from = 0;
+        int size = 3;
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
         Pageable page = PageRequest.of(from, size, sort);
 
         List<Booking> bookingList = bookingRepository.findByBooker_IdAndStartIsBeforeAndEndIsAfter(1L,
-                LocalDateTime.now().plusMinutes(2), LocalDateTime.now().plusMinutes(4), Sort.by(Sort.Direction.ASC, "end"));
+                LocalDateTime.now().plusMinutes(2), LocalDateTime.now().plusMinutes(4), page);
 
         assertEquals(bookingList.size(), 1);
         assertEquals(bookingList.get(0).getItem().getName(), item.getName());

@@ -37,36 +37,30 @@ import static org.mockito.Mockito.times;
 class ItemServiceImplTest {
     @Mock
     private ItemRepository itemRepository;
-
     @Mock
     private UserRepository userRepository;
-
-    @Mock
-    private BookingRepository bookingRepository;
-
-    @Mock
-    private CommentService commentService;
-
     @Mock
     private ItemRequestService itemRequestService;
-
+    @Mock
+    private BookingRepository bookingRepository;
+    @Mock
+    private CommentService commentService;
     @Captor
     private ArgumentCaptor<Item> itemArgumentCaptor;
-
     @InjectMocks
     private ItemServiceImpl itemService;
 
 
-    User owner = new User(0L, "userName", "email@mail.com");
+    User owner = new User(1L, "userName", "email@mail.com");
     User wrongOwner = new User(99L, "user99Name", "email99@mail.com");
-    User requestor = new User(1L, "requestorName", "requestorEmail@mail.com");
-    ItemRequest request = new ItemRequest(0L, "requestDescription", requestor);
+    User requestor = new User(2L, "requestorName", "requestorEmail@mail.com");
+    ItemRequest request = new ItemRequest(1L, "requestDescription", requestor);
 
-    ItemDto itemToSave = new ItemDto(0L, "itemName", "itemDescription",
+    ItemDto itemToSave = new ItemDto(1L, "itemName", "itemDescription",
             true, request);
-    Item item = new Item(0L, "itemName", "itemDescription",
+    Item item = new Item(2L, "itemName", "itemDescription",
             true, owner, request);
-    Item item2 = new Item(1L, "updateItemName", "updateItemDescription",
+    Item item2 = new Item(3L, "updateItemName", "updateItemDescription",
             true, owner, request);
 
 
@@ -100,7 +94,7 @@ class ItemServiceImplTest {
 
     @Test
     void update_whenItemDtoIsValid_thenSaveItem() {
-        long itemId = 0L;
+        long itemId = 1L;
         ItemDto oldItem = new ItemDto(itemId, "itemName", "itemDescription",
                 true, request);
         ItemDto updateItem = new ItemDto(itemId, "updateItemName", "updateItemDescription",
@@ -122,7 +116,7 @@ class ItemServiceImplTest {
 
     @Test
     void getItemById_whenItemFound_thenReturnItem() {
-        long itemId = 0L;
+        long itemId = 1L;
         ItemDto exceptedItem = new ItemDto(itemId, "itemName", "itemDescription",
                 true, request);
         when(itemRepository.findById(itemId)).thenReturn(Optional.of(ItemMapper.toItem(owner, exceptedItem)));
@@ -185,7 +179,7 @@ class ItemServiceImplTest {
     @Test
     void getAllItemsByUserId_whenItemsFoundAndFromNotNullAndSizeNotNull_thenReturnItemCollectionInList() {
         int from = 0;
-        int size = 2;
+        int size = 5;
         List<Item> exceptedItems = List.of(item, item2);
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
         Pageable page = PageRequest.of(from, size, sort);

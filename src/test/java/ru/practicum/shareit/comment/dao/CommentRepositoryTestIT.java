@@ -1,21 +1,14 @@
 package ru.practicum.shareit.comment.dao;
 
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.jdbc.Sql;
 import ru.practicum.shareit.comment.model.Comment;
-import ru.practicum.shareit.item.dao.ItemRepository;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item_request.model.ItemRequest;
-import ru.practicum.shareit.user.dao.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
 import java.time.LocalDateTime;
@@ -26,10 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 @Sql(scripts = {"/test-data.sql"})
 class CommentRepositoryTestIT {
-    @Autowired
-    private ItemRepository itemRepository;
-    @Autowired
-    private UserRepository userRepository;
     @Autowired
     private CommentRepository commentRepository;
     User owner = new User(1L, "userName", "email@mail.com");

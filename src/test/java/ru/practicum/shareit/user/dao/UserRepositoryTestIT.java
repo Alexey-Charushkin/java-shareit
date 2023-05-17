@@ -3,11 +3,9 @@ package ru.practicum.shareit.user.dao;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.jdbc.Sql;
 import ru.practicum.shareit.user.model.User;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,32 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 @Sql(scripts = {"/test-data.sql"})
 class UserRepositoryTestIT {
-
     @Autowired
     private UserRepository userRepository;
-
-//    @BeforeEach
-//
-//    private void addUsers() {
-
-//        userRepository.save(User.builder()
-//                .name("userName")
-//                .email("userEmail@mail.com")
-//                .build());
-//        userRepository.save(User.builder()
-//                .name("userName2")
-//                .email("userEmail2@mail.com")
-//                .build());
-//    }
-//
-//
-//    @AfterEach
-//    @Sql(scripts = {"/test-data.sql"})
-//    private void deleteUsers() {
-//        userRepository.deleteAll();
-//
-//    }
-
     @Test
      void findById_whenUserIsPresent_thenReturnUser() {
 
@@ -51,9 +25,7 @@ class UserRepositoryTestIT {
 
         assertEquals(actualUser.get().getName(), "userName");
         assertEquals(actualUser.get().getEmail(), "userEmail@mail.com");
-
     }
-
 
     @Test
     void findById_whenUserNotPresent_returnOptionalEmpty() {
@@ -61,7 +33,6 @@ class UserRepositoryTestIT {
 
         assertTrue(actualUser.isEmpty());
     }
-
 
     @Test
     void findAll_whenListUsersIsNotEmpty_thenReturnList() {

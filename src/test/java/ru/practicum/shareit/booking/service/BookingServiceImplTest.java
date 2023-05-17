@@ -17,7 +17,6 @@ import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.exceptions.BadRequestException;
 import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.item.dao.ItemRepository;
-import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item_request.model.ItemRequest;
 import ru.practicum.shareit.user.dao.UserRepository;
@@ -57,23 +56,14 @@ class BookingServiceImplTest {
 
     User booker = new User(2L, "bookerName", "bookerEmil@mail.com");
     ItemRequest request = new ItemRequest(0L, "requestDescription", requestor);
-
-    ItemDto itemToSave = new ItemDto(0L, "itemName", "itemDescription",
-            true, request);
     Item item = new Item(0L, "itemName", "itemDescription",
             true, owner, request);
-    Item item2 = new Item(1L, "updateItemName", "updateItemDescription",
-            true, owner, request);
-
     Booking bookingToSave = new Booking(0L, LocalDateTime.now().plusMinutes(1), LocalDateTime.now().plusMinutes(5),
             item, booker, "WAITING");
     Booking bookingToSave2 = new Booking(2L, LocalDateTime.now().plusMinutes(6), LocalDateTime.now().plusMinutes(10),
             item, booker, "WAITING");
     BookingDto bookingToSaveDto = BookingMapper.toBookingDto(bookingToSave);
-    BookingDto bookingToSaveDto2 = BookingMapper.toBookingDto(bookingToSave2);
-    List<Booking> bookingList = new ArrayList<>(List.of(bookingToSave, bookingToSave2));
-
-    List<BookingDto> bookingDtoList = new ArrayList<>(List.of(bookingToSaveDto, bookingToSaveDto2));
+     List<Booking> bookingList = new ArrayList<>(List.of(bookingToSave, bookingToSave2));
 
     @Test
     void create_whenBookingDtoIsValid_thenSaveBooking() {
@@ -334,7 +324,6 @@ class BookingServiceImplTest {
 
     @Test
     void getAllBookingsByUserId_whenUserIdIsCorrectAndStatusDtoIsCurrentAndFromIsNullAndSizeIsNull_thenReturnList() {
-
         List<Booking> exceptedList = new ArrayList<>(bookingList);
         when(userRepository.existsById(anyLong())).thenReturn(true);
         when(bookingRepository.findByBooker_IdAndStartIsBeforeAndEndIsAfter(anyLong(), any(LocalDateTime.class),
@@ -354,8 +343,6 @@ class BookingServiceImplTest {
         int size = 4;
         List<Booking> exceptedList = new ArrayList<>(bookingList);
         when(userRepository.existsById(anyLong())).thenReturn(true);
-        Sort sort = Sort.by(Sort.Direction.DESC, "start");
-        Pageable page = PageRequest.of(from, size - 1, sort);
         when(bookingRepository.findByBooker_IdAndStartIsBeforeAndEndIsAfter(anyLong(), any(LocalDateTime.class),
                 any(LocalDateTime.class), any(Pageable.class))).thenReturn(exceptedList);
 
@@ -369,7 +356,6 @@ class BookingServiceImplTest {
 
     @Test
     void getAllBookingsByUserId_whenUserIdIsCorrectAndStatusDtoIsPastAndFromIsNullAndSizeIsNull_thenReturnList() {
-
         List<Booking> exceptedList = new ArrayList<>(bookingList);
         when(userRepository.existsById(anyLong())).thenReturn(true);
         when(bookingRepository.findByBooker_IdAndEndIsBefore(anyLong(),
@@ -389,8 +375,6 @@ class BookingServiceImplTest {
         int size = 4;
         List<Booking> exceptedList = new ArrayList<>(bookingList);
         when(userRepository.existsById(anyLong())).thenReturn(true);
-        Sort sort = Sort.by(Sort.Direction.DESC, "start");
-        Pageable page = PageRequest.of(from, size - 1, sort);
         when(bookingRepository.findByBooker_IdAndEndIsBefore(anyLong(),
                 any(LocalDateTime.class), any(Pageable.class))).thenReturn(exceptedList);
 
@@ -404,7 +388,6 @@ class BookingServiceImplTest {
 
     @Test
     void getAllBookingsByUserId_whenUserIdIsCorrectAndStatusDtoIsFutureAndFromIsNullAndSizeIsNull_thenReturnList() {
-
         List<Booking> exceptedList = new ArrayList<>(bookingList);
         when(userRepository.existsById(anyLong())).thenReturn(true);
         when(bookingRepository.findByBooker_IdAndStartIsAfter(anyLong(),
@@ -424,8 +407,6 @@ class BookingServiceImplTest {
         int size = 4;
         List<Booking> exceptedList = new ArrayList<>(bookingList);
         when(userRepository.existsById(anyLong())).thenReturn(true);
-        Sort sort = Sort.by(Sort.Direction.DESC, "start");
-        Pageable page = PageRequest.of(from, size - 1, sort);
         when(bookingRepository.findByBooker_IdAndStartIsAfter(anyLong(),
                 any(LocalDateTime.class), any(Pageable.class))).thenReturn(exceptedList);
 
@@ -483,7 +464,7 @@ class BookingServiceImplTest {
         bookingService.getAllBookingsByUserId(0L, BookingDto.StatusDto.REJECTED, null, null);
 
         verify(bookingRepository, times(1)).findByBookerIdAndStatus(0L,
-                Booking.Status.REJECTED, Sort.by(Sort.Direction.DESC,"start"));
+                Booking.Status.REJECTED, Sort.by(Sort.Direction.DESC, "start"));
         assertEquals(exceptedList.get(0), bookingList.get(0));
         assertEquals(exceptedList.get(1), bookingList.get(1));
     }
@@ -518,7 +499,7 @@ class BookingServiceImplTest {
         bookingService.getAllBookingsByUserId(0L, BookingDto.StatusDto.CANCELED, null, null);
 
         verify(bookingRepository, times(1)).findByBookerIdAndStatus(0L,
-                Booking.Status.CANCELED, Sort.by(Sort.Direction.DESC,"start"));
+                Booking.Status.CANCELED, Sort.by(Sort.Direction.DESC, "start"));
         assertEquals(exceptedList.get(0), bookingList.get(0));
         assertEquals(exceptedList.get(1), bookingList.get(1));
     }
@@ -541,6 +522,7 @@ class BookingServiceImplTest {
         assertEquals(exceptedList.get(0), bookingList.get(0));
         assertEquals(exceptedList.get(1), bookingList.get(1));
     }
+
     @Test
     void getAllBookingsByUserId_whenUserIdIsCorrectAndStatusDtoIsUnsupportedStatus_thenBadRequestExceptionThrown() {
         when(userRepository.existsById(anyLong())).thenReturn(true);
@@ -548,10 +530,6 @@ class BookingServiceImplTest {
         BadRequestException badRequestException = assertThrows(BadRequestException.class,
                 () -> bookingService.getAllBookingsByUserId(0L, BookingDto.StatusDto.UNSUPPORTED_STATUS, null, null));
         assertEquals(badRequestException.getMessage(), "Unknown state: UNSUPPORTED_STATUS");
-    }
-
-    @Test
-    void getAllBookingsByOwnerId() {
     }
     @Test
     void getAllBookingsByOwnerId_whenUserIdNotCorrectAndStatusDtoIsAllAndFromIsNullAndSizeIsNull_thenNotfoundExceptionThrown() {
@@ -597,7 +575,6 @@ class BookingServiceImplTest {
 
     @Test
     void getAllBookingsByOwnerId_whenUserIdIsCorrectAndStatusDtoIsCurrentAndFromIsNullAndSizeIsNull_thenReturnList() {
-
         List<Booking> exceptedList = new ArrayList<>(bookingList);
         when(userRepository.existsById(anyLong())).thenReturn(true);
         when(bookingRepository.findByOwnerIdAndStartIsBeforeAndEndIsAfter(anyLong(), any(LocalDateTime.class),
@@ -617,8 +594,6 @@ class BookingServiceImplTest {
         int size = 4;
         List<Booking> exceptedList = new ArrayList<>(bookingList);
         when(userRepository.existsById(anyLong())).thenReturn(true);
-        Sort sort = Sort.by(Sort.Direction.DESC, "start");
-        Pageable page = PageRequest.of(from, size - 1, sort);
         when(bookingRepository.findByOwnerIdAndStartIsBeforeAndEndIsAfter(anyLong(), any(LocalDateTime.class),
                 any(LocalDateTime.class), any(Pageable.class))).thenReturn(exceptedList);
 
@@ -632,7 +607,6 @@ class BookingServiceImplTest {
 
     @Test
     void getAllBookingsByOwnerId_whenUserIdIsCorrectAndStatusDtoIsPastAndFromIsNullAndSizeIsNull_thenReturnList() {
-
         List<Booking> exceptedList = new ArrayList<>(bookingList);
         when(userRepository.existsById(anyLong())).thenReturn(true);
         when(bookingRepository.findByOwnerIdAndEndBefore(anyLong(),
@@ -652,8 +626,6 @@ class BookingServiceImplTest {
         int size = 4;
         List<Booking> exceptedList = new ArrayList<>(bookingList);
         when(userRepository.existsById(anyLong())).thenReturn(true);
-        Sort sort = Sort.by(Sort.Direction.DESC, "start");
-        Pageable page = PageRequest.of(from, size - 1, sort);
         when(bookingRepository.findByOwnerIdAndEndBefore(anyLong(),
                 any(LocalDateTime.class), any(Pageable.class))).thenReturn(exceptedList);
 
@@ -667,7 +639,6 @@ class BookingServiceImplTest {
 
     @Test
     void getAllBookingsByOwnerId_whenUserIdIsCorrectAndStatusDtoIsFutureAndFromIsNullAndSizeIsNull_thenReturnList() {
-
         List<Booking> exceptedList = new ArrayList<>(bookingList);
         when(userRepository.existsById(anyLong())).thenReturn(true);
         when(bookingRepository.findByOwnerIdAndSAndStartIsAfter(anyLong(),
@@ -687,8 +658,6 @@ class BookingServiceImplTest {
         int size = 4;
         List<Booking> exceptedList = new ArrayList<>(bookingList);
         when(userRepository.existsById(anyLong())).thenReturn(true);
-        Sort sort = Sort.by(Sort.Direction.DESC, "start");
-        Pageable page = PageRequest.of(from, size - 1, sort);
         when(bookingRepository.findByOwnerIdAndSAndStartIsAfter(anyLong(),
                 any(LocalDateTime.class), any(Pageable.class))).thenReturn(exceptedList);
 
@@ -746,7 +715,7 @@ class BookingServiceImplTest {
         bookingService.getAllBookingsByOwnerId(0L, BookingDto.StatusDto.REJECTED, null, null);
 
         verify(bookingRepository, times(1)).findByOwnerIdAndStatus(0L,
-                Booking.Status.REJECTED, Sort.by(Sort.Direction.DESC,"start"));
+                Booking.Status.REJECTED, Sort.by(Sort.Direction.DESC, "start"));
         assertEquals(exceptedList.get(0), bookingList.get(0));
         assertEquals(exceptedList.get(1), bookingList.get(1));
     }
@@ -781,7 +750,7 @@ class BookingServiceImplTest {
         bookingService.getAllBookingsByOwnerId(0L, BookingDto.StatusDto.CANCELED, null, null);
 
         verify(bookingRepository, times(1)).findByOwnerIdAndStatus(0L,
-                Booking.Status.CANCELED, Sort.by(Sort.Direction.DESC,"start"));
+                Booking.Status.CANCELED, Sort.by(Sort.Direction.DESC, "start"));
         assertEquals(exceptedList.get(0), bookingList.get(0));
         assertEquals(exceptedList.get(1), bookingList.get(1));
     }
@@ -804,6 +773,7 @@ class BookingServiceImplTest {
         assertEquals(exceptedList.get(0), bookingList.get(0));
         assertEquals(exceptedList.get(1), bookingList.get(1));
     }
+
     @Test
     void getAllBookingsByOwnerId_whenUserIdIsCorrectAndStatusDtoIsUnsupportedStatus_thenBadRequestExceptionThrown() {
         when(userRepository.existsById(anyLong())).thenReturn(true);
@@ -812,6 +782,4 @@ class BookingServiceImplTest {
                 () -> bookingService.getAllBookingsByOwnerId(0L, BookingDto.StatusDto.UNSUPPORTED_STATUS, null, null));
         assertEquals(badRequestException.getMessage(), "Unknown state: UNSUPPORTED_STATUS");
     }
-
-
 }

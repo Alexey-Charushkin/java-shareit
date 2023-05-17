@@ -6,15 +6,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.jdbc.Sql;
 import ru.practicum.shareit.item.model.Item;
-import ru.practicum.shareit.item_request.dao.ItemRequestRepository;
 import ru.practicum.shareit.item_request.model.ItemRequest;
-import ru.practicum.shareit.user.dao.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,7 +24,6 @@ class ItemRepositoryTestIT {
     User requestor = new User(2L, "requestorName", "requestorEmail@mail.com");
     ItemRequest request = new ItemRequest(1L, "requestDescription", requestor);
 
-
     @Test
     void findByOwnerId_whenItemsFound_thenReturnListItem() {
 
@@ -41,7 +36,6 @@ class ItemRepositoryTestIT {
 
     @Test
     void findByOwnerId_whenItemsNotFound_thenReturnEmptyListItem() {
-
         List<Item> itemList = itemRepository.findByOwnerId(99L, Sort.by(Sort.Direction.ASC, "id"));
 
         assertEquals(itemList.size(), 0);
@@ -86,7 +80,6 @@ class ItemRepositoryTestIT {
 
     @Test
     void searchToPage() {
-
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
 
         Pageable page = PageRequest.of(0, 2, sort);

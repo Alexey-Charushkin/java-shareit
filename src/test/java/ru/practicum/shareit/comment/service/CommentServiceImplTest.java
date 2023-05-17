@@ -1,6 +1,5 @@
 package ru.practicum.shareit.comment.service;
 
-import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -8,8 +7,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Sort;
 import ru.practicum.shareit.booking.dao.BookingRepository;
-import ru.practicum.shareit.booking.dto.BookingDto;
-import ru.practicum.shareit.booking.dto.BookingMapper;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.comment.dao.CommentRepository;
 import ru.practicum.shareit.comment.dto.CommentDto;
@@ -45,9 +42,6 @@ class CommentServiceImplTest {
     private CommentServiceImpl commentService;
 
     User owner = new User(0L, "userName", "email@mail.com");
-
-    User user = new User(1L, "requestorName", "requestorEmail@mail.com");
-
     Item item = new Item(0L, "itemName", "itemDescription",
             true, owner, null);
     Item item2 = new Item(1L, "updateItemName", "updateItemDescription",
@@ -57,17 +51,9 @@ class CommentServiceImplTest {
             item, booker, "APPROVED");
     Booking bookingToSave2 = new Booking(2L, LocalDateTime.now().minusMinutes(4), LocalDateTime.now().minusMinutes(1),
             item2, booker, "APPROVED");
-
-    BookingDto bookingToSaveDto = BookingMapper.toBookingDto(bookingToSave);
-    BookingDto bookingToSaveDto2 = BookingMapper.toBookingDto(bookingToSave2);
-
     List<Booking> bookingList = new ArrayList<>(List.of(bookingToSave, bookingToSave2));
-
     Comment comment = new Comment(0L, "comment text", item, booker, LocalDateTime.now());
-
-    Comment comment2 = new Comment(0L, "comment text", item, user, LocalDateTime.now());
     CommentDto commentDto = CommentMapper.toCommentDto(comment);
-
     List<Comment> commentList = List.of(comment, comment);
 
     @Test
@@ -134,5 +120,4 @@ class CommentServiceImplTest {
         assertEquals(actualComments.get(1).getAuthor(), commentList.get(1).getAuthor());
         assertEquals(actualComments.get(1).getItem(), commentList.get(1).getItem());
     }
-
 }
