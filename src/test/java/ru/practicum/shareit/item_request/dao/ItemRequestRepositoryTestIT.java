@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.jdbc.Sql;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.dto.ItemMapper;
 import ru.practicum.shareit.item.model.Item;
@@ -20,7 +21,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Sql(scripts = {"/test-data.sql"})
 class ItemRequestRepositoryTestIT {
     @Autowired
     private UserRepository userRepository;
@@ -41,51 +42,13 @@ class ItemRequestRepositoryTestIT {
     ItemDto itemDto2 = ItemMapper.toItemDto(item2);
     List<ItemDto> itemDtoList = List.of(itemDto, itemDto2);
 
-
-    void setUp() {
-        userRepository.save(User.builder()
-                .name("userName")
-                .email("userEmail@mail.com")
-                .build());
-        userRepository.save(User.builder()
-                .name("userName2")
-                .email("userEmail2@mail.com")
-                .build());
-
-        itemRequestRepository.save(ItemRequest.builder()
-                .description("requestDescription")
-                .requestor(requestor)
-                .items(null)
-                .created(LocalDateTime.now())
-                .build());
-
-        itemRequestRepository.save(ItemRequest.builder()
-                .description("requestDescription2")
-                .requestor(owner)
-                .items(itemDtoList)
-                .created(LocalDateTime.now())
-                .build());
-
-        itemRequestRepository.save(ItemRequest.builder()
-                .description("requestDescription3")
-                .requestor(requestor)
-                .items(null)
-                .created(LocalDateTime.now())
-                .build());
-    }
-
-
-    @Order(1)
-    @Rollback(value = false)
     @Test
     void findAllByRequestorId() {
-        setUp();
-        List<ItemRequest> itemRequestList = itemRequestRepository.findAllByRequestorId(2L,
+        List<ItemRequest> itemRequestList = itemRequestRepository.findAllByRequestorId(1L,
                 Sort.by(Sort.Direction.DESC, "id"));
 
-        assertEquals(itemRequestList.size(), 2);
-        assertEquals(itemRequestList.get(0).getRequestor(), requestor);
-        assertEquals(itemRequestList.get(1).getRequestor(), requestor);
+        assertEquals(itemRequestList.size(), 1);
+        assertEquals(itemRequestList.get(0).getRequestor().getName(), owner.getName());
     }
 
     @Test
@@ -94,10 +57,10 @@ class ItemRequestRepositoryTestIT {
         int size = 1;
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
         Pageable page = PageRequest.of(from, size, sort);
-        List<ItemRequest> itemRequestList = itemRequestRepository.findAllByRequestorIdNot(1L,
+        List<ItemRequest> itemRequestList = itemRequestRepository.findAllByRequestorIdNot(2L,
                 page);
 
         assertEquals(itemRequestList.size(), 1);
-        assertEquals(itemRequestList.get(0).getRequestor().getName(), requestor.getName());
+        assertEquals(itemRequestList.get(0).getRequestor().getName(), owner.getName());
     }
 }

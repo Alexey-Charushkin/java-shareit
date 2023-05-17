@@ -24,60 +24,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class ItemRepositoryTestIT {
     @Autowired
     private ItemRepository itemRepository;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private ItemRequestRepository itemRequestRepository;
-
     User owner = new User(1L, "userName", "email@mail.com");
     User requestor = new User(2L, "requestorName", "requestorEmail@mail.com");
     ItemRequest request = new ItemRequest(1L, "requestDescription", requestor);
 
-//    void setUp() {
-//        userRepository.save(User.builder()
-//                .name("userName")
-//                .email("userEmail@mail.com")
-//                .build());
-//        userRepository.save(User.builder()
-//                .name("userName2")
-//                .email("userEmail2@mail.com")
-//                .build());
-//
-//        itemRequestRepository.save(ItemRequest.builder()
-//                .description("requestDescription")
-//                .requestor(requestor)
-//                .items(null)
-//                .created(LocalDateTime.now())
-//                .build());
-//
-//        itemRepository.save(Item.builder()
-//                .name("itemName")
-//                .description("itemDescription")
-//                .available(true)
-//                .owner(owner)
-//                .request(null)
-//                .build());
-//
-//        itemRepository.save(Item.builder()
-//                .name("itemName2")
-//                .description("itemDescription2")
-//                .available(true)
-//                .owner(owner)
-//                .request(request)
-//                .build());
-//        itemRepository.save(Item.builder()
-//                .name("itemName3")
-//                .description("itemDescription3")
-//                .available(true)
-//                .owner(requestor)
-//                .request(request)
-//                .build());
-//    }
-
 
     @Test
     void findByOwnerId_whenItemsFound_thenReturnListItem() {
-       // setUp();
+
         List<Item> itemList = itemRepository.findByOwnerId(1L, Sort.by(Sort.Direction.ASC, "id"));
 
         assertEquals(itemList.size(), 2);

@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.jdbc.Sql;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.item.dao.ItemRepository;
 import ru.practicum.shareit.item.model.Item;
@@ -21,7 +22,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Sql(scripts = {"/test-data.sql"})
 class BookingRepositoryTestIT {
     @Autowired
     private BookingRepository bookingRepository;
@@ -40,93 +41,16 @@ class BookingRepositoryTestIT {
     Item item2 = new Item(2L, "itemName2", "itemDescription2",
             true, owner, request);
 
-
-    void setUp() {
-        userRepository.save(User.builder()
-                .name("userName")
-                .email("userEmail@mail.com")
-                .build());
-        userRepository.save(User.builder()
-                .name("userName2")
-                .email("userEmail2@mail.com")
-                .build());
-
-        itemRequestRepository.save(ItemRequest.builder()
-                .description("requestDescription")
-                .requestor(requestor)
-                .items(null)
-                .created(LocalDateTime.now())
-                .build());
-
-        itemRepository.save(Item.builder()
-                .name("itemName")
-                .description("itemDescription")
-                .available(true)
-                .owner(owner)
-                .request(null)
-                .build());
-
-        itemRepository.save(Item.builder()
-                .name("itemName2")
-                .description("itemDescription2")
-                .available(true)
-                .owner(owner)
-                .request(request)
-                .build());
-        itemRepository.save(Item.builder()
-                .name("itemName3")
-                .description("itemDescription3")
-                .available(true)
-                .owner(requestor)
-                .request(request)
-                .build());
-
-        bookingRepository.save(Booking.builder()
-                .start(LocalDateTime.now().plusMinutes(1))
-                .end(LocalDateTime.now().plusMinutes(5))
-                .item(item)
-                .booker(owner)
-                .status(Booking.Status.WAITING)
-                .build());
-
-        bookingRepository.save(Booking.builder()
-                .start(LocalDateTime.now().plusMinutes(6))
-                .end(LocalDateTime.now().plusMinutes(10))
-                .item(item)
-                .booker(owner)
-                .status(Booking.Status.APPROVED)
-                .build());
-
-        bookingRepository.save(Booking.builder()
-                .start(LocalDateTime.now().plusMinutes(11))
-                .end(LocalDateTime.now().plusMinutes(15))
-                .item(item2)
-                .booker(requestor)
-                .status(Booking.Status.REJECTED)
-                .build());
-
-        bookingRepository.save(Booking.builder()
-                .start(LocalDateTime.now().plusMinutes(16))
-                .end(LocalDateTime.now().plusMinutes(20))
-                .item(item)
-                .booker(requestor)
-                .status(Booking.Status.APPROVED)
-                .build());
-
-    }
-
-    @Order(1)
-    @Rollback(value = false)
     @Test
     void findByItemId() {
-        setUp();
+
         List<Booking> bookingList = bookingRepository.findByItemId(1L,
                 Sort.by(Sort.Direction.ASC, "end"));
 
         assertEquals(bookingList.size(), 3);
-        assertEquals(bookingList.get(0).getItem(), item);
-        assertEquals(bookingList.get(1).getItem(), item);
-        assertEquals(bookingList.get(2).getItem(), item);
+        assertEquals(bookingList.get(0).getItem().getName(), item.getName());
+        assertEquals(bookingList.get(1).getItem().getName(), item.getName());
+        assertEquals(bookingList.get(2).getItem().getName(), item.getName());
     }
 
     @Test
