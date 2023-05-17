@@ -24,9 +24,9 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Log4j2
-@Service
 @RequiredArgsConstructor
 @Transactional
+@Service
 public class BookingServiceImpl implements BookingService {
 
     private final BookingRepository bookingRepository;
