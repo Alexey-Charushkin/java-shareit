@@ -32,7 +32,6 @@ class BookingRepositoryTestIT {
 
     @Test
     void findByItemId() {
-
         List<Booking> bookingList = bookingRepository.findByItemId(1L,
                 Sort.by(Sort.Direction.ASC, "end"));
 
@@ -133,7 +132,7 @@ class BookingRepositoryTestIT {
     }
 
     @Test
-    void FindByBooker_IdAndStartIsAfterToPage() {
+    void findByBooker_IdAndStartIsAfterToPage() {
         int from = 3;
         int size = 1;
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
@@ -229,7 +228,7 @@ class BookingRepositoryTestIT {
     }
 
     @Test
-    void FindByOwnerIdAndEndBeforeToPage() {
+    void findByOwnerIdAndEndBeforeToPage() {
         int from = 1;
         int size = 2;
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
@@ -253,7 +252,7 @@ class BookingRepositoryTestIT {
     }
 
     @Test
-    void FindByOwnerIdAndSAndStartIsAfterToPage() {
+    void findByOwnerIdAndSAndStartIsAfterToPage() {
         int from = 1;
         int size = 2;
         Sort sort = Sort.by(Sort.Direction.ASC, "id");

@@ -57,7 +57,7 @@ class BookingServiceImplTest {
     Booking bookingToSave2 = new Booking(2L, LocalDateTime.now().plusMinutes(6), LocalDateTime.now().plusMinutes(10),
             item, booker, "WAITING");
     BookingDto bookingToSaveDto = BookingMapper.toBookingDto(bookingToSave);
-     List<Booking> bookingList = new ArrayList<>(List.of(bookingToSave, bookingToSave2));
+    List<Booking> bookingList = new ArrayList<>(List.of(bookingToSave, bookingToSave2));
 
     @Test
     void create_whenBookingDtoIsValid_thenSaveBooking() {
@@ -90,36 +90,36 @@ class BookingServiceImplTest {
     void create_whenBookingDtoIsValidAndEndIsNull_thenBadRequestExceptionThrown() {
         Booking bookingToSave = new Booking(0L, LocalDateTime.now().plusMinutes(1), null,
                 item, booker, "WAITING");
-        BadRequestException BadRequestException = assertThrows(BadRequestException.class,
+        BadRequestException badRequestException = assertThrows(BadRequestException.class,
                 () -> bookingService.create(booker.getId(), BookingMapper.toBookingDto(bookingToSave)));
-        assertEquals(BadRequestException.getMessage(), "Date time not correct.");
+        assertEquals(badRequestException.getMessage(), "Date time not correct.");
     }
 
     @Test
     void create_whenBookingDtoIsValidAndStartIsAfterEnd_thenBadRequestExceptionThrown() {
         Booking bookingToSave = new Booking(0L, LocalDateTime.now().plusMinutes(5), LocalDateTime.now().plusMinutes(1),
                 item, booker, "WAITING");
-        BadRequestException BadRequestException = assertThrows(BadRequestException.class,
+        BadRequestException badRequestException = assertThrows(BadRequestException.class,
                 () -> bookingService.create(booker.getId(), BookingMapper.toBookingDto(bookingToSave)));
-        assertEquals(BadRequestException.getMessage(), "Date time not correct.");
+        assertEquals(badRequestException.getMessage(), "Date time not correct.");
     }
 
     @Test
     void create_whenBookingDtoIsValidAndStartEqualsEnd_thenBadRequestExceptionThrown() {
         Booking bookingToSave = new Booking(0L, LocalDateTime.now().plusMinutes(1), LocalDateTime.now().plusMinutes(1),
                 item, booker, "WAITING");
-        BadRequestException BadRequestException = assertThrows(BadRequestException.class,
+        BadRequestException badRequestException = assertThrows(BadRequestException.class,
                 () -> bookingService.create(booker.getId(), BookingMapper.toBookingDto(bookingToSave)));
-        assertEquals(BadRequestException.getMessage(), "Date time not correct.");
+        assertEquals(badRequestException.getMessage(), "Date time not correct.");
     }
 
     @Test
     void create_whenBookingDtoIsValidAndStartIsBeforeEnd_thenBadRequestExceptionThrown() {
         Booking bookingToSave = new Booking(0L, LocalDateTime.now().plusMinutes(5), LocalDateTime.now().plusMinutes(1),
                 item, booker, "WAITING");
-        BadRequestException BadRequestException = assertThrows(BadRequestException.class,
+        BadRequestException badRequestException = assertThrows(BadRequestException.class,
                 () -> bookingService.create(booker.getId(), BookingMapper.toBookingDto(bookingToSave)));
-        assertEquals(BadRequestException.getMessage(), "Date time not correct.");
+        assertEquals(badRequestException.getMessage(), "Date time not correct.");
     }
 
     @Test
@@ -525,6 +525,7 @@ class BookingServiceImplTest {
                 () -> bookingService.getAllBookingsByUserId(0L, BookingDto.StatusDto.UNSUPPORTED_STATUS, null, null));
         assertEquals(badRequestException.getMessage(), "Unknown state: UNSUPPORTED_STATUS");
     }
+
     @Test
     void getAllBookingsByOwnerId_whenUserIdNotCorrectAndStatusDtoIsAllAndFromIsNullAndSizeIsNull_thenNotfoundExceptionThrown() {
         when(userRepository.existsById(anyLong())).thenReturn(false);

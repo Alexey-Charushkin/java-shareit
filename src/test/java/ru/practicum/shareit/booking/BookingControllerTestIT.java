@@ -11,15 +11,12 @@ import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.dto.BookingMapper;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.service.BookingService;
-import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.model.Item;
-import ru.practicum.shareit.item.service.ItemService;
+
 import ru.practicum.shareit.item_request.model.ItemRequest;
 import ru.practicum.shareit.user.model.User;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -29,7 +26,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.practicum.shareit.booking.dto.BookingDto.StatusDto.ALL;
-import static ru.practicum.shareit.booking.dto.BookingDto.StatusDto.APPROVED;
 
 @WebMvcTest(BookingController.class)
 class BookingControllerTestIT {
@@ -77,7 +73,7 @@ class BookingControllerTestIT {
         Long bookingId = 1L;
         mockMvc.perform(patch("/bookings/{bookingId}", bookingId)
                         .header("X-Sharer-User-Id", owner.getId())
-                        .param("approved",  "true"))
+                        .param("approved", "true"))
                 .andDo(print())
                 .andExpect(status().isOk());
 

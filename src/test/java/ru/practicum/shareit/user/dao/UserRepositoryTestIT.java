@@ -16,8 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserRepositoryTestIT {
     @Autowired
     private UserRepository userRepository;
+
     @Test
-     void findById_whenUserIsPresent_thenReturnUser() {
+    void findById_whenUserIsPresent_thenReturnUser() {
         Optional<User> actualUser = userRepository.findById(1L);
 
         assertTrue(actualUser.isPresent());

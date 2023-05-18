@@ -14,7 +14,6 @@ import ru.practicum.shareit.user.service.UserService;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {

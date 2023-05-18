@@ -117,8 +117,6 @@ class ItemRequestServiceImplTest {
 
         ItemRequestDto itemRequestDto = itemRequestService.findById(0L, 0L);
 
-
-        // itemRequestRepository.findAllByRequestId(0L);
         verify(itemRequestRepository, times(1)).findById(anyLong());
         assertEquals(itemRequestDto.getId(), request.getId());
         assertEquals(itemRequestDto.getDescription(), request.getDescription());
@@ -151,14 +149,14 @@ class ItemRequestServiceImplTest {
         int size = 3;
         List<ItemRequestDto> exceptedList = new ArrayList<>(itemRequestDtoList);
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(owner));
-        when(itemRequestRepository.findAllByRequestorIdNot(anyLong(), any(Pageable.class))).
-                thenReturn(itemRequestList);
+        when(itemRequestRepository.findAllByRequestorIdNot(anyLong(), any(Pageable.class)))
+                .thenReturn(itemRequestList);
 
         List<ItemRequestDto> actualList = itemRequestService.findAllByUserIdToPageable(
                 0L, from, size);
 
-        verify(itemRequestRepository, times(1)).
-                findAllByRequestorIdNot(anyLong(), any(Pageable.class));
+        verify(itemRequestRepository, times(1))
+                .findAllByRequestorIdNot(anyLong(), any(Pageable.class));
         assertEquals(exceptedList.get(0).getId(), actualList.get(0).getId());
         assertEquals(exceptedList.get(0).getDescription(), actualList.get(0).getDescription());
         assertEquals(exceptedList.get(0).getRequestor(), actualList.get(0).getRequestor());

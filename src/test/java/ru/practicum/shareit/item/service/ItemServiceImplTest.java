@@ -153,8 +153,7 @@ class ItemServiceImplTest {
         Mockito.when(itemRepository.findByOwnerId(owner.getId(),
                 Sort.by(Sort.Direction.ASC, "id"))).thenReturn(exceptedItems);
 
-        List<Item> response = itemService.getAllItemsByUserId
-                        (owner.getId(), null, null)
+        List<Item> response = itemService.getAllItemsByUserId(owner.getId(), null, null)
                 .stream()
                 .map(i -> ItemMapper.toItem(owner, i))
                 .collect(Collectors.toList());
@@ -170,8 +169,7 @@ class ItemServiceImplTest {
 
     @Test
     void getAllItemsByUserId_whenItemsNotFound_thenReturnCollectionEmptyList() {
-        List<ItemDto> response = itemService.getAllItemsByUserId
-                (wrongOwner.getId(), null, null);
+        List<ItemDto> response = itemService.getAllItemsByUserId(wrongOwner.getId(), null, null);
 
         assertEquals(response, Collections.emptyList());
     }
@@ -186,8 +184,7 @@ class ItemServiceImplTest {
         Mockito.when(itemRepository.findByOwnerId(owner.getId(), page
         )).thenReturn(exceptedItems);
 
-        List<Item> response = itemService.getAllItemsByUserId
-                        (owner.getId(), from, size)
+        List<Item> response = itemService.getAllItemsByUserId(owner.getId(), from, size)
                 .stream()
                 .map(i -> ItemMapper.toItem(owner, i))
                 .collect(Collectors.toList());
@@ -207,8 +204,7 @@ class ItemServiceImplTest {
         String query = "itemName";
         Mockito.when(itemRepository.search(query)).thenReturn(exceptedItems);
 
-        List<Item> response = itemService.searchItems
-                        (query, null, null)
+        List<Item> response = itemService.searchItems(query, null, null)
                 .stream()
                 .map(i -> ItemMapper.toItem(owner, i))
                 .collect(Collectors.toList());
@@ -231,8 +227,7 @@ class ItemServiceImplTest {
         Pageable page = PageRequest.of(from, size);
         Mockito.when(itemRepository.searchToPage(query, page)).thenReturn(exceptedItems);
 
-        List<Item> response = itemService.searchItems
-                        (query, from, size)
+        List<Item> response = itemService.searchItems(query, from, size)
                 .stream()
                 .map(i -> ItemMapper.toItem(owner, i))
                 .collect(Collectors.toList());
