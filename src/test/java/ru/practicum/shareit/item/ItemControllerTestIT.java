@@ -37,10 +37,8 @@ class ItemControllerTestIT {
     private ObjectMapper objectMapper;
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
     private ItemService itemService;
-
     @MockBean
     private CommentService commentService;
 
