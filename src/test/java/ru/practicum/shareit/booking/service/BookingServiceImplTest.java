@@ -439,6 +439,41 @@ class BookingServiceImplTest {
     }
 
     @Test
+    void getAllBookingsByUserId_whenUserIdIsCorrectAndStatusDtoIsApprovedAndFromIsNullAndSizeIsNull_thenReturnList() {
+        List<Booking> exceptedList = new ArrayList<>(bookingList);
+        when(userRepository.existsById(anyLong())).thenReturn(true);
+        when(bookingRepository.findByBookerIdAndStatus(0L, Booking.Status.APPROVED, Sort.by(Sort.Direction.DESC,
+                "start")))
+                .thenReturn(exceptedList);
+
+        bookingService.getAllBookingsByUserId(0L, BookingDto.StatusDto.APPROVED, null, null);
+
+        verify(bookingRepository, times(1))
+                .findByBookerIdAndStatus(0L, Booking.Status.APPROVED, Sort.by(Sort.Direction.DESC, "start"));
+        assertEquals(exceptedList.get(0), bookingList.get(0));
+        assertEquals(exceptedList.get(1), bookingList.get(1));
+    }
+
+    @Test
+    void getAllBookingsByUserId_whenUserIdIsCorrectAndStatusDtoIsApprovedAndFromNotNullAndSizeNotNull_thenReturnList() {
+        int from = 0;
+        int size = 4;
+        List<Booking> exceptedList = new ArrayList<>(bookingList);
+        when(userRepository.existsById(anyLong())).thenReturn(true);
+        Sort sort = Sort.by(Sort.Direction.DESC, "start");
+        Pageable page = PageRequest.of(from, size, sort);
+        when(bookingRepository.findByBookerIdAndStatus(0L, Booking.Status.APPROVED, page))
+                .thenReturn(exceptedList);
+
+        bookingService.getAllBookingsByUserId(0L, BookingDto.StatusDto.APPROVED, from, size);
+
+        verify(bookingRepository, times(1)).findByBookerIdAndStatus(
+                0L, Booking.Status.APPROVED, page);
+        assertEquals(exceptedList.get(0), bookingList.get(0));
+        assertEquals(exceptedList.get(1), bookingList.get(1));
+    }
+
+    @Test
     void getAllBookingsByUserId_whenUserIdIsCorrectAndStatusDtoIsRejectedAndFromIsNullAndSizeIsNull_thenReturnList() {
         List<Booking> exceptedList = new ArrayList<>(bookingList);
         when(userRepository.existsById(anyLong())).thenReturn(true);
@@ -686,6 +721,41 @@ class BookingServiceImplTest {
 
         verify(bookingRepository, times(1)).findByOwnerIdAndStatus(
                 0L, Booking.Status.WAITING, page);
+        assertEquals(exceptedList.get(0), bookingList.get(0));
+        assertEquals(exceptedList.get(1), bookingList.get(1));
+    }
+
+    @Test
+    void getAllBookingsByOwnerId_whenUserIdIsCorrectAndStatusDtoIsApprovedAndFromIsNullAndSizeIsNull_thenReturnList() {
+        List<Booking> exceptedList = new ArrayList<>(bookingList);
+        when(userRepository.existsById(anyLong())).thenReturn(true);
+        when(bookingRepository.findByOwnerIdAndStatus(0L, Booking.Status.APPROVED, Sort.by(Sort.Direction.DESC,
+                "start")))
+                .thenReturn(exceptedList);
+
+        bookingService.getAllBookingsByOwnerId(0L, BookingDto.StatusDto.APPROVED, null, null);
+
+        verify(bookingRepository, times(1))
+                .findByOwnerIdAndStatus(0L, Booking.Status.APPROVED, Sort.by(Sort.Direction.DESC, "start"));
+        assertEquals(exceptedList.get(0), bookingList.get(0));
+        assertEquals(exceptedList.get(1), bookingList.get(1));
+    }
+
+    @Test
+    void getAllBookingsByOwnerId_whenUserIdIsCorrectAndStatusDtoIsApprovedAndFromNotNullAndSizeNotNull_thenReturnList() {
+        int from = 0;
+        int size = 4;
+        List<Booking> exceptedList = new ArrayList<>(bookingList);
+        when(userRepository.existsById(anyLong())).thenReturn(true);
+        Sort sort = Sort.by(Sort.Direction.DESC, "start");
+        Pageable page = PageRequest.of(from, size, sort);
+        when(bookingRepository.findByOwnerIdAndStatus(0L, Booking.Status.APPROVED, page))
+                .thenReturn(exceptedList);
+
+        bookingService.getAllBookingsByOwnerId(0L, BookingDto.StatusDto.APPROVED, from, size);
+
+        verify(bookingRepository, times(1)).findByOwnerIdAndStatus(
+                0L, Booking.Status.APPROVED, page);
         assertEquals(exceptedList.get(0), bookingList.get(0));
         assertEquals(exceptedList.get(1), bookingList.get(1));
     }
