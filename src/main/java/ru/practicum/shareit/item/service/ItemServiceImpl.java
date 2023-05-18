@@ -144,7 +144,7 @@ public class ItemServiceImpl implements ItemService {
                 .collect(Collectors.toList());
     }
 
-    private ItemDto getBookings(ItemDto itemDto) {
+    private void getBookings(ItemDto itemDto) {
         LocalDateTime lastEnd = null;
         LocalDateTime nextStart = null;
         LastBooking lastBooking = new LastBooking();
@@ -185,20 +185,16 @@ public class ItemServiceImpl implements ItemService {
                 if (lastBooking.getId() != null) itemDto.setLastBooking(lastBooking);
                 if (nextBooking.getId() != null) itemDto.setNextBooking(nextBooking);
             }
-        } else {
-            return itemDto;
         }
-        return itemDto;
     }
 
-    private ItemDto getComments(ItemDto itemDto) {
+    private void getComments(ItemDto itemDto) {
         List<Comment> comments = commentService.findByItemId(itemDto.getId());
         List<CommentDto> commentDtos = comments.stream()
                 .map(CommentMapper::toCommentDto)
                 .collect(Collectors.toList());
 
         itemDto.setComments(commentDtos);
-        return itemDto;
     }
 
     @Override
