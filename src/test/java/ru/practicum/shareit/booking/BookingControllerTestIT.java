@@ -38,7 +38,6 @@ class BookingControllerTestIT {
     private ObjectMapper objectMapper;
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
     private BookingService bookingService;
 
