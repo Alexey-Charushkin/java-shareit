@@ -75,6 +75,18 @@ class CommentServiceImplTest {
     }
 
     @Test
+    void create_whenTextIsBlank_thenBadRequestExceptionThrow() {
+        Comment comment = new Comment(0L, "", item, booker, LocalDateTime.now());
+        CommentDto commentDto = CommentMapper.toCommentDto(comment);
+
+        BadRequestException badRequestException = assertThrows(BadRequestException.class,
+                () -> commentService.create(booker.getId(), item.getId(), commentDto));
+
+        verify(itemRepository, times(0)).save(any(Item.class));
+        assertEquals(badRequestException.getMessage(), "Text is blank.");
+    }
+
+    @Test
     void create_whenUserNotFound_thenNotFoundExceptionThrown() {
         when(userRepository.findById(booker.getId())).thenReturn(Optional.empty());
 

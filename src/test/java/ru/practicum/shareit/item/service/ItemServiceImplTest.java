@@ -56,20 +56,16 @@ class ItemServiceImplTest {
     User requestor = new User(2L, "requestorName", "requestorEmail@mail.com");
     ItemRequest request = new ItemRequest(1L, "requestDescription", requestor);
 
-    ItemDto itemToSave = new ItemDto(1L, "itemName", "itemDescription",
-            true, request);
-    Item item = new Item(2L, "itemName", "itemDescription",
-            true, owner, request);
-    Item item2 = new Item(3L, "updateItemName", "updateItemDescription",
-            true, owner, request);
+    ItemDto itemToSave = new ItemDto(1L, "itemName", "itemDescription", true, request);
+    Item item = new Item(2L, "itemName", "itemDescription", true, owner, request);
+    Item item2 = new Item(3L, "updateItemName", "updateItemDescription", true, owner, request);
 
 
     @Test
     void create_whenItemDtoIsValid_thenSaveItem() {
         Item item = ItemMapper.toItem(owner, itemToSave);
         when(userRepository.findById(owner.getId())).thenReturn(Optional.of(owner));
-        when(itemRequestService.findById(owner.getId(), itemToSave.getRequestId()))
-                .thenReturn(ItemRequestMapper.toItemRequestDto(request));
+        when(itemRequestService.findById(owner.getId(), itemToSave.getRequestId())).thenReturn(ItemRequestMapper.toItemRequestDto(request));
         when(itemRepository.save(any(Item.class))).thenReturn(item);
 
         ItemDto actualItem = itemService.create(owner.getId(), itemToSave);
@@ -85,8 +81,7 @@ class ItemServiceImplTest {
     void create_whenItemDtoIsValidAndWhenUserNotFound_thenNotFoundExceptionThrown() {
         when(userRepository.findById(wrongOwner.getId())).thenReturn(Optional.empty());
 
-        NotFoundException notFoundException = assertThrows(NotFoundException.class,
-                () -> itemService.create(wrongOwner.getId(), itemToSave));
+        NotFoundException notFoundException = assertThrows(NotFoundException.class, () -> itemService.create(wrongOwner.getId(), itemToSave));
 
         verify(itemRepository, times(0)).save(any(Item.class));
         assertEquals(notFoundException.getMessage(), "User not found.");
@@ -95,12 +90,9 @@ class ItemServiceImplTest {
     @Test
     void update_whenItemDtoIsValid_thenSaveItem() {
         long itemId = 1L;
-        ItemDto oldItem = new ItemDto(itemId, "itemName", "itemDescription",
-                true, request);
-        ItemDto updateItem = new ItemDto(itemId, "updateItemName", "updateItemDescription",
-                true, request);
-        when(itemRepository.getReferenceById(updateItem.getId()))
-                .thenReturn(ItemMapper.toItem(owner, oldItem));
+        ItemDto oldItem = new ItemDto(itemId, "itemName", "itemDescription", true, request);
+        ItemDto updateItem = new ItemDto(itemId, "updateItemName", "updateItemDescription", true, request);
+        when(itemRepository.getReferenceById(updateItem.getId())).thenReturn(ItemMapper.toItem(owner, oldItem));
         when(itemRepository.save(any(Item.class))).thenReturn(ItemMapper.toItem(owner, oldItem));
 
         itemService.update(itemId, updateItem);
@@ -115,10 +107,22 @@ class ItemServiceImplTest {
     }
 
     @Test
+    void update_whenItemDtoIsValidAndWhenUserIsNotOwner_thenNotFoundExceptionThrown() {
+        long itemId = 1L;
+        ItemDto oldItem = new ItemDto(itemId, "itemName", "itemDescription", true, request);
+        ItemDto updateItem = new ItemDto(itemId, "updateItemName", "updateItemDescription", true, request);
+        when(itemRepository.getReferenceById(updateItem.getId())).thenReturn(ItemMapper.toItem(owner, oldItem));
+        NotFoundException notFoundException = assertThrows(NotFoundException.class,
+                () -> itemService.update(requestor.getId(), updateItem));
+
+        verify(itemRepository, times(0)).save(any(Item.class));
+        assertEquals(notFoundException.getMessage(), "The user is not the owner of the item.");
+    }
+
+    @Test
     void getItemById_whenItemFound_thenReturnItem() {
         long itemId = 1L;
-        ItemDto exceptedItem = new ItemDto(itemId, "itemName", "itemDescription",
-                true, request);
+        ItemDto exceptedItem = new ItemDto(itemId, "itemName", "itemDescription", true, request);
         when(itemRepository.findById(itemId)).thenReturn(Optional.of(ItemMapper.toItem(owner, exceptedItem)));
 
         Optional<ItemDto> actualItem = Optional.ofNullable(itemService.getItemById(owner.getId(), itemId));
@@ -132,8 +136,7 @@ class ItemServiceImplTest {
     @Test
     void getItemById_whenItemIdIsNull_thenBadRequestExceptionThrown() {
         Long itemId = null;
-        BadRequestException badRequestException = assertThrows(BadRequestException.class,
-                () -> itemService.getItemById(owner.getId(), itemId));
+        BadRequestException badRequestException = assertThrows(BadRequestException.class, () -> itemService.getItemById(owner.getId(), itemId));
         assertEquals(badRequestException.getMessage(), "Item id is null.");
     }
 
@@ -142,21 +145,16 @@ class ItemServiceImplTest {
         Long itemId = 99L;
         when(itemRepository.findById(itemId)).thenReturn(Optional.empty());
 
-        NotFoundException notFoundException = assertThrows(NotFoundException.class,
-                () -> itemService.getItemById(owner.getId(), itemId));
+        NotFoundException notFoundException = assertThrows(NotFoundException.class, () -> itemService.getItemById(owner.getId(), itemId));
         assertEquals(notFoundException.getMessage(), "Item not found.");
     }
 
     @Test
     void getAllItemsByUserId_whenItemsFoundAndFromIsNullAndSizeIsNull_thenReturnItemCollectionInList() {
         List<Item> exceptedItems = List.of(item, item2);
-        Mockito.when(itemRepository.findByOwnerId(owner.getId(),
-                Sort.by(Sort.Direction.ASC, "id"))).thenReturn(exceptedItems);
+        Mockito.when(itemRepository.findByOwnerId(owner.getId(), Sort.by(Sort.Direction.ASC, "id"))).thenReturn(exceptedItems);
 
-        List<Item> response = itemService.getAllItemsByUserId(owner.getId(), null, null)
-                .stream()
-                .map(i -> ItemMapper.toItem(owner, i))
-                .collect(Collectors.toList());
+        List<Item> response = itemService.getAllItemsByUserId(owner.getId(), null, null).stream().map(i -> ItemMapper.toItem(owner, i)).collect(Collectors.toList());
 
         assertNotNull(response);
         assertEquals(response.get(0).getId(), exceptedItems.get(0).getId());
@@ -181,13 +179,9 @@ class ItemServiceImplTest {
         List<Item> exceptedItems = List.of(item, item2);
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
         Pageable page = PageRequest.of(from, size, sort);
-        Mockito.when(itemRepository.findByOwnerId(owner.getId(), page
-        )).thenReturn(exceptedItems);
+        Mockito.when(itemRepository.findByOwnerId(owner.getId(), page)).thenReturn(exceptedItems);
 
-        List<Item> response = itemService.getAllItemsByUserId(owner.getId(), from, size)
-                .stream()
-                .map(i -> ItemMapper.toItem(owner, i))
-                .collect(Collectors.toList());
+        List<Item> response = itemService.getAllItemsByUserId(owner.getId(), from, size).stream().map(i -> ItemMapper.toItem(owner, i)).collect(Collectors.toList());
 
         assertNotNull(response);
         assertEquals(response.get(0).getId(), exceptedItems.get(0).getId());
@@ -204,10 +198,7 @@ class ItemServiceImplTest {
         String query = "itemName";
         Mockito.when(itemRepository.search(query)).thenReturn(exceptedItems);
 
-        List<Item> response = itemService.searchItems(query, null, null)
-                .stream()
-                .map(i -> ItemMapper.toItem(owner, i))
-                .collect(Collectors.toList());
+        List<Item> response = itemService.searchItems(query, null, null).stream().map(i -> ItemMapper.toItem(owner, i)).collect(Collectors.toList());
 
         assertNotNull(response);
         assertEquals(response.get(0).getId(), exceptedItems.get(0).getId());
@@ -227,10 +218,7 @@ class ItemServiceImplTest {
         Pageable page = PageRequest.of(from, size);
         Mockito.when(itemRepository.searchToPage(query, page)).thenReturn(exceptedItems);
 
-        List<Item> response = itemService.searchItems(query, from, size)
-                .stream()
-                .map(i -> ItemMapper.toItem(owner, i))
-                .collect(Collectors.toList());
+        List<Item> response = itemService.searchItems(query, from, size).stream().map(i -> ItemMapper.toItem(owner, i)).collect(Collectors.toList());
 
         assertNotNull(response);
         assertEquals(response.get(0).getId(), exceptedItems.get(0).getId());
@@ -246,8 +234,7 @@ class ItemServiceImplTest {
         String query = "Not";
         Mockito.when(itemRepository.search(query)).thenThrow(EntityNotFoundException.class);
 
-        NotFoundException notFoundException = assertThrows(NotFoundException.class,
-                () -> itemService.searchItems(query, null, null));
+        NotFoundException notFoundException = assertThrows(NotFoundException.class, () -> itemService.searchItems(query, null, null));
         assertEquals(notFoundException.getMessage(), "Item not found.");
     }
 
@@ -255,8 +242,7 @@ class ItemServiceImplTest {
     void deleteById() {
         Item item = ItemMapper.toItem(owner, itemToSave);
         when(userRepository.findById(owner.getId())).thenReturn(Optional.of(owner));
-        when(itemRequestService.findById(owner.getId(), itemToSave.getRequestId()))
-                .thenReturn(ItemRequestMapper.toItemRequestDto(request));
+        when(itemRequestService.findById(owner.getId(), itemToSave.getRequestId())).thenReturn(ItemRequestMapper.toItemRequestDto(request));
         when(itemRepository.save(any(Item.class))).thenReturn(item);
 
         ItemDto actualItem = itemService.create(owner.getId(), itemToSave);
@@ -272,8 +258,7 @@ class ItemServiceImplTest {
 
         when(itemRepository.findById(owner.getId())).thenReturn(Optional.empty());
 
-        NotFoundException notFoundException = assertThrows(NotFoundException.class,
-                () -> itemService.getItemById(owner.getId(), itemToSave.getId()));
+        NotFoundException notFoundException = assertThrows(NotFoundException.class, () -> itemService.getItemById(owner.getId(), itemToSave.getId()));
         assertEquals(notFoundException.getMessage(), "Item not found.");
     }
 }
