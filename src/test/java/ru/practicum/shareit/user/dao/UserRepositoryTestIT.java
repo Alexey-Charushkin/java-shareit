@@ -18,7 +18,6 @@ class UserRepositoryTestIT {
     private UserRepository userRepository;
     @Test
      void findById_whenUserIsPresent_thenReturnUser() {
-
         Optional<User> actualUser = userRepository.findById(1L);
 
         assertTrue(actualUser.isPresent());

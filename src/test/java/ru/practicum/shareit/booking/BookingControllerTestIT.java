@@ -33,7 +33,6 @@ import static ru.practicum.shareit.booking.dto.BookingDto.StatusDto.APPROVED;
 
 @WebMvcTest(BookingController.class)
 class BookingControllerTestIT {
-
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
@@ -49,7 +48,6 @@ class BookingControllerTestIT {
             true, owner, request);
     Booking bookingToSave = new Booking(1L, LocalDateTime.now().plusMinutes(1), LocalDateTime.now().plusMinutes(5),
             item, booker, "WAITING");
-
 
     @SneakyThrows
     @Test

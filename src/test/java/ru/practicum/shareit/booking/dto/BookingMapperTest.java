@@ -21,8 +21,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @JsonTest
 class BookingMapperTest {
-
-
     @Autowired
     private JacksonTester<BookingDto> jsonBookingDto;
     @Autowired
@@ -34,7 +32,6 @@ class BookingMapperTest {
     ItemRequest request = new ItemRequest(0L, "requestDescription", requestor);
     Item item = new Item(0L, "itemName", "itemDescription",
             true, user, request);
-
 
     @SneakyThrows
     @Test

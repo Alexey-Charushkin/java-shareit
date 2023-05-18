@@ -26,12 +26,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @JsonTest
 class ItemMapperTest {
-
     @Autowired
     private JacksonTester<ItemDto> jsonItemDto;
     @Autowired
     private JacksonTester<Item> jsonItem;
-
     User owner = new User(0L, "userName", "email@mail.com");
     User requestor = new User(2L, "requestorName", "requestorEmail@mail.com");
     ItemRequest request = new ItemRequest(1L, "requestDescription", requestor);

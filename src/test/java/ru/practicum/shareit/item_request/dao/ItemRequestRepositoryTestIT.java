@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class ItemRequestRepositoryTestIT {
     @Autowired
     private ItemRequestRepository itemRequestRepository;
-
     User owner = new User(1L, "userName", "email@mail.com");
 
     @Test

@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @JsonTest
 class UserMapperTest {
-
     @Autowired
     private JacksonTester<UserDto> jsonUserDto;
     @Autowired

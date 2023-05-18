@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public
-class NextBooking {
+public class NextBooking {
     private Long id;
     private Long bookerId;
 }

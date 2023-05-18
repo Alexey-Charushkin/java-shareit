@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import ru.practicum.shareit.exceptions.BadRequestException;
 import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.item.dao.ItemRepository;
-import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item_request.dao.ItemRequestRepository;
 import ru.practicum.shareit.item_request.dto.ItemRequestDto;
 import ru.practicum.shareit.item_request.dto.ItemRequestMapper;
@@ -43,20 +42,10 @@ class ItemRequestServiceImplTest {
     User requestor = new User(1L, "requestorName", "requestorEmail@mail.com");
     ItemRequest request = new ItemRequest(0L, "requestDescription", requestor);
     ItemRequest request2 = new ItemRequest(1L, "request2Description", requestor);
-
     ItemRequest wrongRequest = new ItemRequest(1L, null, requestor);
-
-    Item item = new Item(0L, "itemName", "itemDescription",
-            true, owner, request);
-    Item item2 = new Item(1L, "updateItemName", "updateItemDescription",
-            true, owner, request);
-
     ItemRequestDto requestDto = ItemRequestMapper.toItemRequestDto(request);
-
     ItemRequestDto requestDto2 = ItemRequestMapper.toItemRequestDto(request2);
-
     ItemRequestDto wrongRequestDto = ItemRequestMapper.toItemRequestDto(wrongRequest);
-
     List<ItemRequest> itemRequestList = List.of(request, request2);
     List<ItemRequestDto> itemRequestDtoList = List.of(requestDto, requestDto2);
 

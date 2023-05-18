@@ -35,14 +35,12 @@ import static ru.practicum.shareit.booking.dto.BookingDto.StatusDto.ALL;
 
 @WebMvcTest(ItemRequestController.class)
 class ItemRequestControllerTestIT {
-
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
     private MockMvc mockMvc;
     @MockBean
     private ItemRequestService itemRequestService;
-
     User owner = new User(1L, "userName", "email@mail.com");
     User requestor = new User(1L, "requestorName", "requestorEmail@mail.com");
     ItemRequest request = new ItemRequest(1L, "requestDescription", requestor);

@@ -26,10 +26,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserServiceImplTest {
     @Mock
     private UserRepository userRepository;
-
     @InjectMocks
     private UserServiceImpl userService;
-
     @Captor
     private ArgumentCaptor<User> userArgumentCaptor;
 

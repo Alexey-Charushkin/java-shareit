@@ -18,15 +18,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(UserController.class)
 public class UserControllerTestIT {
-
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
     private UserService userService;
-
 
     @SneakyThrows
     @Test
@@ -65,7 +62,6 @@ public class UserControllerTestIT {
         assertEquals(objectMapper.writeValueAsString(userDtoToUpdate), result);
 
     }
-
 
     @SneakyThrows
     @Test

@@ -35,25 +35,19 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class BookingServiceImplTest {
-
     @Mock
     private BookingRepository bookingRepository;
-
     @Mock
     private ItemRepository itemRepository;
-
     @Mock
     private UserRepository userRepository;
-
     @InjectMocks
     private BookingServiceImpl bookingService;
-
     @Captor
     private ArgumentCaptor<Booking> bookingArgumentCaptor;
     User owner = new User(0L, "userName", "email@mail.com");
     User wrongOwner = new User(99L, "user99Name", "email99@mail.com");
     User requestor = new User(1L, "requestorName", "requestorEmail@mail.com");
-
     User booker = new User(2L, "bookerName", "bookerEmil@mail.com");
     ItemRequest request = new ItemRequest(0L, "requestDescription", requestor);
     Item item = new Item(0L, "itemName", "itemDescription",

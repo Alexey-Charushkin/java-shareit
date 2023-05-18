@@ -18,10 +18,8 @@ import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {
-
     @Mock
     private UserService userService;
-
     @InjectMocks
     private UserController userController;
 
