@@ -72,6 +72,7 @@ class CommentServiceImplTest {
         assertEquals(actualCommentDto.getText(), comment.getText());
         assertEquals(actualCommentDto.getItem(), comment.getItem());
         assertEquals(actualCommentDto.getAuthor(), comment.getAuthor());
+        assertEquals(actualCommentDto.getAuthor().getName(), comment.getAuthor().getName());
     }
 
     @Test
@@ -126,10 +127,12 @@ class CommentServiceImplTest {
         assertEquals(actualComments.get(0).getId(), commentList.get(0).getId());
         assertEquals(actualComments.get(0).getText(), commentList.get(0).getText());
         assertEquals(actualComments.get(0).getAuthor(), commentList.get(0).getAuthor());
+        assertEquals(actualComments.get(0).getAuthor().getName(), commentList.get(0).getAuthor().getName());
         assertEquals(actualComments.get(0).getItem(), commentList.get(0).getItem());
         assertEquals(actualComments.get(1).getId(), commentList.get(1).getId());
         assertEquals(actualComments.get(1).getText(), commentList.get(1).getText());
         assertEquals(actualComments.get(1).getAuthor(), commentList.get(1).getAuthor());
+        assertEquals(actualComments.get(1).getAuthor().getName(), commentList.get(1).getAuthor().getName());
         assertEquals(actualComments.get(1).getItem(), commentList.get(1).getItem());
     }
 }

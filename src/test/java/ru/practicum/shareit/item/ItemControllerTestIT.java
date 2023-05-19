@@ -71,6 +71,20 @@ class ItemControllerTestIT {
 
     @SneakyThrows
     @Test
+    void create_whenXSharerUserIdISEmpty() {
+        Item item = new Item(1L, "itemName", "itemDescription",
+                true, owner, request);
+        ItemDto itemDto = ItemMapper.toItemDto(item);
+        when(itemService.create(anyLong(), any(ItemDto.class))).thenReturn(itemDto);
+
+        mockMvc.perform(post("/items")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(itemDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @SneakyThrows
+    @Test
     void update() {
         Long itemId = 1L;
         Item item = new Item(1L, "updateItemName", "updateItemDescription",
@@ -148,6 +162,20 @@ class ItemControllerTestIT {
 
     @SneakyThrows
     @Test
+    void searchItems_whenQueryIsNull() {
+        String query = "";
+        Integer from = 0;
+        Integer size = 10;
+        mockMvc.perform(get("/items/search")
+                        .param("text", query)
+                        .param("from", from.toString())
+                        .param("size", size.toString()))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @SneakyThrows
+    @Test
     void testCreateComment() {
         Item item = new Item(1L, "itemName", "itemDescription",
                 true, owner, request);
@@ -155,7 +183,7 @@ class ItemControllerTestIT {
         Comment comment = new Comment(1L, "Comment text", item, owner, LocalDateTime.now());
         CommentDto commentDto = CommentMapper.toCommentDto(comment);
 
-      when(commentService.create(anyLong(), anyLong(), any(CommentDto.class))).thenReturn(commentDto);
+        when(commentService.create(anyLong(), anyLong(), any(CommentDto.class))).thenReturn(commentDto);
 
 
         String result = mockMvc.perform(post("/items/{itemId}/comment", item.getId())

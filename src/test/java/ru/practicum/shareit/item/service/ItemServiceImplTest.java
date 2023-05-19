@@ -84,6 +84,23 @@ class ItemServiceImplTest {
     }
 
     @Test
+    void create_whenItemDtoIsValidAndItemGetRequestIdIsnull_thenSaveItem() {
+        ItemDto itemToSave = new ItemDto(1L, "itemName", "itemDescription", true, null);
+
+        Item item = ItemMapper.toItem(owner, itemToSave);
+        when(userRepository.findById(owner.getId())).thenReturn(Optional.of(owner));
+        when(itemRepository.save(any(Item.class))).thenReturn(item);
+
+        ItemDto actualItem = itemService.create(owner.getId(), itemToSave);
+
+        verify(itemRepository, times(1)).save(any(Item.class));
+        assertThat(actualItem.getId()).isEqualTo(itemToSave.getId());
+        assertThat(actualItem.getName()).isEqualTo(itemToSave.getName());
+        assertThat(actualItem.getDescription()).isEqualTo(itemToSave.getDescription());
+        assertThat(actualItem.getRequestId()).isEqualTo(null);
+    }
+
+    @Test
     void create_whenItemDtoIsValidAndWhenUserNotFound_thenNotFoundExceptionThrown() {
         when(userRepository.findById(wrongOwner.getId())).thenReturn(Optional.empty());
 
@@ -92,6 +109,7 @@ class ItemServiceImplTest {
         verify(itemRepository, times(0)).save(any(Item.class));
         assertEquals(notFoundException.getMessage(), "User not found.");
     }
+
 
     @Test
     void update_whenItemDtoIsValid_thenSaveItem() {
@@ -236,6 +254,19 @@ class ItemServiceImplTest {
     }
 
     @Test
+    void searchItems_whenQueryIsNul_thenReturnItemCollectionEmptyList() {
+        int from = 0;
+        int size = 2;
+        String query = "";
+
+        List<Item> response = itemService.searchItems(query, from, size).stream()
+                .map(i -> ItemMapper.toItem(owner, i)).collect(Collectors.toList());
+
+        assertNotNull(response);
+        assertEquals(response.size(), 0);
+    }
+
+    @Test
     void searchItems_whenItemsNotFound_thenNotFoundExceptionThrown() {
         String query = "Not";
         Mockito.when(itemRepository.search(query)).thenThrow(EntityNotFoundException.class);
@@ -277,17 +308,32 @@ class ItemServiceImplTest {
         booking1.setId(1L);
         booking1.setStart(LocalDateTime.now().minusHours(2));
         booking1.setEnd(LocalDateTime.now().plusHours(1));
-        booking1.setBooker(new User());
+        booking1.setBooker(new User(1L, "userName", "userEmail@mail.com"));
 
         Booking booking2 = new Booking();
         booking2.setId(2L);
-        booking2.setStart(LocalDateTime.now().plusHours(2));
-        booking2.setEnd(LocalDateTime.now().plusHours(4));
-        booking2.setBooker(new User());
+        booking2.setStart(LocalDateTime.now().plusHours(4));
+        booking2.setEnd(LocalDateTime.now().plusHours(5));
+        booking2.setBooker(new User(2L, "userName2", "userEmail2@mail.com"));
+
+        Booking booking3 = new Booking();
+        booking3.setId(3L);
+        booking3.setStart(LocalDateTime.now().minusHours(4));
+        booking3.setEnd(LocalDateTime.now().minusHours(2));
+        booking3.setBooker(new User(3L, "userName3", "userEmail3@mail.com"));
+
+        Booking booking4 = new Booking();
+        booking4.setId(3L);
+        booking4.setStart(LocalDateTime.now().plusHours(8));
+        booking4.setEnd(LocalDateTime.now().plusHours(9));
+        booking4.setBooker(new User(4L, "userName4", "userEmail4@mail.com"));
+
 
         List<Booking> bookings = new ArrayList<>();
         bookings.add(booking1);
         bookings.add(booking2);
+        bookings.add(booking3);
+        bookings.add(booking3);
 
         when(bookingRepository.findByItemIdAndStatus(eq(itemDto.getId()), eq(Booking.Status.APPROVED),
                 any(Sort.class))).thenReturn(bookings);
@@ -298,8 +344,10 @@ class ItemServiceImplTest {
 
         LastBooking lastBooking = itemDto.getLastBooking();
         Assertions.assertEquals(1L, lastBooking.getId());
+        Assertions.assertNotNull(lastBooking.getBookerId());
 
         NextBooking nextBooking = itemDto.getNextBooking();
         Assertions.assertEquals(2L, nextBooking.getId());
+        Assertions.assertNotNull(nextBooking.getBookerId());
     }
 }

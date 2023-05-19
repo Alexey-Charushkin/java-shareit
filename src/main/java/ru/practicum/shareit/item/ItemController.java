@@ -9,7 +9,6 @@ import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.service.ItemService;
 
 import javax.validation.Valid;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -60,7 +59,6 @@ public class ItemController {
                                      @RequestParam(name = "from", required = false) Integer from,
                                      @RequestParam(name = "size", required = false) Integer size) {
         log.info("Get =search");
-        if (query == null || query.isBlank()) return Collections.emptyList();
         return itemService.searchItems(query, from, size);
     }
 

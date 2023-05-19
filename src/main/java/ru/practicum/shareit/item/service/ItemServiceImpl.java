@@ -30,6 +30,7 @@ import ru.practicum.shareit.user.model.User;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -125,6 +126,7 @@ public class ItemServiceImpl implements ItemService {
 
     public List<ItemDto> searchItems(String query, Integer from, Integer size) {
         List<Item> itemList;
+        if (query == null || query.isBlank()) return Collections.emptyList();
         try {
             log.info("Request search films, query = {}.", query);
             if (from == null || size == null) {
@@ -172,11 +174,6 @@ public class ItemServiceImpl implements ItemService {
                 }
                 if (booking.getStart().isAfter(LocalDateTime.now())) {
                     if (nextStart == null) {
-                        nextBooking.setId(booking.getId());
-                        nextBooking.setBookerId(booking.getBooker().getId());
-                        nextStart = booking.getStart();
-                    }
-                    if (nextStart.isAfter(booking.getStart())) {
                         nextBooking.setId(booking.getId());
                         nextBooking.setBookerId(booking.getBooker().getId());
                         nextStart = booking.getStart();
