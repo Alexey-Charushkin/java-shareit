@@ -1,5 +1,6 @@
 package ru.practicum.shareit.item.service;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -8,6 +9,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import ru.practicum.shareit.booking.dao.BookingRepository;
+import ru.practicum.shareit.booking.dto.LastBooking;
+import ru.practicum.shareit.booking.dto.NextBooking;
+import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.comment.service.CommentService;
 import ru.practicum.shareit.exceptions.BadRequestException;
 import ru.practicum.shareit.exceptions.NotFoundException;
@@ -22,6 +26,8 @@ import ru.practicum.shareit.user.dao.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -260,5 +266,40 @@ class ItemServiceImplTest {
 
         NotFoundException notFoundException = assertThrows(NotFoundException.class, () -> itemService.getItemById(owner.getId(), itemToSave.getId()));
         assertEquals(notFoundException.getMessage(), "Item not found.");
+    }
+
+    @Test
+    void testGetBookings() {
+        ItemDto itemDto = new ItemDto();
+        itemDto.setId(1L);
+
+        Booking booking1 = new Booking();
+        booking1.setId(1L);
+        booking1.setStart(LocalDateTime.now().minusHours(2));
+        booking1.setEnd(LocalDateTime.now().plusHours(1));
+        booking1.setBooker(new User());
+
+        Booking booking2 = new Booking();
+        booking2.setId(2L);
+        booking2.setStart(LocalDateTime.now().plusHours(2));
+        booking2.setEnd(LocalDateTime.now().plusHours(4));
+        booking2.setBooker(new User());
+
+        List<Booking> bookings = new ArrayList<>();
+        bookings.add(booking1);
+        bookings.add(booking2);
+
+        when(bookingRepository.findByItemIdAndStatus(eq(itemDto.getId()), eq(Booking.Status.APPROVED),
+                any(Sort.class))).thenReturn(bookings);
+
+
+        itemService.getBookings(itemDto);
+
+
+        LastBooking lastBooking = itemDto.getLastBooking();
+        Assertions.assertEquals(1L, lastBooking.getId());
+
+        NextBooking nextBooking = itemDto.getNextBooking();
+        Assertions.assertEquals(2L, nextBooking.getId());
     }
 }

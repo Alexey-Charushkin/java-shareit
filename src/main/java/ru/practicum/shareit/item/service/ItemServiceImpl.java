@@ -144,7 +144,7 @@ public class ItemServiceImpl implements ItemService {
                 .collect(Collectors.toList());
     }
 
-    private void getBookings(ItemDto itemDto) {
+    protected void getBookings(ItemDto itemDto) {
         LocalDateTime lastEnd = null;
         LocalDateTime nextStart = null;
         LastBooking lastBooking = new LastBooking();
