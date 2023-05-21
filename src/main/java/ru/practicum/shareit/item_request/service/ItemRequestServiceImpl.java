@@ -11,7 +11,6 @@ import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.item.dao.ItemRepository;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.dto.ItemMapper;
-import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item_request.dao.ItemRequestRepository;
 import ru.practicum.shareit.item_request.dto.ItemRequestDto;
 import ru.practicum.shareit.item_request.dto.ItemRequestMapper;
@@ -19,13 +18,11 @@ import ru.practicum.shareit.item_request.model.ItemRequest;
 import ru.practicum.shareit.user.dao.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
 @Service
@@ -119,11 +116,10 @@ public class ItemRequestServiceImpl implements ItemRequestService {
                 .map(ItemMapper::toItemDto)
                 .collect(Collectors.groupingBy(ItemDto::getRequestId));
 
-        List<ItemRequestDto> itemRequestDtos = itemRequests.stream()
+        return itemRequests.stream()
                 .peek(itemRequest -> itemRequest.setItems(itemsByRequestId.get(itemRequest.getId())))
                 .map(ItemRequestMapper::toItemRequestDto)
                 .collect(toList());
-        return itemRequestDtos;
     }
 
     private List<ItemDto> findAllByRequestId(Long itemRequestId) {
