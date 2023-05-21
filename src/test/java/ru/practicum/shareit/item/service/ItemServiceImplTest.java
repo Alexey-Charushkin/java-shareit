@@ -60,7 +60,7 @@ class ItemServiceImplTest {
     User owner = new User(1L, "userName", "email@mail.com");
     User wrongOwner = new User(99L, "user99Name", "email99@mail.com");
     User requestor = new User(2L, "requestorName", "requestorEmail@mail.com");
-    ItemRequest request = new ItemRequest(1L, "requestDescription", requestor);
+    ItemRequest request = new ItemRequest(1L, "requestDescription", requestor, null, null);
 
     ItemDto itemToSave = new ItemDto(1L, "itemName", "itemDescription", true, request);
     Item item = new Item(2L, "itemName", "itemDescription", true, owner, request);
@@ -128,6 +128,102 @@ class ItemServiceImplTest {
         assertEquals(itemId, savedItemDto.getId());
         assertEquals("updateItemName", savedItemDto.getName());
         assertEquals("updateItemDescription", savedItemDto.getDescription());
+    }
+
+    @Test
+    void update_whenItemDtoIsValidItemDtoGetNameIsBlank_thenSaveItem() {
+        long itemId = 1L;
+        ItemDto oldItem = new ItemDto(itemId, "itemName", "itemDescription", true, request);
+        ItemDto updateItem = new ItemDto(itemId, " ", "", true, request);
+        when(itemRepository.getReferenceById(updateItem.getId())).thenReturn(ItemMapper.toItem(owner, oldItem));
+        when(itemRepository.save(any(Item.class))).thenReturn(ItemMapper.toItem(owner, oldItem));
+
+        itemService.update(itemId, updateItem);
+
+        verify(itemRepository).save(itemArgumentCaptor.capture());
+
+        ItemDto savedItemDto = ItemMapper.toItemDto(itemArgumentCaptor.getValue());
+
+        assertEquals(itemId, savedItemDto.getId());
+        assertEquals("itemName", savedItemDto.getName());
+        assertEquals("itemDescription", savedItemDto.getDescription());
+    }
+
+    @Test
+    void update_whenItemDtoIsValidAndAvailableNull_thenSaveItem() {
+        long itemId = 1L;
+        ItemDto oldItem = new ItemDto(itemId, "itemName", "itemDescription", true, request);
+        ItemDto updateItem = new ItemDto(itemId, "updateName", "updateDescription", null, request);
+        when(itemRepository.getReferenceById(updateItem.getId())).thenReturn(ItemMapper.toItem(owner, oldItem));
+        when(itemRepository.save(any(Item.class))).thenReturn(ItemMapper.toItem(owner, oldItem));
+
+        itemService.update(itemId, updateItem);
+
+        verify(itemRepository).save(itemArgumentCaptor.capture());
+
+        ItemDto savedItemDto = ItemMapper.toItemDto(itemArgumentCaptor.getValue());
+
+        assertEquals(itemId, savedItemDto.getId());
+        assertEquals("updateName", savedItemDto.getName());
+        assertEquals("updateDescription", savedItemDto.getDescription());
+        assertTrue(savedItemDto.getAvailable());
+    }
+
+    @Test
+    void update_whenItemDtoIsValidAndDescriptionIsBlank_thenSaveItem() {
+        long itemId = 1L;
+        ItemDto oldItem = new ItemDto(itemId, "itemName", "itemDescription", true, request);
+        ItemDto updateItem = new ItemDto(itemId, "updateName", "", true, request);
+        when(itemRepository.getReferenceById(updateItem.getId())).thenReturn(ItemMapper.toItem(owner, oldItem));
+        when(itemRepository.save(any(Item.class))).thenReturn(ItemMapper.toItem(owner, oldItem));
+
+        itemService.update(itemId, updateItem);
+
+        verify(itemRepository).save(itemArgumentCaptor.capture());
+
+        ItemDto savedItemDto = ItemMapper.toItemDto(itemArgumentCaptor.getValue());
+
+        assertEquals(itemId, savedItemDto.getId());
+        assertEquals("updateName", savedItemDto.getName());
+        assertEquals("itemDescription", savedItemDto.getDescription());
+    }
+
+    @Test
+    void update_whenItemDtoIsValidAndItemDtoGetNameIsNull_thenSaveItem() {
+        long itemId = 1L;
+        ItemDto oldItem = new ItemDto(itemId, "itemName", "itemDescription", true, request);
+        ItemDto updateItem = new ItemDto(itemId, null, "", true, request);
+        when(itemRepository.getReferenceById(updateItem.getId())).thenReturn(ItemMapper.toItem(owner, oldItem));
+        when(itemRepository.save(any(Item.class))).thenReturn(ItemMapper.toItem(owner, oldItem));
+
+        itemService.update(itemId, updateItem);
+
+        verify(itemRepository).save(itemArgumentCaptor.capture());
+
+        ItemDto savedItemDto = ItemMapper.toItemDto(itemArgumentCaptor.getValue());
+
+        assertEquals(itemId, savedItemDto.getId());
+        assertEquals("itemName", savedItemDto.getName());
+        assertEquals("itemDescription", savedItemDto.getDescription());
+    }
+
+    @Test
+    void update_whenItemDtoIsValidItemDtoGetDescriptionIsNull_thenSaveItem() {
+        long itemId = 1L;
+        ItemDto oldItem = new ItemDto(itemId, "itemName", "itemDescription", true, request);
+        ItemDto updateItem = new ItemDto(itemId, "", null, true, request);
+        when(itemRepository.getReferenceById(updateItem.getId())).thenReturn(ItemMapper.toItem(owner, oldItem));
+        when(itemRepository.save(any(Item.class))).thenReturn(ItemMapper.toItem(owner, oldItem));
+
+        itemService.update(itemId, updateItem);
+
+        verify(itemRepository).save(itemArgumentCaptor.capture());
+
+        ItemDto savedItemDto = ItemMapper.toItemDto(itemArgumentCaptor.getValue());
+
+        assertEquals(itemId, savedItemDto.getId());
+        assertEquals("itemName", savedItemDto.getName());
+        assertEquals("itemDescription", savedItemDto.getDescription());
     }
 
     @Test

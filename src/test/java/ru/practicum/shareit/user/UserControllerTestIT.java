@@ -27,7 +27,7 @@ public class UserControllerTestIT {
 
     @SneakyThrows
     @Test
-    void create() {
+    void createTest() {
         UserDto userDto = new UserDto(null, "userName", "email@email.com");
         when(userService.create(any(UserDto.class))).thenReturn(userDto);
 
@@ -45,7 +45,7 @@ public class UserControllerTestIT {
 
     @SneakyThrows
     @Test
-    void update() {
+    void updateTest() {
         Long userId = 1L;
         UserDto userDtoToUpdate = new UserDto(null, "oldUser", "oldUser@mail.com");
         when(userService.update(any(UserDto.class))).thenReturn(userDtoToUpdate);

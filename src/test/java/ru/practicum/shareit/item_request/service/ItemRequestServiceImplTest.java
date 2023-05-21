@@ -40,9 +40,9 @@ class ItemRequestServiceImplTest {
     private ItemRequestServiceImpl itemRequestService;
     User owner = new User(0L, "userName", "email@mail.com");
     User requestor = new User(1L, "requestorName", "requestorEmail@mail.com");
-    ItemRequest request = new ItemRequest(0L, "requestDescription", requestor);
-    ItemRequest request2 = new ItemRequest(1L, "request2Description", requestor);
-    ItemRequest wrongRequest = new ItemRequest(1L, null, requestor);
+    ItemRequest request = new ItemRequest(0L, "requestDescription", requestor, null, null);
+    ItemRequest request2 = new ItemRequest(1L, "request2Description", requestor, null, null);
+    ItemRequest wrongRequest = new ItemRequest(1L, null, requestor, null, null);
     ItemRequestDto requestDto = ItemRequestMapper.toItemRequestDto(request);
     ItemRequestDto requestDto2 = ItemRequestMapper.toItemRequestDto(request2);
     ItemRequestDto wrongRequestDto = ItemRequestMapper.toItemRequestDto(wrongRequest);
@@ -59,8 +59,6 @@ class ItemRequestServiceImplTest {
         verify(itemRequestRepository, times(1)).save(any(ItemRequest.class));
         assertThat(actualItemRequest.getId()).isEqualTo(requestDto.getId());
         assertThat(actualItemRequest.getDescription()).isEqualTo(requestDto.getDescription());
-        assertThat(actualItemRequest.getRequestor()).isEqualTo(requestDto.getRequestor());
-        assertThat(actualItemRequest.getItems()).isEqualTo(requestDto.getItems());
     }
 
     @Test
@@ -95,10 +93,8 @@ class ItemRequestServiceImplTest {
                 "id"));
         assertEquals(exceptedList.get(0).getId(), actualList.get(0).getId());
         assertEquals(exceptedList.get(0).getDescription(), actualList.get(0).getDescription());
-        assertEquals(exceptedList.get(0).getRequestor(), actualList.get(0).getRequestor());
         assertEquals(exceptedList.get(1).getId(), actualList.get(1).getId());
         assertEquals(exceptedList.get(1).getDescription(), actualList.get(1).getDescription());
-        assertEquals(exceptedList.get(1).getRequestor(), actualList.get(1).getRequestor());
     }
 
     @Test
@@ -120,7 +116,6 @@ class ItemRequestServiceImplTest {
         verify(itemRequestRepository, times(1)).findById(anyLong());
         assertEquals(itemRequestDto.getId(), request.getId());
         assertEquals(itemRequestDto.getDescription(), request.getDescription());
-        assertEquals(itemRequestDto.getRequestor(), request.getRequestor());
     }
 
     @Test
@@ -159,10 +154,8 @@ class ItemRequestServiceImplTest {
                 .findAllByRequestorIdNot(anyLong(), any(Pageable.class));
         assertEquals(exceptedList.get(0).getId(), actualList.get(0).getId());
         assertEquals(exceptedList.get(0).getDescription(), actualList.get(0).getDescription());
-        assertEquals(exceptedList.get(0).getRequestor(), actualList.get(0).getRequestor());
         assertEquals(exceptedList.get(1).getId(), actualList.get(1).getId());
         assertEquals(exceptedList.get(1).getDescription(), actualList.get(1).getDescription());
-        assertEquals(exceptedList.get(1).getRequestor(), actualList.get(1).getRequestor());
     }
 
     @Test

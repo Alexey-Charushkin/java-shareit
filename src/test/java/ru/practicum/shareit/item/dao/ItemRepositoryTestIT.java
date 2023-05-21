@@ -22,7 +22,7 @@ class ItemRepositoryTestIT {
     private ItemRepository itemRepository;
     User owner = new User(1L, "userName", "email@mail.com");
     User requestor = new User(2L, "requestorName", "requestorEmail@mail.com");
-    ItemRequest request = new ItemRequest(1L, "requestDescription", requestor);
+    ItemRequest request = new ItemRequest(1L, "requestDescription", requestor, null, null);
 
     @Test
     void findByOwnerId_whenItemsFound_thenReturnListItem() {

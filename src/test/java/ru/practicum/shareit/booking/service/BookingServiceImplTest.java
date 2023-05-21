@@ -49,7 +49,7 @@ class BookingServiceImplTest {
     User wrongOwner = new User(99L, "user99Name", "email99@mail.com");
     User requestor = new User(1L, "requestorName", "requestorEmail@mail.com");
     User booker = new User(2L, "bookerName", "bookerEmil@mail.com");
-    ItemRequest request = new ItemRequest(0L, "requestDescription", requestor);
+    ItemRequest request = new ItemRequest(0L, "requestDescription", requestor, null, null);
     Item item = new Item(0L, "itemName", "itemDescription",
             true, owner, request);
     Booking bookingToSave = new Booking(0L, LocalDateTime.now().plusMinutes(1), LocalDateTime.now().plusMinutes(5),

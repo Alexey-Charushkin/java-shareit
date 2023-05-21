@@ -74,12 +74,12 @@ public class ItemServiceImpl implements ItemService {
             throw new NotFoundException("The user is not the owner of the item.");
         }
         if (itemDto.getName() != null) {
-            if (!itemDto.getName().isEmpty() || !itemDto.getName().isBlank()) {
+            if (!itemDto.getName().isEmpty() && !itemDto.getName().isBlank()) {
                 itemToUpdate.setName(itemDto.getName());
             }
         }
         if (itemDto.getDescription() != null) {
-            if (!itemDto.getDescription().isEmpty() || !itemDto.getDescription().isBlank()) {
+            if (!itemDto.getDescription().isEmpty() && !itemDto.getDescription().isBlank()) {
                 itemToUpdate.setDescription(itemDto.getDescription());
             }
         }
