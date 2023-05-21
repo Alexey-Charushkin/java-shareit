@@ -5,7 +5,9 @@ import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.user.model.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -22,6 +24,7 @@ public class ItemRequest {
     private Long id;
 
     @Column(nullable = false)
+    @NotBlank
     private String description;
 
     @ManyToOne
@@ -29,14 +32,13 @@ public class ItemRequest {
     private User requestor;
 
     @Transient
-    private List<ItemDto> items;
+    private List<ItemDto> items = new ArrayList<>();
     @Column(nullable = false)
     private LocalDateTime created;
 
-    public ItemRequest(Long id, String description, User requestor) {
+    public ItemRequest(Long id, String description) {
         this.id = id;
         this.description = description;
-        this.requestor = requestor;
         this.created = LocalDateTime.now();
     }
 

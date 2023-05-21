@@ -73,8 +73,16 @@ public class ItemServiceImpl implements ItemService {
             log.warn("The user with id: {} is not the owner of the item", userId);
             throw new NotFoundException("The user is not the owner of the item.");
         }
-        if (itemDto.getName() != null) itemToUpdate.setName(itemDto.getName());
-        if (itemDto.getDescription() != null) itemToUpdate.setDescription(itemDto.getDescription());
+        if (itemDto.getName() != null) {
+            if (!itemDto.getName().isEmpty() || !itemDto.getName().isBlank()) {
+                itemToUpdate.setName(itemDto.getName());
+            }
+        }
+        if (itemDto.getDescription() != null) {
+            if (!itemDto.getDescription().isEmpty() || !itemDto.getDescription().isBlank()) {
+                itemToUpdate.setDescription(itemDto.getDescription());
+            }
+        }
         if (itemDto.getAvailable() != null) itemToUpdate.setAvailable(itemDto.getAvailable());
 
         itemRepository.save(itemToUpdate);
@@ -110,7 +118,7 @@ public class ItemServiceImpl implements ItemService {
     public List<ItemDto> getAllItemsByUserId(Long userId, Integer from, Integer size) {
         List<Item> item;
 
-        if (from == null || size == null) {
+        if (size == null) {
             item = itemRepository.findByOwnerId(userId, Sort.by(Sort.Direction.ASC, "id"));
         } else {
             Sort sort = Sort.by(Sort.Direction.ASC, "id");
@@ -126,7 +134,7 @@ public class ItemServiceImpl implements ItemService {
 
     public List<ItemDto> searchItems(String query, Integer from, Integer size) {
         List<Item> itemList;
-        if (query == null || query.isBlank()) return Collections.emptyList();
+        if (query.isBlank()) return Collections.emptyList();
         try {
             log.info("Request search films, query = {}.", query);
             if (from == null || size == null) {

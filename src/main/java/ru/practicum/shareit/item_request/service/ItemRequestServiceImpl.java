@@ -11,6 +11,7 @@ import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.item.dao.ItemRepository;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.dto.ItemMapper;
+import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item_request.dao.ItemRequestRepository;
 import ru.practicum.shareit.item_request.dto.ItemRequestDto;
 import ru.practicum.shareit.item_request.dto.ItemRequestMapper;
@@ -18,9 +19,14 @@ import ru.practicum.shareit.item_request.model.ItemRequest;
 import ru.practicum.shareit.user.dao.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
@@ -40,9 +46,8 @@ public class ItemRequestServiceImpl implements ItemRequestService {
         if (itemRequestDto.getDescription() == null || itemRequestDto.getDescription().isEmpty())
             throw new BadRequestException("Description is empty");
 
-        itemRequestDto.setRequestor(user);
-
         ItemRequest itemRequest = ItemRequestMapper.toItemRequest(itemRequestDto);
+        itemRequest.setRequestor(user);
         itemRequestRepository.save(itemRequest);
 
         return ItemRequestMapper.toItemRequestDto(itemRequest);
@@ -50,15 +55,34 @@ public class ItemRequestServiceImpl implements ItemRequestService {
 
     @Override
     public List<ItemRequestDto> findAllByUserId(Long userId) {
-        userRepository.findById(userId)
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
+        List<ItemRequestDto> itemRequestDtos;
 
         List<ItemRequest> itemRequests = itemRequestRepository.findAllByRequestorId(userId, Sort.by(Sort.Direction.DESC,
                 "id"));
-        return itemRequests.stream()
-                .map(ItemRequestMapper::toItemRequestDto)
-                .peek(itemRequest -> itemRequest.setItems(findAllByRequestId(itemRequest.getId())))
-                .collect(Collectors.toList());
+
+        List<Long> requestIds = itemRequests.stream()
+                .filter(itemRequest -> itemRequest.getRequestor().equals(user))
+                .map(ItemRequest::getId)
+                .collect(toList());
+
+        Map<Long, List<ItemDto>> itemsByRequestId = itemRepository.findByRequestIdIn(requestIds)
+                .stream()
+                .map(ItemMapper::toItemDto)
+                .collect(Collectors.groupingBy(ItemDto::getRequestId));
+
+        if (itemsByRequestId.size() != 0) {
+            itemRequestDtos = itemRequests.stream()
+                    .peek(itemRequest -> itemRequest.setItems(itemsByRequestId.get(itemRequest.getId())))
+                    .map(ItemRequestMapper::toItemRequestDto)
+                    .collect(toList());
+        } else {
+            itemRequestDtos = itemRequests.stream()
+                    .map(ItemRequestMapper::toItemRequestDto)
+                    .collect(Collectors.toList());
+        }
+        return itemRequestDtos;
     }
 
     @Override
@@ -80,20 +104,31 @@ public class ItemRequestServiceImpl implements ItemRequestService {
         userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
-        if (from == null || size == null) return Collections.emptyList();
+        if (size == null) return Collections.emptyList();
         Sort sort = Sort.by(Sort.Direction.DESC, "created");
         Pageable page = PageRequest.of(from, size, sort);
 
-        return itemRequestRepository.findAllByRequestorIdNot(userId, page).stream()
+        List<ItemRequest> itemRequests = itemRequestRepository.findAllByRequestorIdNot(userId, page);
+
+        List<Long> requestIds = itemRequests.stream()
+                .map(ItemRequest::getId)
+                .collect(toList());
+
+        Map<Long, List<ItemDto>> itemsByRequestId = itemRepository.findByRequestIdIn(requestIds)
+                .stream()
+                .map(ItemMapper::toItemDto)
+                .collect(Collectors.groupingBy(ItemDto::getRequestId));
+
+        List<ItemRequestDto> itemRequestDtos = itemRequests.stream()
+                .peek(itemRequest -> itemRequest.setItems(itemsByRequestId.get(itemRequest.getId())))
                 .map(ItemRequestMapper::toItemRequestDto)
-                .peek(itemRequest -> itemRequest.setItems(findAllByRequestId(itemRequest.getId())))
-                .collect(Collectors.toList());
+                .collect(toList());
+        return itemRequestDtos;
     }
 
     private List<ItemDto> findAllByRequestId(Long itemRequestId) {
         return itemRepository.findAllByRequestId(itemRequestId).stream()
                 .map(ItemMapper::toItemDto)
-                .collect(Collectors.toList());
+                .collect(toList());
     }
-
 }

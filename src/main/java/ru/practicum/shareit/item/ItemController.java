@@ -2,6 +2,7 @@ package ru.practicum.shareit.item;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.comment.service.CommentService;
 import ru.practicum.shareit.comment.dto.CommentDto;
@@ -9,11 +10,14 @@ import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.service.ItemService;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @Log4j2
+@Validated
 @RequestMapping("/items")
 public class ItemController {
 
@@ -42,8 +46,8 @@ public class ItemController {
 
     @GetMapping()
     public List<ItemDto> gelAllByUserId(@RequestHeader("X-Sharer-User-Id") Long userId,
-                                        @RequestParam(name = "from", required = false) Integer from,
-                                        @RequestParam(name = "size", required = false) Integer size) {
+                                        @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
+                                        @Positive @RequestParam(name = "size", required = false) Integer size) {
         log.info("Get X-Sharer-User-Id");
         return itemService.getAllItemsByUserId(userId, from, size);
     }
@@ -56,8 +60,8 @@ public class ItemController {
 
     @GetMapping("search")
     public List<ItemDto> searchItems(@RequestParam("text") String query,
-                                     @RequestParam(name = "from", required = false) Integer from,
-                                     @RequestParam(name = "size", required = false) Integer size) {
+                                     @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
+                                     @Positive @RequestParam(name = "size", required = false) Integer size) {
         log.info("Get =search");
         return itemService.searchItems(query, from, size);
     }

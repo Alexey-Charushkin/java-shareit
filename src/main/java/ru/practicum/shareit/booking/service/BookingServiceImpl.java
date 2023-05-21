@@ -114,7 +114,7 @@ public class BookingServiceImpl implements BookingService {
         switch (statusDto) {
 
             case ALL: {
-                if (from == null || size == null) {
+                if (size == null) {
                     bookings = bookingRepository.findByBookerId(userId, Sort.by(Sort.Direction.DESC,
                             "start"));
                 } else {
@@ -125,7 +125,7 @@ public class BookingServiceImpl implements BookingService {
                 break;
             }
             case CURRENT: {
-                if (from == null || size == null) {
+                if (size == null) {
                     bookings = bookingRepository.findByBooker_IdAndStartIsBeforeAndEndIsAfter(userId, LocalDateTime.now(), LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
                             "start"));
                 } else {
@@ -136,7 +136,7 @@ public class BookingServiceImpl implements BookingService {
                 break;
             }
             case PAST: {
-                if (from == null || size == null) {
+                if (size == null) {
                     bookings = bookingRepository.findByBooker_IdAndEndIsBefore(userId, LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
                             "start"));
                 } else {
@@ -147,7 +147,7 @@ public class BookingServiceImpl implements BookingService {
                 break;
             }
             case FUTURE: {
-                if (from == null || size == null) {
+                if (size == null) {
                     bookings = bookingRepository.findByBooker_IdAndStartIsAfter(userId, LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
                             "start"));
                 } else {
@@ -158,7 +158,7 @@ public class BookingServiceImpl implements BookingService {
                 break;
             }
             case WAITING: {
-                if (from == null || size == null) {
+                if (size == null) {
                     bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.WAITING, Sort.by(Sort.Direction.DESC,
                             "start"));
                 } else {
@@ -169,7 +169,7 @@ public class BookingServiceImpl implements BookingService {
                 break;
             }
             case APPROVED: {
-                if (from == null || size == null) {
+                if (size == null) {
                     bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.APPROVED, Sort.by(Sort.Direction.DESC,
                             "start"));
                 } else {
@@ -181,7 +181,7 @@ public class BookingServiceImpl implements BookingService {
                 break;
             }
             case REJECTED: {
-                if (from == null || size == null) {
+                if (size == null) {
                     bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.REJECTED, Sort.by(Sort.Direction.DESC,
                             "start"));
                 } else {
@@ -193,7 +193,7 @@ public class BookingServiceImpl implements BookingService {
                 break;
             }
             case CANCELED: {
-                if (from == null || size == null) {
+                if (size == null) {
                     bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.CANCELED, Sort.by(Sort.Direction.DESC,
                             "start"));
                 } else {
@@ -225,7 +225,7 @@ public class BookingServiceImpl implements BookingService {
         switch (statusDto) {
 
             case ALL: {
-                if (from == null || size == null) {
+                if (size == null) {
                     bookings = bookingRepository.findByOwnerId(ownerId, Sort.by(Sort.Direction.DESC,
                             "start"));
                 } else {
@@ -236,7 +236,7 @@ public class BookingServiceImpl implements BookingService {
                 break;
             }
             case CURRENT: {
-                if (from == null || size == null) {
+                if (size == null) {
                     bookings = bookingRepository.findByOwnerIdAndStartIsBeforeAndEndIsAfter(ownerId, LocalDateTime.now(), LocalDateTime.now(),
                             Sort.by(Sort.Direction.DESC, "start"));
                 } else {
@@ -248,7 +248,7 @@ public class BookingServiceImpl implements BookingService {
                 break;
             }
             case PAST: {
-                if (from == null || size == null) {
+                if (size == null) {
                     bookings = bookingRepository.findByOwnerIdAndEndBefore(ownerId, LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
                             "start"));
                 } else {
@@ -259,7 +259,7 @@ public class BookingServiceImpl implements BookingService {
                 break;
             }
             case FUTURE: {
-                if (from == null || size == null) {
+                if (size == null) {
                     bookings = bookingRepository.findByOwnerIdAndSAndStartIsAfter(ownerId, LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
                             "start"));
                 } else {
@@ -270,7 +270,7 @@ public class BookingServiceImpl implements BookingService {
                 break;
             }
             case WAITING: {
-                if (from == null || size == null) {
+                if (size == null) {
                     bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.WAITING, Sort.by(Sort.Direction.DESC,
                             "start"));
                 } else {
@@ -281,7 +281,7 @@ public class BookingServiceImpl implements BookingService {
                 break;
             }
             case APPROVED: {
-                if (from == null || size == null) {
+                if (size == null) {
                     bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.APPROVED, Sort.by(Sort.Direction.DESC,
                             "start"));
                 } else {
@@ -292,7 +292,7 @@ public class BookingServiceImpl implements BookingService {
                 break;
             }
             case REJECTED: {
-                if (from == null || size == null) {
+                if (size == null) {
                     bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.REJECTED, Sort.by(Sort.Direction.DESC,
                             "start"));
                 } else {
@@ -303,7 +303,7 @@ public class BookingServiceImpl implements BookingService {
                 break;
             }
             case CANCELED: {
-                if (from == null || size == null) {
+                if (size == null) {
                     bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.CANCELED, Sort.by(Sort.Direction.DESC,
                             "start"));
                 } else {

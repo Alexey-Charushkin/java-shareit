@@ -47,5 +47,6 @@ public class Item {
     public boolean getAvailable() {
         return available;
     }
-}
+
+   }
 

@@ -28,4 +28,5 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             "OR UPPER(i.description) LIKE UPPER(CONCAT('%', ?1, '%')))")
     List<Item> searchToPage(String text, Pageable pageable);
 
+    List<Item> findByRequestIdIn(List<Long> requestIds);
 }

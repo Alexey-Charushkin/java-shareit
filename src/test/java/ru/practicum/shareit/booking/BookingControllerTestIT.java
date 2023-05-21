@@ -110,6 +110,20 @@ class BookingControllerTestIT {
 
     @SneakyThrows
     @Test
+    void gelAllBookingsByUserId_whenFromIsNotCorrect_thenBadRequestExceptionThrown() {
+        Long userId = 1L;
+        Integer from = -1;
+        Integer size = 10;
+        mockMvc.perform(get("/bookings")
+                        .header("X-Sharer-User-Id", userId)
+                        .param("from", from.toString())
+                        .param("size", size.toString()))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @SneakyThrows
+    @Test
     void gelAllBookingsByOwnerId() {
         Long userId = 1L;
         Integer from = 0;
@@ -122,5 +136,19 @@ class BookingControllerTestIT {
                 .andExpect(status().isOk());
 
         verify(bookingService).getAllBookingsByOwnerId(userId, ALL, from, size);
+    }
+
+    @SneakyThrows
+    @Test
+    void gelAllBookingsByOwnerId_whenFromIsNotCorrect_thenBadRequestExceptionThrown() {
+        Long userId = 1L;
+        Integer from = -1;
+        Integer size = 10;
+        mockMvc.perform(get("/bookings/owner")
+                        .header("X-Sharer-User-Id", userId)
+                        .param("from", from.toString())
+                        .param("size", size.toString()))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
     }
 }

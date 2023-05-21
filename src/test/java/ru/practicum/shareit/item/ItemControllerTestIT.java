@@ -135,6 +135,20 @@ class ItemControllerTestIT {
 
     @SneakyThrows
     @Test
+    void gelAllByUserId_whenFromIsNotCorrect_thenBadRequestExceptionThrown() {
+        Long userId = 1L;
+        Integer from = -1;
+        Integer size = 10;
+        mockMvc.perform(get("/items")
+                        .header("X-Sharer-User-Id", userId)
+                        .param("from", from.toString())
+                        .param("size", size.toString()))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @SneakyThrows
+    @Test
     void deleteById() {
         Long itemId = 1L;
         mockMvc.perform(delete("/items/{itemId}", itemId))
@@ -160,6 +174,19 @@ class ItemControllerTestIT {
         verify(itemService).searchItems(query, from, size);
     }
 
+    @SneakyThrows
+    @Test
+    void searchItems_whenFromIsNotCorrect_thenBadRequestExceptionThrown() {
+        String query = "query Request";
+        Integer from = -1;
+        Integer size = 10;
+        mockMvc.perform(get("/items/search")
+                        .param("text", query)
+                        .param("from", from.toString())
+                        .param("size", size.toString()))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
     @SneakyThrows
     @Test
     void searchItems_whenQueryIsNull() {
