@@ -31,7 +31,6 @@ class UserControllerTest {
 
         UserDto response = userController.create(exceptedUserDto);
 
-        // assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(exceptedUserDto.getId(), response.getId());
         assertEquals(exceptedUserDto.getName(), response.getName());
         assertEquals(exceptedUserDto.getEmail(), response.getEmail());
@@ -77,13 +76,12 @@ class UserControllerTest {
 
     @Test
     void gelAll_whenInvoke_thenResponseStatusOkWithUsersCollectionInBody() {
-        List<UserDto> exceptedUserDtos = List.of(new UserDto());
+        List<UserDto> exceptedUserDtos = List.of(new UserDto(), new UserDto());
         Mockito.when(userService.getAll()).thenReturn(exceptedUserDtos);
 
         List<UserDto> response = userController.gelAll();
 
-
-        //  assertEquals(exceptedUserDtos, response.getBody());
+        assertEquals(exceptedUserDtos.size(), response.size());
     }
 
     @Test
@@ -105,7 +103,6 @@ class UserControllerTest {
 
         UserDto currentResponse = userController.getById(id);
 
-
-        // assertNull(currentResponse.getBody());
+        assertNull(currentResponse);
     }
 }
