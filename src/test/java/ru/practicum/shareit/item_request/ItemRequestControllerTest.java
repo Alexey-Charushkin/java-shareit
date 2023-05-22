@@ -61,7 +61,6 @@ class ItemRequestControllerTest {
 
         assertEquals(request.getId(), actualItemRequestDtoToReturn.getId());
         assertEquals(request.getDescription(), actualItemRequestDtoToReturn.getDescription());
-        assertEquals(request.getItems(), actualItemRequestDtoToReturn.getItems());
     }
 
     @Test

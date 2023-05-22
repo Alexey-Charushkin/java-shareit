@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 import ru.practicum.shareit.exceptions.BadRequestException;
 import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.item.dao.ItemRepository;
-import ru.practicum.shareit.item.dto.ItemDto;
-import ru.practicum.shareit.item.dto.ItemMapper;
+import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item_request.dao.ItemRequestRepository;
 import ru.practicum.shareit.item_request.dto.ItemRequestDtoToReturn;
 import ru.practicum.shareit.item_request.dto.ItemRequestDtoToSave;
@@ -19,6 +18,7 @@ import ru.practicum.shareit.item_request.model.ItemRequest;
 import ru.practicum.shareit.user.dao.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -65,16 +65,16 @@ public class ItemRequestServiceImpl implements ItemRequestService {
                 .map(ItemRequest::getId)
                 .collect(toList());
 
-        Map<Long, List<ItemDto>> itemsByRequestId = itemRepository.findByRequestIdIn(requestIds)
+        Map<Long, List<Item>> itemsByRequestId = itemRepository.findByRequestIdIn(requestIds)
                 .stream()
-                .map(ItemMapper::toItemDto)
-                .collect(Collectors.groupingBy(ItemDto::getRequestId));
+                .collect(Collectors.groupingBy(item -> item.getRequest().getId()));
 
         if (itemsByRequestId.size() != 0) {
             itemRequestDtoToReturns = itemRequests.stream()
                     .peek(itemRequest -> itemRequest.setItems(itemsByRequestId.get(itemRequest.getId())))
                     .map(ItemRequestMapper::toItemRequestDto)
                     .collect(toList());
+
         } else {
             itemRequestDtoToReturns = itemRequests.stream()
                     .map(ItemRequestMapper::toItemRequestDto)
@@ -91,8 +91,8 @@ public class ItemRequestServiceImpl implements ItemRequestService {
         ItemRequest itemRequest = itemRequestRepository.findById(requestId)
                 .orElseThrow(() -> new NotFoundException("ItemRequest not found"));
 
-        List<ItemDto> itemDtos = findAllByRequestId(itemRequest.getId());
-        itemRequest.setItems(itemDtos);
+        List<Item> items = findAllByRequestId(itemRequest.getId());
+        itemRequest.setItems(items);
 
         return itemRequest;
     }
@@ -112,10 +112,9 @@ public class ItemRequestServiceImpl implements ItemRequestService {
                 .map(ItemRequest::getId)
                 .collect(toList());
 
-        Map<Long, List<ItemDto>> itemsByRequestId = itemRepository.findByRequestIdIn(requestIds)
+        Map<Long, List<Item>> itemsByRequestId = itemRepository.findByRequestIdIn(requestIds)
                 .stream()
-                .map(ItemMapper::toItemDto)
-                .collect(Collectors.groupingBy(ItemDto::getRequestId));
+                .collect(Collectors.groupingBy(item -> item.getRequest().getId()));
 
         return itemRequests.stream()
                 .peek(itemRequest -> itemRequest.setItems(itemsByRequestId.get(itemRequest.getId())))
@@ -123,9 +122,7 @@ public class ItemRequestServiceImpl implements ItemRequestService {
                 .collect(toList());
     }
 
-    private List<ItemDto> findAllByRequestId(Long itemRequestId) {
-        return itemRepository.findAllByRequestId(itemRequestId).stream()
-                .map(ItemMapper::toItemDto)
-                .collect(toList());
+    private List<Item> findAllByRequestId(Long itemRequestId) {
+        return new ArrayList<>(itemRepository.findAllByRequestId(itemRequestId));
     }
 }

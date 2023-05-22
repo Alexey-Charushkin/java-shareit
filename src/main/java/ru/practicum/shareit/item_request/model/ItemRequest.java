@@ -2,6 +2,7 @@ package ru.practicum.shareit.item_request.model;
 
 import lombok.*;
 import ru.practicum.shareit.item.dto.ItemDto;
+import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
 import javax.persistence.*;
@@ -32,7 +33,7 @@ public class ItemRequest {
     private User requestor;
 
     @Transient
-    private List<ItemDto> items = new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
     @Column(nullable = false)
     private LocalDateTime created;
 
