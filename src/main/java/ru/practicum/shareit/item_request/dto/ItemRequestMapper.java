@@ -6,15 +6,23 @@ import ru.practicum.shareit.item_request.model.ItemRequest;
 @UtilityClass
 public class ItemRequestMapper {
 
-    public static ItemRequest toItemRequest(ItemRequestDto itemRequestDto) {
+    public static ItemRequest toItemRequestToSave(ItemRequestDtoToSave itemRequestDtoToSave) {
         return new ItemRequest(
-                itemRequestDto.getId(),
-                itemRequestDto.getDescription()
+                itemRequestDtoToSave.getDescription()
         );
     }
 
-    public static ItemRequestDto toItemRequestDto(ItemRequest itemRequest) {
-        return new ItemRequestDto(
+//    public static ItemRequest toItemRequest(ItemRequestDtoToReturn itemRequestDtoToReturn) {
+//        return new ItemRequest(
+//                itemRequestDtoToReturn.getId(),
+//                itemRequestDtoToReturn.getDescription(),
+//                itemRequestDtoToReturn.getCreated(),
+//                itemRequestDtoToReturn.getItems()
+//        );
+//    }
+
+    public static ItemRequestDtoToReturn toItemRequestDto(ItemRequest itemRequest) {
+        return new ItemRequestDtoToReturn(
                 itemRequest.getId(),
                 itemRequest.getDescription(),
                 itemRequest.getCreated(),

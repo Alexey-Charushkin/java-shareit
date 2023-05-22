@@ -1,16 +1,18 @@
 package ru.practicum.shareit.item_request.service;
 
-import ru.practicum.shareit.item_request.dto.ItemRequestDto;
+import ru.practicum.shareit.item_request.dto.ItemRequestDtoToReturn;
+import ru.practicum.shareit.item_request.dto.ItemRequestDtoToSave;
+import ru.practicum.shareit.item_request.model.ItemRequest;
 
 import java.util.List;
 
 public interface ItemRequestService {
 
-    ItemRequestDto create(Long userId, ItemRequestDto itemRequestDto);
+    ItemRequestDtoToReturn create(Long userId, ItemRequestDtoToSave itemRequestDtoToSave);
 
-    List<ItemRequestDto> findAllByUserId(Long userId);
+    List<ItemRequestDtoToReturn> findAllByUserId(Long userId);
 
-    ItemRequestDto findById(Long userId, Long requestId);
+    ItemRequest findById(Long userId, Long requestId);
 
-    List<ItemRequestDto> findAllByUserIdToPageable(Long userId, Integer from, Integer size);
+    List<ItemRequestDtoToReturn> findAllByUserIdToPageable(Long userId, Integer from, Integer size);
 }

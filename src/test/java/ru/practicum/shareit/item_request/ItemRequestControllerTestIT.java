@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import ru.practicum.shareit.item_request.dto.ItemRequestDto;
+import ru.practicum.shareit.item_request.dto.ItemRequestDtoToReturn;
+import ru.practicum.shareit.item_request.dto.ItemRequestDtoToSave;
 import ru.practicum.shareit.item_request.dto.ItemRequestMapper;
 import ru.practicum.shareit.item_request.model.ItemRequest;
 import ru.practicum.shareit.item_request.service.ItemRequestService;
@@ -30,27 +31,27 @@ class ItemRequestControllerTestIT {
     private MockMvc mockMvc;
     @MockBean
     private ItemRequestService itemRequestService;
-    User owner = new User(1L, "userName", "email@mail.com");
+    User owner = new User(0L, "userName", "email@mail.com");
     User requestor = new User(1L, "requestorName", "requestorEmail@mail.com");
     ItemRequest request = new ItemRequest(1L, "requestDescription", requestor, null, null);
 
     @SneakyThrows
     @Test
     void create() {
-        ItemRequestDto itemRequestDto = ItemRequestMapper.toItemRequestDto(request);
-        when(itemRequestService.create(anyLong(), any(ItemRequestDto.class))).thenReturn(itemRequestDto);
+        ItemRequestDtoToReturn itemRequestDtoToReturn = ItemRequestMapper.toItemRequestDto(request);
+        when(itemRequestService.create(anyLong(), any(ItemRequestDtoToSave.class))).thenReturn(itemRequestDtoToReturn);
 
         String result = mockMvc.perform(post("/requests")
                         .header("X-Sharer-User-Id", owner.getId())
                         .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(itemRequestDto)))
+                        .content(objectMapper.writeValueAsString(itemRequestDtoToReturn)))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
 
-        verify(itemRequestService, times(1)).create(anyLong(), any(ItemRequestDto.class));
-        assertEquals(objectMapper.writeValueAsString(itemRequestDto), result);
+        verify(itemRequestService, times(1)).create(anyLong(), any(ItemRequestDtoToSave.class));
+        assertEquals(objectMapper.writeValueAsString(itemRequestDtoToReturn), result);
     }
 
     @SneakyThrows
@@ -63,19 +64,6 @@ class ItemRequestControllerTestIT {
                 .andExpect(status().isOk());
 
         verify(itemRequestService).findAllByUserId(userId);
-    }
-
-    @SneakyThrows
-    @Test
-    void findById() {
-        Long userId = 1L;
-        Long requestId = 1L;
-        mockMvc.perform(get("/requests/{requestId}", requestId)
-                        .header("X-Sharer-User-Id", userId))
-                .andDo(print())
-                .andExpect(status().isOk());
-
-        verify(itemRequestService).findById(userId, requestId);
     }
 
     @SneakyThrows

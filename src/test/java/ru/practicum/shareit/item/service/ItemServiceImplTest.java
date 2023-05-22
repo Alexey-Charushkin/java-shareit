@@ -19,7 +19,6 @@ import ru.practicum.shareit.item.dao.ItemRepository;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.dto.ItemMapper;
 import ru.practicum.shareit.item.model.Item;
-import ru.practicum.shareit.item_request.dto.ItemRequestMapper;
 import ru.practicum.shareit.item_request.model.ItemRequest;
 import ru.practicum.shareit.item_request.service.ItemRequestService;
 import ru.practicum.shareit.user.dao.UserRepository;
@@ -71,7 +70,7 @@ class ItemServiceImplTest {
     void create_whenItemDtoIsValid_thenSaveItem() {
         Item item = ItemMapper.toItem(owner, itemToSave);
         when(userRepository.findById(owner.getId())).thenReturn(Optional.of(owner));
-        when(itemRequestService.findById(owner.getId(), itemToSave.getRequestId())).thenReturn(ItemRequestMapper.toItemRequestDto(request));
+        when(itemRequestService.findById(owner.getId(), itemToSave.getRequestId())).thenReturn(request);
         when(itemRepository.save(any(Item.class))).thenReturn(item);
 
         ItemDto actualItem = itemService.create(owner.getId(), itemToSave);
@@ -375,7 +374,7 @@ class ItemServiceImplTest {
     void deleteById() {
         Item item = ItemMapper.toItem(owner, itemToSave);
         when(userRepository.findById(owner.getId())).thenReturn(Optional.of(owner));
-        when(itemRequestService.findById(owner.getId(), itemToSave.getRequestId())).thenReturn(ItemRequestMapper.toItemRequestDto(request));
+        when(itemRequestService.findById(owner.getId(), itemToSave.getRequestId())).thenReturn(request);
         when(itemRepository.save(any(Item.class))).thenReturn(item);
 
         ItemDto actualItem = itemService.create(owner.getId(), itemToSave);

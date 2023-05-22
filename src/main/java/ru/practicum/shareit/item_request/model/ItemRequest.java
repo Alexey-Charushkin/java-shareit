@@ -36,11 +36,13 @@ public class ItemRequest {
     @Column(nullable = false)
     private LocalDateTime created;
 
-    public ItemRequest(Long id, String description) {
+    public ItemRequest(String description) {
         this.id = id;
         this.description = description;
         this.created = LocalDateTime.now();
     }
 
 
+    public ItemRequest(Long id, String description, LocalDateTime created, List<ItemDto> items) {
+    }
 }

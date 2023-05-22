@@ -12,7 +12,8 @@ import ru.practicum.shareit.item.dao.ItemRepository;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.dto.ItemMapper;
 import ru.practicum.shareit.item_request.dao.ItemRequestRepository;
-import ru.practicum.shareit.item_request.dto.ItemRequestDto;
+import ru.practicum.shareit.item_request.dto.ItemRequestDtoToReturn;
+import ru.practicum.shareit.item_request.dto.ItemRequestDtoToSave;
 import ru.practicum.shareit.item_request.dto.ItemRequestMapper;
 import ru.practicum.shareit.item_request.model.ItemRequest;
 import ru.practicum.shareit.user.dao.UserRepository;
@@ -36,14 +37,14 @@ public class ItemRequestServiceImpl implements ItemRequestService {
 
 
     @Override
-    public ItemRequestDto create(Long userId, ItemRequestDto itemRequestDto) {
+    public ItemRequestDtoToReturn create(Long userId, ItemRequestDtoToSave itemRequestDtoToSave) {
 
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
 
-        if (itemRequestDto.getDescription() == null || itemRequestDto.getDescription().isEmpty())
+        if (itemRequestDtoToSave.getDescription().isEmpty())
             throw new BadRequestException("Description is empty");
 
-        ItemRequest itemRequest = ItemRequestMapper.toItemRequest(itemRequestDto);
+        ItemRequest itemRequest = ItemRequestMapper.toItemRequestToSave(itemRequestDtoToSave);
         itemRequest.setRequestor(user);
         itemRequestRepository.save(itemRequest);
 
@@ -51,10 +52,10 @@ public class ItemRequestServiceImpl implements ItemRequestService {
     }
 
     @Override
-    public List<ItemRequestDto> findAllByUserId(Long userId) {
+    public List<ItemRequestDtoToReturn> findAllByUserId(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
-        List<ItemRequestDto> itemRequestDtos;
+        List<ItemRequestDtoToReturn> itemRequestDtoToReturns;
 
         List<ItemRequest> itemRequests = itemRequestRepository.findAllByRequestorId(userId, Sort.by(Sort.Direction.DESC,
                 "id"));
@@ -70,20 +71,20 @@ public class ItemRequestServiceImpl implements ItemRequestService {
                 .collect(Collectors.groupingBy(ItemDto::getRequestId));
 
         if (itemsByRequestId.size() != 0) {
-            itemRequestDtos = itemRequests.stream()
+            itemRequestDtoToReturns = itemRequests.stream()
                     .peek(itemRequest -> itemRequest.setItems(itemsByRequestId.get(itemRequest.getId())))
                     .map(ItemRequestMapper::toItemRequestDto)
                     .collect(toList());
         } else {
-            itemRequestDtos = itemRequests.stream()
+            itemRequestDtoToReturns = itemRequests.stream()
                     .map(ItemRequestMapper::toItemRequestDto)
                     .collect(Collectors.toList());
         }
-        return itemRequestDtos;
+        return itemRequestDtoToReturns;
     }
 
     @Override
-    public ItemRequestDto findById(Long userId, Long requestId) {
+    public ItemRequest findById(Long userId, Long requestId) {
         userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
@@ -93,11 +94,11 @@ public class ItemRequestServiceImpl implements ItemRequestService {
         List<ItemDto> itemDtos = findAllByRequestId(itemRequest.getId());
         itemRequest.setItems(itemDtos);
 
-        return ItemRequestMapper.toItemRequestDto(itemRequest);
+        return itemRequest;
     }
 
     @Override
-    public List<ItemRequestDto> findAllByUserIdToPageable(Long userId, Integer from, Integer size) {
+    public List<ItemRequestDtoToReturn> findAllByUserIdToPageable(Long userId, Integer from, Integer size) {
         userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 

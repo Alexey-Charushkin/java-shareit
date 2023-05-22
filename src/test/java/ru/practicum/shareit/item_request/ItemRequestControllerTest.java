@@ -5,7 +5,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.practicum.shareit.item_request.dto.ItemRequestDto;
+import ru.practicum.shareit.item_request.dto.ItemRequestDtoToReturn;
+import ru.practicum.shareit.item_request.dto.ItemRequestDtoToSave;
 import ru.practicum.shareit.item_request.dto.ItemRequestMapper;
 import ru.practicum.shareit.item_request.model.ItemRequest;
 import ru.practicum.shareit.item_request.service.ItemRequestService;
@@ -27,49 +28,51 @@ class ItemRequestControllerTest {
     User requestor = new User(1L, "requestorName", "requestorEmail@mail.com");
     ItemRequest request = new ItemRequest(0L, "requestDescription", requestor, null, null);
 
-    ItemRequestDto requestDto = ItemRequestMapper.toItemRequestDto(request);
+    ItemRequestDtoToReturn requestDto = ItemRequestMapper.toItemRequestDto(request);
+
+    ItemRequestDtoToSave requestDtoToSave = new ItemRequestDtoToSave("save Description");
 
     @Test
     void create() {
-        when(itemRequestService.create(1L, requestDto)).thenReturn(requestDto);
+        when(itemRequestService.create(1L, requestDtoToSave)).thenReturn(requestDto);
 
-        ItemRequestDto actualItemRequestDto = itemRequestController.create(1L, requestDto);
+        ItemRequestDtoToReturn actualItemRequestDtoToReturn = itemRequestController.create(1L, requestDtoToSave);
 
-        assertEquals(requestDto.getId(), actualItemRequestDto.getId());
-        assertEquals(requestDto.getDescription(), actualItemRequestDto.getDescription());
-        assertEquals(requestDto.getItems(), actualItemRequestDto.getItems());
+        assertEquals(requestDto.getId(), actualItemRequestDtoToReturn.getId());
+        assertEquals(requestDto.getDescription(), actualItemRequestDtoToReturn.getDescription());
+        assertEquals(requestDto.getItems(), actualItemRequestDtoToReturn.getItems());
     }
 
     @Test
     void findAllByUserId() {
-        List<ItemRequestDto> itemRequestDtoList = List.of(new ItemRequestDto(), new ItemRequestDto());
-        when(itemRequestService.findAllByUserId(1L)).thenReturn(itemRequestDtoList);
+        List<ItemRequestDtoToReturn> itemRequestDtoToReturnList = List.of(new ItemRequestDtoToReturn(), new ItemRequestDtoToReturn());
+        when(itemRequestService.findAllByUserId(1L)).thenReturn(itemRequestDtoToReturnList);
 
-        List<ItemRequestDto> actualItemRequestDtoList = itemRequestController.findAllByUserId(1L);
+        List<ItemRequestDtoToReturn> actualItemRequestDtoToReturnList = itemRequestController.findAllByUserId(1L);
 
-        assertEquals(itemRequestDtoList.size(), actualItemRequestDtoList.size());
+        assertEquals(itemRequestDtoToReturnList.size(), actualItemRequestDtoToReturnList.size());
     }
 
     @Test
     void findById() {
-        when(itemRequestService.findById(1L, 1L)).thenReturn(requestDto);
+        when(itemRequestService.findById(1L, 1L)).thenReturn(request);
 
-        ItemRequestDto actualItemRequestDto = itemRequestController.findById(1L, 1L);
+        ItemRequestDtoToReturn actualItemRequestDtoToReturn = itemRequestController.findById(1L, 1L);
 
-        assertEquals(requestDto.getId(), actualItemRequestDto.getId());
-        assertEquals(requestDto.getDescription(), actualItemRequestDto.getDescription());
-        assertEquals(requestDto.getItems(), actualItemRequestDto.getItems());
+        assertEquals(request.getId(), actualItemRequestDtoToReturn.getId());
+        assertEquals(request.getDescription(), actualItemRequestDtoToReturn.getDescription());
+        assertEquals(request.getItems(), actualItemRequestDtoToReturn.getItems());
     }
 
     @Test
     void findAllById() {
         int from = 0;
         int size = 1;
-        List<ItemRequestDto> itemRequestDtoList = List.of(new ItemRequestDto(), new ItemRequestDto());
-        when(itemRequestService.findAllByUserIdToPageable(1L, from, size)).thenReturn(itemRequestDtoList);
+        List<ItemRequestDtoToReturn> itemRequestDtoToReturnList = List.of(new ItemRequestDtoToReturn(), new ItemRequestDtoToReturn());
+        when(itemRequestService.findAllByUserIdToPageable(1L, from, size)).thenReturn(itemRequestDtoToReturnList);
 
-        List<ItemRequestDto> actualItemRequestDtoList = itemRequestController.findAllById(1L, from, size);
+        List<ItemRequestDtoToReturn> actualItemRequestDtoToReturnList = itemRequestController.findAllById(1L, from, size);
 
-        assertEquals(itemRequestDtoList.size(), actualItemRequestDtoList.size());
+        assertEquals(itemRequestDtoToReturnList.size(), actualItemRequestDtoToReturnList.size());
     }
 }
