@@ -47,7 +47,7 @@ public class ItemController {
     @GetMapping()
     public List<ItemDto> gelAllByUserId(@RequestHeader("X-Sharer-User-Id") Long userId,
                                         @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
-                                        @Positive @RequestParam(name = "size", required = false) Integer size) {
+                                        @Positive @RequestParam(name = "size", defaultValue = "10") Integer size) {
         log.info("Get X-Sharer-User-Id");
         return itemService.getAllItemsByUserId(userId, from, size);
     }
@@ -61,7 +61,7 @@ public class ItemController {
     @GetMapping("search")
     public List<ItemDto> searchItems(@RequestParam("text") String query,
                                      @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
-                                     @Positive @RequestParam(name = "size", required = false) Integer size) {
+                                     @Positive @RequestParam(name = "size", defaultValue = "10") Integer size) {
         log.info("Get =search");
         return itemService.searchItems(query, from, size);
     }

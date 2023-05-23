@@ -42,8 +42,4 @@ public class ItemRequest {
         this.description = description;
         this.created = LocalDateTime.now();
     }
-
-
-    public ItemRequest(Long id, String description, LocalDateTime created, List<ItemDto> items) {
-    }
 }

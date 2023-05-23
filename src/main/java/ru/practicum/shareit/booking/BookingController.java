@@ -45,7 +45,7 @@ public class BookingController {
     public List<BookingDto> gelAllBookingsByUserId(@RequestHeader("X-Sharer-User-Id") Long userId,
                                                    @RequestParam(value = "state", defaultValue = "ALL") String status,
                                                    @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
-                                                   @Positive @RequestParam(name = "size", required = false) Integer size) {
+                                                   @Positive @RequestParam(name = "size", defaultValue = "10") Integer size) {
         log.info("Get X-Sharer-User-Id, userId");
         return bookingService.getAllBookingsByUserId(userId, BookingDto.StatusDto.valueOf(status), from, size);
     }
@@ -54,7 +54,7 @@ public class BookingController {
     public List<BookingDto> gelAllBookingsByOwnerId(@RequestHeader("X-Sharer-User-Id") Long ownerId,
                                                     @RequestParam(value = "state", defaultValue = "ALL") String status,
                                                     @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
-                                                    @Positive @RequestParam(name = "size", required = false) Integer size) {
+                                                    @Positive @RequestParam(name = "size", defaultValue = "10") Integer size) {
         log.info("Get X-Sharer-User-Id, ownerId");
         return bookingService.getAllBookingsByOwnerId(ownerId, BookingDto.StatusDto.valueOf(status), from, size);
     }

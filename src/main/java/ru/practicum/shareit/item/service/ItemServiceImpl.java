@@ -50,7 +50,6 @@ public class ItemServiceImpl implements ItemService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found."));
 
-
         Item item = ItemMapper.toItem(user, itemDto);
         if (itemDto.getRequestId() != null) {
             itemRequest = itemRequestService.findById(userId, itemDto.getRequestId());
@@ -73,12 +72,12 @@ public class ItemServiceImpl implements ItemService {
             throw new NotFoundException("The user is not the owner of the item.");
         }
         if (itemDto.getName() != null) {
-            if (!itemDto.getName().isEmpty() && !itemDto.getName().isBlank()) {
+            if (!itemDto.getName().isBlank()) {
                 itemToUpdate.setName(itemDto.getName());
             }
         }
         if (itemDto.getDescription() != null) {
-            if (!itemDto.getDescription().isEmpty() && !itemDto.getDescription().isBlank()) {
+            if (!itemDto.getDescription().isBlank()) {
                 itemToUpdate.setDescription(itemDto.getDescription());
             }
         }
@@ -116,14 +115,9 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<ItemDto> getAllItemsByUserId(Long userId, Integer from, Integer size) {
         List<Item> item;
-
-        if (size == null) {
-            item = itemRepository.findByOwnerId(userId, Sort.by(Sort.Direction.ASC, "id"));
-        } else {
-            Sort sort = Sort.by(Sort.Direction.ASC, "id");
-            Pageable page = PageRequest.of(from, size, sort);
-            item = itemRepository.findByOwnerId(userId, page);
-        }
+        Sort sort = Sort.by(Sort.Direction.ASC, "id");
+        Pageable page = PageRequest.of(from, size, sort);
+        item = itemRepository.findByOwnerId(userId, page);
         return item.stream()
                 .map(ItemMapper::toItemDto)
                 .peek(this::getBookings)
@@ -136,14 +130,8 @@ public class ItemServiceImpl implements ItemService {
         if (query.isBlank()) return Collections.emptyList();
         try {
             log.info("Request search films, query = {}.", query);
-            if (from == null || size == null) {
-                itemList = itemRepository.search(query);
-
-            } else {
-                Pageable page = PageRequest.of(from, size);
-                itemList = itemRepository.searchToPage(query, page);
-            }
-
+            Pageable page = PageRequest.of(from, size);
+            itemList = itemRepository.searchToPage(query, page);
         } catch (EntityNotFoundException e) {
             log.warn("Items not found");
             throw new NotFoundException("Item not found.");

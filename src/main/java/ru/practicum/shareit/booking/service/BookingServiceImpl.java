@@ -114,94 +114,51 @@ public class BookingServiceImpl implements BookingService {
         switch (statusDto) {
 
             case ALL: {
-                if (size == null) {
-                    bookings = bookingRepository.findByBookerId(userId, Sort.by(Sort.Direction.DESC,
-                            "start"));
-                } else {
-                    Sort sort = Sort.by(Sort.Direction.DESC, "start");
-                    Pageable page = PageRequest.of(from, size - 1, sort);
-                    bookings = bookingRepository.findByBookerId(userId, page);
-                }
+                Sort sort = Sort.by(Sort.Direction.DESC, "start");
+                Pageable page = PageRequest.of(from, size - 1, sort);
+                bookings = bookingRepository.findByBookerId(userId, page);
                 break;
             }
             case CURRENT: {
-                if (size == null) {
-                    bookings = bookingRepository.findByBooker_IdAndStartIsBeforeAndEndIsAfter(userId, LocalDateTime.now(), LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
-                            "start"));
-                } else {
-                    Sort sort = Sort.by(Sort.Direction.DESC, "start");
-                    Pageable page = PageRequest.of(from, size, sort);
-                    bookings = bookingRepository.findByBooker_IdAndStartIsBeforeAndEndIsAfter(userId, LocalDateTime.now(), LocalDateTime.now(), page);
-                }
+                Sort sort = Sort.by(Sort.Direction.DESC, "start");
+                Pageable page = PageRequest.of(from, size, sort);
+                bookings = bookingRepository.findByBooker_IdAndStartIsBeforeAndEndIsAfter(userId, LocalDateTime.now(), LocalDateTime.now(), page);
                 break;
             }
             case PAST: {
-                if (size == null) {
-                    bookings = bookingRepository.findByBooker_IdAndEndIsBefore(userId, LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
-                            "start"));
-                } else {
-                    Sort sort = Sort.by(Sort.Direction.DESC, "start");
-                    Pageable page = PageRequest.of(from, size, sort);
-                    bookings = bookingRepository.findByBooker_IdAndEndIsBefore(userId, LocalDateTime.now(), page);
-                }
+                Sort sort = Sort.by(Sort.Direction.DESC, "start");
+                Pageable page = PageRequest.of(from, size, sort);
+                bookings = bookingRepository.findByBooker_IdAndEndIsBefore(userId, LocalDateTime.now(), page);
                 break;
             }
             case FUTURE: {
-                if (size == null) {
-                    bookings = bookingRepository.findByBooker_IdAndStartIsAfter(userId, LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
-                            "start"));
-                } else {
-                    Sort sort = Sort.by(Sort.Direction.DESC, "start");
-                    Pageable page = PageRequest.of(from, size, sort);
-                    bookings = bookingRepository.findByBooker_IdAndStartIsAfter(userId, LocalDateTime.now(), page);
-                }
+                Sort sort = Sort.by(Sort.Direction.DESC, "start");
+                Pageable page = PageRequest.of(from, size, sort);
+                bookings = bookingRepository.findByBooker_IdAndStartIsAfter(userId, LocalDateTime.now(), page);
                 break;
             }
             case WAITING: {
-                if (size == null) {
-                    bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.WAITING, Sort.by(Sort.Direction.DESC,
-                            "start"));
-                } else {
-                    Sort sort = Sort.by(Sort.Direction.DESC, "start");
-                    Pageable page = PageRequest.of(from, size, sort);
-                    bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.WAITING, page);
-                }
+                Sort sort = Sort.by(Sort.Direction.DESC, "start");
+                Pageable page = PageRequest.of(from, size, sort);
+                bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.WAITING, page);
                 break;
             }
             case APPROVED: {
-                if (size == null) {
-                    bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.APPROVED, Sort.by(Sort.Direction.DESC,
-                            "start"));
-                } else {
-                    Sort sort = Sort.by(Sort.Direction.DESC, "start");
-                    Pageable page = PageRequest.of(from, size, sort);
-                    bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.APPROVED, page);
-                }
-
+                Sort sort = Sort.by(Sort.Direction.DESC, "start");
+                Pageable page = PageRequest.of(from, size, sort);
+                bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.APPROVED, page);
                 break;
             }
             case REJECTED: {
-                if (size == null) {
-                    bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.REJECTED, Sort.by(Sort.Direction.DESC,
-                            "start"));
-                } else {
-                    Sort sort = Sort.by(Sort.Direction.DESC, "start");
-                    Pageable page = PageRequest.of(from, size, sort);
-                    bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.REJECTED, page);
-                }
-
+                Sort sort = Sort.by(Sort.Direction.DESC, "start");
+                Pageable page = PageRequest.of(from, size, sort);
+                bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.REJECTED, page);
                 break;
             }
             case CANCELED: {
-                if (size == null) {
-                    bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.CANCELED, Sort.by(Sort.Direction.DESC,
-                            "start"));
-                } else {
-                    Sort sort = Sort.by(Sort.Direction.DESC, "start");
-                    Pageable page = PageRequest.of(from, size, sort);
-                    bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.CANCELED, page);
-                }
-
+                Sort sort = Sort.by(Sort.Direction.DESC, "start");
+                Pageable page = PageRequest.of(from, size, sort);
+                bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.CANCELED, page);
                 break;
             }
             case UNSUPPORTED_STATUS: {
@@ -225,92 +182,52 @@ public class BookingServiceImpl implements BookingService {
         switch (statusDto) {
 
             case ALL: {
-                if (size == null) {
-                    bookings = bookingRepository.findByOwnerId(ownerId, Sort.by(Sort.Direction.DESC,
-                            "start"));
-                } else {
-                    Sort sort = Sort.by(Sort.Direction.DESC, "start");
-                    Pageable page = PageRequest.of(from, size, sort);
-                    bookings = bookingRepository.findByOwnerId(ownerId, page);
-                }
+                Sort sort = Sort.by(Sort.Direction.DESC, "start");
+                Pageable page = PageRequest.of(from, size, sort);
+                bookings = bookingRepository.findByOwnerId(ownerId, page);
                 break;
             }
             case CURRENT: {
-                if (size == null) {
-                    bookings = bookingRepository.findByOwnerIdAndStartIsBeforeAndEndIsAfter(ownerId, LocalDateTime.now(), LocalDateTime.now(),
-                            Sort.by(Sort.Direction.DESC, "start"));
-                } else {
-                    Sort sort = Sort.by(Sort.Direction.DESC, "start");
-                    Pageable page = PageRequest.of(from, size, sort);
-                    bookings = bookingRepository.findByOwnerIdAndStartIsBeforeAndEndIsAfter(ownerId, LocalDateTime.now(), LocalDateTime.now(),
-                            page);
-                }
+                Sort sort = Sort.by(Sort.Direction.DESC, "start");
+                Pageable page = PageRequest.of(from, size, sort);
+                bookings = bookingRepository.findByOwnerIdAndStartIsBeforeAndEndIsAfter(ownerId, LocalDateTime.now(), LocalDateTime.now(),
+                        page);
                 break;
             }
             case PAST: {
-                if (size == null) {
-                    bookings = bookingRepository.findByOwnerIdAndEndBefore(ownerId, LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
-                            "start"));
-                } else {
-                    Sort sort = Sort.by(Sort.Direction.DESC, "start");
-                    Pageable page = PageRequest.of(from, size, sort);
-                    bookings = bookingRepository.findByOwnerIdAndEndBefore(ownerId, LocalDateTime.now(), page);
-                }
+                Sort sort = Sort.by(Sort.Direction.DESC, "start");
+                Pageable page = PageRequest.of(from, size, sort);
+                bookings = bookingRepository.findByOwnerIdAndEndBefore(ownerId, LocalDateTime.now(), page);
                 break;
             }
             case FUTURE: {
-                if (size == null) {
-                    bookings = bookingRepository.findByOwnerIdAndSAndStartIsAfter(ownerId, LocalDateTime.now(), Sort.by(Sort.Direction.DESC,
-                            "start"));
-                } else {
-                    Sort sort = Sort.by(Sort.Direction.DESC, "start");
-                    Pageable page = PageRequest.of(from, size, sort);
-                    bookings = bookingRepository.findByOwnerIdAndSAndStartIsAfter(ownerId, LocalDateTime.now(), page);
-                }
+                Sort sort = Sort.by(Sort.Direction.DESC, "start");
+                Pageable page = PageRequest.of(from, size, sort);
+                bookings = bookingRepository.findByOwnerIdAndSAndStartIsAfter(ownerId, LocalDateTime.now(), page);
                 break;
             }
             case WAITING: {
-                if (size == null) {
-                    bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.WAITING, Sort.by(Sort.Direction.DESC,
-                            "start"));
-                } else {
-                    Sort sort = Sort.by(Sort.Direction.DESC, "start");
-                    Pageable page = PageRequest.of(from, size, sort);
-                    bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.WAITING, page);
-                }
+                Sort sort = Sort.by(Sort.Direction.DESC, "start");
+                Pageable page = PageRequest.of(from, size, sort);
+                bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.WAITING, page);
                 break;
             }
             case APPROVED: {
-                if (size == null) {
-                    bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.APPROVED, Sort.by(Sort.Direction.DESC,
-                            "start"));
-                } else {
-                    Sort sort = Sort.by(Sort.Direction.DESC, "start");
-                    Pageable page = PageRequest.of(from, size, sort);
-                    bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.APPROVED, page);
-                }
+                Sort sort = Sort.by(Sort.Direction.DESC, "start");
+                Pageable page = PageRequest.of(from, size, sort);
+                bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.APPROVED, page);
                 break;
             }
             case REJECTED: {
-                if (size == null) {
-                    bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.REJECTED, Sort.by(Sort.Direction.DESC,
-                            "start"));
-                } else {
-                    Sort sort = Sort.by(Sort.Direction.DESC, "start");
-                    Pageable page = PageRequest.of(from, size, sort);
-                    bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.REJECTED, page);
-                }
+                Sort sort = Sort.by(Sort.Direction.DESC, "start");
+                Pageable page = PageRequest.of(from, size, sort);
+                bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.REJECTED, page);
                 break;
             }
             case CANCELED: {
-                if (size == null) {
-                    bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.CANCELED, Sort.by(Sort.Direction.DESC,
-                            "start"));
-                } else {
-                    Sort sort = Sort.by(Sort.Direction.DESC, "start");
-                    Pageable page = PageRequest.of(from, size, sort);
-                    bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.CANCELED, page);
-                }
+                Sort sort = Sort.by(Sort.Direction.DESC, "start");
+                Pageable page = PageRequest.of(from, size, sort);
+                bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.CANCELED, page);
                 break;
             }
             default: {

@@ -41,10 +41,10 @@ public class ErrorHandler {
         return new ErrorResponse(e.getMessage());
     }
 
-//    @ExceptionHandler
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    public ErrorResponse handleAvailableInternalServerErrorException(final Throwable e) {
-//        log.debug("Получен статус 500 Internal Server Error {}", e.getMessage(), e);
-//        return new ErrorResponse(e.getMessage());
-//    }
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse handleAvailableInternalServerErrorException(final Throwable e) {
+        log.debug("Получен статус 500 Internal Server Error {}", e.getMessage(), e);
+        return new ErrorResponse(e.getMessage());
+    }
 }

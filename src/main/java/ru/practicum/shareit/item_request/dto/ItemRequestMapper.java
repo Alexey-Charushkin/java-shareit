@@ -13,13 +13,13 @@ import java.util.stream.Collectors;
 @UtilityClass
 public class ItemRequestMapper {
 
-    public static ItemRequest toItemRequestToSave(ItemRequestDtoToSave itemRequestDtoToSave) {
+    public ItemRequest toItemRequestToSave(ItemRequestDtoToSave itemRequestDtoToSave) {
         return new ItemRequest(
                 itemRequestDtoToSave.getDescription()
         );
     }
 
-    public static ItemRequestDtoToReturn toItemRequestDto(ItemRequest itemRequest) {
+    public ItemRequestDtoToReturn toItemRequestDto(ItemRequest itemRequest) {
         return new ItemRequestDtoToReturn(
                 itemRequest.getId(),
                 itemRequest.getDescription(),
