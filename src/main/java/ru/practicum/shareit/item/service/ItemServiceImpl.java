@@ -26,7 +26,6 @@ import ru.practicum.shareit.item_request.service.ItemRequestService;
 import ru.practicum.shareit.user.dao.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Collections;

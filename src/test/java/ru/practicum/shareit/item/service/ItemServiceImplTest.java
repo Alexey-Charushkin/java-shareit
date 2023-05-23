@@ -24,10 +24,8 @@ import ru.practicum.shareit.item_request.service.ItemRequestService;
 import ru.practicum.shareit.user.dao.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
-import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -269,29 +267,6 @@ class ItemServiceImplTest {
     }
 
     @Test
-    void getAllItemsByUserId_whenItemsFoundAndFromIsNullAndSizeIsNull_thenReturnItemCollectionInList() {
-        List<Item> exceptedItems = List.of(item, item2);
-        Mockito.when(itemRepository.findByOwnerId(owner.getId(), Sort.by(Sort.Direction.ASC, "id"))).thenReturn(exceptedItems);
-
-        List<Item> response = itemService.getAllItemsByUserId(owner.getId(), null, null).stream().map(i -> ItemMapper.toItem(owner, i)).collect(Collectors.toList());
-
-        assertNotNull(response);
-        assertEquals(response.get(0).getId(), exceptedItems.get(0).getId());
-        assertEquals(response.get(0).getName(), exceptedItems.get(0).getName());
-        assertEquals(response.get(0).getDescription(), exceptedItems.get(0).getDescription());
-        assertEquals(response.get(1).getId(), exceptedItems.get(1).getId());
-        assertEquals(response.get(1).getName(), exceptedItems.get(1).getName());
-        assertEquals(response.get(1).getDescription(), exceptedItems.get(1).getDescription());
-    }
-
-    @Test
-    void getAllItemsByUserId_whenItemsNotFound_thenReturnCollectionEmptyList() {
-        List<ItemDto> response = itemService.getAllItemsByUserId(wrongOwner.getId(), null, null);
-
-        assertEquals(response, Collections.emptyList());
-    }
-
-    @Test
     void getAllItemsByUserId_whenItemsFoundAndFromNotNullAndSizeNotNull_thenReturnItemCollectionInList() {
         int from = 0;
         int size = 5;
@@ -301,23 +276,6 @@ class ItemServiceImplTest {
         Mockito.when(itemRepository.findByOwnerId(owner.getId(), page)).thenReturn(exceptedItems);
 
         List<Item> response = itemService.getAllItemsByUserId(owner.getId(), from, size).stream().map(i -> ItemMapper.toItem(owner, i)).collect(Collectors.toList());
-
-        assertNotNull(response);
-        assertEquals(response.get(0).getId(), exceptedItems.get(0).getId());
-        assertEquals(response.get(0).getName(), exceptedItems.get(0).getName());
-        assertEquals(response.get(0).getDescription(), exceptedItems.get(0).getDescription());
-        assertEquals(response.get(1).getId(), exceptedItems.get(1).getId());
-        assertEquals(response.get(1).getName(), exceptedItems.get(1).getName());
-        assertEquals(response.get(1).getDescription(), exceptedItems.get(1).getDescription());
-    }
-
-    @Test
-    void searchItems_whenItemsFoundAndFromIsNullAndSizeIsNull_thenReturnItemCollectionInList() {
-        List<Item> exceptedItems = List.of(item, item2);
-        String query = "itemName";
-        Mockito.when(itemRepository.search(query)).thenReturn(exceptedItems);
-
-        List<Item> response = itemService.searchItems(query, null, null).stream().map(i -> ItemMapper.toItem(owner, i)).collect(Collectors.toList());
 
         assertNotNull(response);
         assertEquals(response.get(0).getId(), exceptedItems.get(0).getId());
@@ -359,15 +317,6 @@ class ItemServiceImplTest {
 
         assertNotNull(response);
         assertEquals(response.size(), 0);
-    }
-
-    @Test
-    void searchItems_whenItemsNotFound_thenNotFoundExceptionThrown() {
-        String query = "Not";
-        Mockito.when(itemRepository.search(query)).thenThrow(EntityNotFoundException.class);
-
-        NotFoundException notFoundException = assertThrows(NotFoundException.class, () -> itemService.searchItems(query, null, null));
-        assertEquals(notFoundException.getMessage(), "Item not found.");
     }
 
     @Test

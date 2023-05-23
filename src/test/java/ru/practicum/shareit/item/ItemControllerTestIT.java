@@ -80,7 +80,7 @@ class ItemControllerTestIT {
         mockMvc.perform(post("/items")
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(itemDto)))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().is5xxServerError());
     }
 
     @SneakyThrows

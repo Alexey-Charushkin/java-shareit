@@ -1,7 +1,6 @@
 package ru.practicum.shareit.item_request.model;
 
 import lombok.*;
-import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
@@ -17,7 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "requests", schema = "public")
-@Builder
 public class ItemRequest {
 
     @Id
