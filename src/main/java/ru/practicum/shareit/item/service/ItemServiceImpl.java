@@ -128,14 +128,10 @@ public class ItemServiceImpl implements ItemService {
     public List<ItemDto> searchItems(String query, Integer from, Integer size) {
         List<Item> itemList;
         if (query.isBlank()) return Collections.emptyList();
-        try {
-            log.info("Request search films, query = {}.", query);
-            Pageable page = PageRequest.of(from, size);
-            itemList = itemRepository.searchToPage(query, page);
-        } catch (EntityNotFoundException e) {
-            log.warn("Items not found");
-            throw new NotFoundException("Item not found.");
-        }
+
+        log.info("Request search films, query = {}.", query);
+        Pageable page = PageRequest.of(from, size);
+        itemList = itemRepository.searchToPage(query, page);
         return itemList.stream()
                 .map(ItemMapper::toItemDto)
                 .collect(Collectors.toList());

@@ -61,7 +61,6 @@ public class ItemRequestServiceImpl implements ItemRequestService {
                 "id"));
 
         List<Long> requestIds = itemRequests.stream()
-                .filter(itemRequest -> itemRequest.getRequestor().equals(user))
                 .map(ItemRequest::getId)
                 .collect(toList());
 
@@ -71,7 +70,8 @@ public class ItemRequestServiceImpl implements ItemRequestService {
 
         if (itemsByRequestId.size() != 0) {
             itemRequestDtoToReturns = itemRequests.stream()
-                    .peek(itemRequest -> itemRequest.setItems(itemsByRequestId.get(itemRequest.getId())))
+                    .peek(itemRequest -> itemRequest.setItems(itemsByRequestId.getOrDefault(itemRequest.getId(),
+                            Collections.emptyList())))
                     .map(ItemRequestMapper::toItemRequestDto)
                     .collect(toList());
 
@@ -117,7 +117,8 @@ public class ItemRequestServiceImpl implements ItemRequestService {
                 .collect(Collectors.groupingBy(item -> item.getRequest().getId()));
 
         return itemRequests.stream()
-                .peek(itemRequest -> itemRequest.setItems(itemsByRequestId.get(itemRequest.getId())))
+                .peek(itemRequest -> itemRequest.setItems(itemsByRequestId.getOrDefault(itemRequest.getId(),
+                        Collections.emptyList())))
                 .map(ItemRequestMapper::toItemRequestDto)
                 .collect(toList());
     }
