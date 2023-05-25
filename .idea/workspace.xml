@@ -63,38 +63,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "last_directory_selection": "C:/Users/achar/IdeaProjects/java-shareit/server/src/main/java/ru/practicum/shareit",
-    "last_opened_file_path": "C:/Users/achar/IdeaProjects/java-shareit",
-    "project.structure.last.edited": "Global Libraries",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "org.infernus.idea.checkstyle.CheckStyleConfigurable",
-    "spring.configuration.checksum": "46f3d9057eee11207155d59e7cf34b74"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;last_directory_selection&quot;: &quot;C:/Users/achar/IdeaProjects/java-shareit/server/src/main/java/ru/practicum/shareit&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/achar/IdeaProjects/java-shareit&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.infernus.idea.checkstyle.CheckStyleConfigurable&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;46f3d9057eee11207155d59e7cf34b74&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "h2",
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;h2&quot;,
+      &quot;postgresql&quot;
     ],
-    "RunConfigurationTargetLRU": [
-      "dc0e2248-e0aa-4253-b80d-c4adf2f0c091"
+    &quot;RunConfigurationTargetLRU&quot;: [
+      &quot;dc0e2248-e0aa-4253-b80d-c4adf2f0c091&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="ru.practicum.shareit" />
@@ -130,7 +130,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ShareItServer (1)">
+  <component name="RunManager" selected="JUnit.UserControllerTest">
     <configuration name="ShareItAppTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <extension name="coverage">
@@ -146,16 +146,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ShareItServerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ShareItServerTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shareit-server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ru.practicum.shareItServer.*" />
+          <option name="PATTERN" value="ru.practicum.shareit.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="ru.practicum.shareit" />
       <option name="MAIN_CLASS_NAME" value="ru.practicum.shareit.ShareItServerTest" />
-      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -177,7 +177,7 @@
       </method>
     </configuration>
     <configuration name="ShareItTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="shareit-server" />
+      <module name="server" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="ru.practicum.shareItServer.*" />
@@ -191,16 +191,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ShareItTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="server" />
+    <configuration name="UserControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shareit-server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ru.practicum.shareItServer.*" />
+          <option name="PATTERN" value="ru.practicum.shareit.user.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ru.practicum.shareit" />
-      <option name="MAIN_CLASS_NAME" value="ru.practicum.shareItServer.ShareItTests" />
+      <option name="PACKAGE_NAME" value="ru.practicum.shareit.user" />
+      <option name="MAIN_CLASS_NAME" value="ru.practicum.shareit.user.UserControllerTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -276,10 +276,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UserControllerTest" />
+        <item itemvalue="JUnit.ShareItServerTest (1)" />
         <item itemvalue="Spring Boot.ShareItServer (1)" />
         <item itemvalue="Spring Boot.ShareItServer (1)" />
         <item itemvalue="JUnit.ShareItAppTest" />
-        <item itemvalue="JUnit.ShareItTests (2)" />
       </list>
     </recent_temporary>
   </component>
@@ -358,14 +359,7 @@
       <workItem from="1685019615122" duration="341000" />
       <workItem from="1685019976045" duration="248000" />
       <workItem from="1685020241225" duration="718000" />
-      <workItem from="1685021358299" duration="312000" />
-    </task>
-    <task id="LOCAL-00034" summary="feat: -12">
-      <created>1683289093636</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1683289093636</updated>
+      <workItem from="1685021358299" duration="569000" />
     </task>
     <task id="LOCAL-00035" summary="feat: -5">
       <created>1683292599059</created>
@@ -703,7 +697,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685021447804</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="feat: initial commit">
+      <created>1685021915822</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1685021915822</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

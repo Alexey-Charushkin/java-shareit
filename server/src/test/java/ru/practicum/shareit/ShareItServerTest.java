@@ -4,7 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ShareItAppTest {
+class ShareItServerTest {
+
     @Test
     void main() {
     }
