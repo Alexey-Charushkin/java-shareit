@@ -18,7 +18,11 @@
     <properties>
         <java.version>11</java.version>
     </properties>
-
+    <packaging>pom</packaging>
+    <modules>
+        <module>gateway</module>
+        <module>server</module>
+    </modules>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
