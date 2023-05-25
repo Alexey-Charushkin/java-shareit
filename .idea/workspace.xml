@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ccdeb8b-199a-4945-8889-74f37ce91cf8" name="Changes" comment="refactor: на проверку" />
+    <list default="true" id="0ccdeb8b-199a-4945-8889-74f37ce91cf8" name="Changes" comment="feat: initial commit">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/schema.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/test-data.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shareit.iml" beforeDir="false" afterPath="$PROJECT_DIR$/shareit.iml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,36 +72,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "last_directory_selection": "C:/Users/achar/IdeaProjects/java-shareit/server/src/main/java/ru/practicum/shareit",
-    "last_opened_file_path": "C:/Users/achar/IdeaProjects/java-shareit",
-    "project.structure.last.edited": "Problems",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "org.infernus.idea.checkstyle.CheckStyleConfigurable",
-    "spring.configuration.checksum": "bda01d81c4525edb7cd0ed3570c78de5"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;last_directory_selection&quot;: &quot;C:/Users/achar/IdeaProjects/java-shareit/server/src/main/java/ru/practicum/shareit&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/achar/IdeaProjects/java-shareit&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.infernus.idea.checkstyle.CheckStyleConfigurable&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;bda01d81c4525edb7cd0ed3570c78de5&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "h2",
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;h2&quot;,
+      &quot;postgresql&quot;
     ],
-    "RunConfigurationTargetLRU": [
-      "dc0e2248-e0aa-4253-b80d-c4adf2f0c091"
+    &quot;RunConfigurationTargetLRU&quot;: [
+      &quot;dc0e2248-e0aa-4253-b80d-c4adf2f0c091&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="ru.practicum.shareit" />
@@ -353,13 +362,9 @@
       <workItem from="1685018809926" duration="138000" />
       <workItem from="1685018950960" duration="440000" />
       <workItem from="1685019410313" duration="186000" />
-    </task>
-    <task id="LOCAL-00031" summary="feat: - 22">
-      <created>1683123818248</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1683123818248</updated>
+      <workItem from="1685019615122" duration="341000" />
+      <workItem from="1685019976045" duration="248000" />
+      <workItem from="1685020241225" duration="410000" />
     </task>
     <task id="LOCAL-00032" summary="feat: создал Comment">
       <created>1683194094502</created>
@@ -697,7 +702,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685019298240</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="feat: initial commit">
+      <created>1685019702842</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1685019702842</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -715,7 +727,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: -12" />
     <MESSAGE value="feat: -5" />
     <MESSAGE value="feat: в работе" />
     <MESSAGE value="feat: в работе Page" />
@@ -740,7 +751,8 @@
     <MESSAGE value="refactor: checkstyle test" />
     <MESSAGE value="refactor: Jacoco" />
     <MESSAGE value="refactor: на проверку" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: на проверку" />
+    <MESSAGE value="feat: initial commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: initial commit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
