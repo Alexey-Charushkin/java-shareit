@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ccdeb8b-199a-4945-8889-74f37ce91cf8" name="Changes" comment="feat: initial commit" />
+    <list default="true" id="0ccdeb8b-199a-4945-8889-74f37ce91cf8" name="Changes" comment="feat: initial commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/p — копия.xml.back" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/shareit-server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/server/shareit-server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,8 +20,8 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
-        <option value="JUnit5 Test Class" />
         <option value="AnnotationType" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -130,17 +135,17 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.UserControllerTest">
-    <configuration name="ShareItAppTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="server" />
+  <component name="RunManager" selected="Spring Boot.ShareItServer (1)">
+    <configuration name="BookingServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shareit-server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ru.practicum.shareItServer.*" />
+          <option name="PATTERN" value="ru.practicum.shareit.booking.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ru.practicum.shareit" />
-      <option name="MAIN_CLASS_NAME" value="ru.practicum.shareItServer.ShareItAppTest" />
+      <option name="PACKAGE_NAME" value="ru.practicum.shareit.booking.service" />
+      <option name="MAIN_CLASS_NAME" value="ru.practicum.shareit.booking.service.BookingServiceImplTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -206,30 +211,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ShareItApp (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="shareit-server" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.practicum.shareit.ShareItApp" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ShareItApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="shareit" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.practicum.shareit.ShareItApp" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ShareItGateway (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="shareit-gateway" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ru.practicum.shareit.ShareItGateway" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ShareItGateway" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="shareit-gateway" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.practicum.shareItServer.ShareItGateway" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -243,20 +227,6 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ShareItServer (2)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="shareit (1)" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.practicum.shareItServer.ShareItServer" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ShareItServer" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="shareit-server" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.practicum.shareItServer.ShareItServer" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -276,11 +246,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.ShareItServer (1)" />
+        <item itemvalue="JUnit.BookingServiceImplTest" />
         <item itemvalue="JUnit.UserControllerTest" />
         <item itemvalue="JUnit.ShareItServerTest (1)" />
         <item itemvalue="Spring Boot.ShareItServer (1)" />
-        <item itemvalue="Spring Boot.ShareItServer (1)" />
-        <item itemvalue="JUnit.ShareItAppTest" />
       </list>
     </recent_temporary>
   </component>
@@ -360,13 +330,7 @@
       <workItem from="1685019976045" duration="248000" />
       <workItem from="1685020241225" duration="718000" />
       <workItem from="1685021358299" duration="569000" />
-    </task>
-    <task id="LOCAL-00035" summary="feat: -5">
-      <created>1683292599059</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1683292599059</updated>
+      <workItem from="1685021951294" duration="748000" />
     </task>
     <task id="LOCAL-00036" summary="feat: в работе">
       <created>1683297873163</created>
@@ -704,7 +668,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685021915822</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="feat: initial commit">
+      <created>1685022099262</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1685022099262</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
