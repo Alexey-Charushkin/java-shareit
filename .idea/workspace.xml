@@ -1,0 +1,782 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0ccdeb8b-199a-4945-8889-74f37ce91cf8" name="Changes" comment="refactor: на проверку" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+        <option value="JUnit5 Test Class" />
+        <option value="AnnotationType" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitRewordedCommitMessages">
+    <option name="commitMessagesMapping">
+      <RewordedCommitMessageMapping>
+        <option name="originalMessage" value="feat: постман пройден&#10;&#10;refactor: постман пройден" />
+        <option name="rewordedMessage" value="feat: на ревью." />
+      </RewordedCommitMessageMapping>
+    </option>
+    <option name="currentCommit" value="1" />
+    <option name="onto" value="f512d6719f8caad3a28f0a2062432f263eaa1d13" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="enabledProfiles">
+      <list>
+        <option value="coverage" />
+        <option value="check" />
+      </list>
+    </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2OGmL4BVVJrDhalTgxC3l6eb3Hq" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "last_directory_selection": "C:/Users/achar/IdeaProjects/java-shareit/server/src/main/java/ru/practicum/shareit",
+    "last_opened_file_path": "C:/Users/achar/IdeaProjects/java-shareit",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "org.infernus.idea.checkstyle.CheckStyleConfigurable",
+    "spring.configuration.checksum": "bda01d81c4525edb7cd0ed3570c78de5"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "h2",
+      "postgresql"
+    ],
+    "RunConfigurationTargetLRU": [
+      "dc0e2248-e0aa-4253-b80d-c4adf2f0c091"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ru.practicum.shareit" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\achar\IdeaProjects\java-shareit" />
+      <recent name="C:\Users\achar\IdeaProjects\java-shareit\server\src\main\java\ru\practicum\shareit" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\achar\IdeaProjects\java-shareit\server" />
+      <recent name="C:\Users\achar\IdeaProjects\java-shareit\server\src\main\resources" />
+      <recent name="C:\Users\achar\IdeaProjects\java-shareit\server\src" />
+      <recent name="C:\Users\achar\IdeaProjects\java-shareit" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="ru.practicum.shareit" />
+      <recent name="ru.practicum.shareit.item_request" />
+      <recent name="ru.practicum.shareit.booking" />
+      <recent name="ru.practicum.shareit.item" />
+      <recent name="ru.practicum.shareit.exceptions" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ru.practicum.shareit.item_request.dto" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.ShareItServer (1)">
+    <configuration name="ShareItAppTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.practicum.shareItServer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.practicum.shareit" />
+      <option name="MAIN_CLASS_NAME" value="ru.practicum.shareItServer.ShareItAppTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ShareItServerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.practicum.shareItServer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.practicum.shareit" />
+      <option name="MAIN_CLASS_NAME" value="ru.practicum.shareit.ShareItServerTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ShareItTests (2)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shareit-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.practicum.shareit.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.practicum.shareit" />
+      <option name="MAIN_CLASS_NAME" value="ru.practicum.shareit.ShareItTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ShareItTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shareit-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.practicum.shareItServer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.practicum.shareit" />
+      <option name="MAIN_CLASS_NAME" value="ru.practicum.shareItServer.ShareItTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ShareItTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.practicum.shareItServer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.practicum.shareit" />
+      <option name="MAIN_CLASS_NAME" value="ru.practicum.shareItServer.ShareItTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ShareItApp (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="shareit-server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.practicum.shareit.ShareItApp" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ShareItApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="shareit" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.practicum.shareit.ShareItApp" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ShareItGateway (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="shareit-gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.practicum.shareit.ShareItGateway" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ShareItGateway" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="shareit-gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.practicum.shareItServer.ShareItGateway" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ShareItServer (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="shareit-server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.practicum.shareit.ShareItServer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.practicum.shareit.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ShareItServer (2)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="shareit (1)" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.practicum.shareItServer.ShareItServer" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ShareItServer" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="shareit-server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.practicum.shareItServer.ShareItServer" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ShareItServer" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.practicum.shareItServer.ShareItServer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.practicum.shareItServer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.ShareItServer (1)" />
+        <item itemvalue="Spring Boot.ShareItServer (1)" />
+        <item itemvalue="JUnit.ShareItAppTest" />
+        <item itemvalue="JUnit.ShareItTests (2)" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0ccdeb8b-199a-4945-8889-74f37ce91cf8" name="Changes" comment="" />
+      <created>1681195234745</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1681195234745</updated>
+      <workItem from="1681195243453" duration="15697000" />
+      <workItem from="1681213553508" duration="224000" />
+      <workItem from="1681278796018" duration="1401000" />
+      <workItem from="1681280217857" duration="14086000" />
+      <workItem from="1681295208676" duration="4637000" />
+      <workItem from="1681366293873" duration="184000" />
+      <workItem from="1681383145185" duration="3611000" />
+      <workItem from="1681709798457" duration="10066000" />
+      <workItem from="1681796532773" duration="7780000" />
+      <workItem from="1681804659921" duration="1652000" />
+      <workItem from="1681882598127" duration="11216000" />
+      <workItem from="1681894316075" duration="179000" />
+      <workItem from="1681910654244" duration="28000" />
+      <workItem from="1681969801885" duration="8487000" />
+      <workItem from="1682058687851" duration="1154000" />
+      <workItem from="1682315602148" duration="36000" />
+      <workItem from="1682487157108" duration="8270000" />
+      <workItem from="1682495546641" duration="185000" />
+      <workItem from="1682495757007" duration="70000" />
+      <workItem from="1682495972337" duration="157000" />
+      <workItem from="1682506148503" duration="113000" />
+      <workItem from="1682506286118" duration="452000" />
+      <workItem from="1682573531766" duration="269000" />
+      <workItem from="1682573826748" duration="829000" />
+      <workItem from="1682574704657" duration="3017000" />
+      <workItem from="1682577828119" duration="481000" />
+      <workItem from="1682588524193" duration="68000" />
+      <workItem from="1682660996712" duration="8866000" />
+      <workItem from="1682920150603" duration="9179000" />
+      <workItem from="1682931558872" duration="456000" />
+      <workItem from="1682952903625" duration="328000" />
+      <workItem from="1683005196862" duration="9249000" />
+      <workItem from="1683029380573" duration="7785000" />
+      <workItem from="1683092419617" duration="22628000" />
+      <workItem from="1683177982122" duration="12255000" />
+      <workItem from="1683193764365" duration="163000" />
+      <workItem from="1683193947236" duration="2339000" />
+      <workItem from="1683276230641" duration="18369000" />
+      <workItem from="1683613154483" duration="11535000" />
+      <workItem from="1683696762893" duration="18872000" />
+      <workItem from="1683785438294" duration="18378000" />
+      <workItem from="1683870787957" duration="33269000" />
+      <workItem from="1683905275787" duration="72000" />
+      <workItem from="1684128560533" duration="13104000" />
+      <workItem from="1684141751298" duration="6280000" />
+      <workItem from="1684215423101" duration="18758000" />
+      <workItem from="1684300728472" duration="7297000" />
+      <workItem from="1684326537347" duration="6054000" />
+      <workItem from="1684333236930" duration="5793000" />
+      <workItem from="1684387957697" duration="32004000" />
+      <workItem from="1684473794548" duration="10469000" />
+      <workItem from="1684732995110" duration="16589000" />
+      <workItem from="1684764869323" duration="4370000" />
+      <workItem from="1684830466195" duration="73000" />
+      <workItem from="1684830545635" duration="546000" />
+      <workItem from="1684831466944" duration="5426000" />
+      <workItem from="1684994249022" duration="8884000" />
+      <workItem from="1685003247998" duration="306000" />
+      <workItem from="1685003576682" duration="1586000" />
+      <workItem from="1685009927721" duration="3614000" />
+      <workItem from="1685018584753" duration="208000" />
+      <workItem from="1685018809926" duration="138000" />
+      <workItem from="1685018950960" duration="440000" />
+      <workItem from="1685019410313" duration="186000" />
+    </task>
+    <task id="LOCAL-00031" summary="feat: - 22">
+      <created>1683123818248</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1683123818248</updated>
+    </task>
+    <task id="LOCAL-00032" summary="feat: создал Comment">
+      <created>1683194094502</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1683194094502</updated>
+    </task>
+    <task id="LOCAL-00033" summary="feat: в работе">
+      <created>1683207602478</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1683207602478</updated>
+    </task>
+    <task id="LOCAL-00034" summary="feat: -12">
+      <created>1683289093636</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1683289093636</updated>
+    </task>
+    <task id="LOCAL-00035" summary="feat: -5">
+      <created>1683292599059</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1683292599059</updated>
+    </task>
+    <task id="LOCAL-00036" summary="feat: в работе">
+      <created>1683297873163</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1683297873163</updated>
+    </task>
+    <task id="LOCAL-00037" summary="feat: в работе">
+      <created>1683624729357</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1683624729357</updated>
+    </task>
+    <task id="LOCAL-00038" summary="feat: в работе Page">
+      <created>1683715317069</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1683715317069</updated>
+    </task>
+    <task id="LOCAL-00039" summary="feat: Requests Postman ok">
+      <created>1683789786458</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1683789786458</updated>
+    </task>
+    <task id="LOCAL-00040" summary="feat: Requests Postman ok">
+      <created>1683800057107</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1683800057107</updated>
+    </task>
+    <task id="LOCAL-00041" summary="refactor: поправил мелкие недочёты">
+      <created>1683805766630</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1683805766630</updated>
+    </task>
+    <task id="LOCAL-00042" summary="test: создал UserControllerTest">
+      <created>1683879961499</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1683879961499</updated>
+    </task>
+    <task id="LOCAL-00043" summary="test: создал UserServiceImplTest">
+      <created>1683905293131</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1683905293131</updated>
+    </task>
+    <task id="LOCAL-00044" summary="test: создал CommentServiceImplTest">
+      <created>1684133631697</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1684133631697</updated>
+    </task>
+    <task id="LOCAL-00045" summary="test: создал UserRepositoryTestIT">
+      <created>1684137331510</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1684137331510</updated>
+    </task>
+    <task id="LOCAL-00046" summary="test: в работе ItemRepositoryTestIT">
+      <created>1684141560225</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1684141560225</updated>
+    </task>
+    <task id="LOCAL-00047" summary="test: в работе ItemRepositoryTestIT">
+      <created>1684158831312</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1684158831312</updated>
+    </task>
+    <task id="LOCAL-00048" summary="test: сделаны BookingRepositoryTestIT">
+      <created>1684218611593</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1684218611593</updated>
+    </task>
+    <task id="LOCAL-00049" summary="test: сделаны тесты ItemRequestRepository пофиксен баг">
+      <created>1684221418079</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1684221418079</updated>
+    </task>
+    <task id="LOCAL-00050" summary="test: сделаны тесты ItemRequestRepository пофиксен баг">
+      <created>1684221482269</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1684221482269</updated>
+    </task>
+    <task id="LOCAL-00051" summary="test: сделаны тесты репозиториев">
+      <created>1684229507739</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1684229507739</updated>
+    </task>
+    <task id="LOCAL-00052" summary="test: сделаны тесты репозиториев">
+      <created>1684303523000</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1684303523000</updated>
+    </task>
+    <task id="LOCAL-00053" summary="refactor: почистил код">
+      <created>1684326473048</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1684326473048</updated>
+    </task>
+    <task id="LOCAL-00054" summary="refactor: почистил код">
+      <created>1684339122796</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1684339122796</updated>
+    </task>
+    <task id="LOCAL-00055" summary="test: сделал UserControllerTestIT">
+      <created>1684391631650</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1684391631650</updated>
+    </task>
+    <task id="LOCAL-00056" summary="test: сделал ItemControllerTestIT">
+      <created>1684395127425</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1684395127425</updated>
+    </task>
+    <task id="LOCAL-00057" summary="test: сделал BookingControllerTestIT">
+      <created>1684404490300</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1684404490300</updated>
+    </task>
+    <task id="LOCAL-00058" summary="test: сделал ItemRequestControllerTestIT">
+      <created>1684409347725</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1684409347725</updated>
+    </task>
+    <task id="LOCAL-00059" summary="test: сделал тесты json">
+      <created>1684417593984</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1684417593984</updated>
+    </task>
+    <task id="LOCAL-00060" summary="refactor: checkstyle">
+      <created>1684418984580</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1684418984580</updated>
+    </task>
+    <task id="LOCAL-00061" summary="feat: на проверку">
+      <created>1684419444296</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1684419444296</updated>
+    </task>
+    <task id="LOCAL-00062" summary="refactor: checkstyle test">
+      <created>1684421907206</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1684421907206</updated>
+    </task>
+    <task id="LOCAL-00063" summary="refactor: checkstyle test">
+      <created>1684423118870</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1684423118870</updated>
+    </task>
+    <task id="LOCAL-00064" summary="refactor: Jacoco">
+      <created>1684423620591</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1684423620591</updated>
+    </task>
+    <task id="LOCAL-00065" summary="refactor: Jacoco">
+      <created>1684424591113</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1684424591113</updated>
+    </task>
+    <task id="LOCAL-00066" summary="refactor: Jacoco">
+      <created>1684427201261</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1684427201261</updated>
+    </task>
+    <task id="LOCAL-00067" summary="refactor: Jacoco">
+      <created>1684428945250</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1684428945250</updated>
+    </task>
+    <task id="LOCAL-00068" summary="refactor: Jacoco">
+      <created>1684474905514</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1684474905514</updated>
+    </task>
+    <task id="LOCAL-00069" summary="refactor: Jacoco">
+      <created>1684484143026</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1684484143026</updated>
+    </task>
+    <task id="LOCAL-00070" summary="refactor: Jacoco">
+      <created>1684739660518</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1684739660518</updated>
+    </task>
+    <task id="LOCAL-00071" summary="refactor: Jacoco">
+      <created>1684764803150</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1684764803150</updated>
+    </task>
+    <task id="LOCAL-00072" summary="refactor: на проверку">
+      <created>1684768906863</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1684768906863</updated>
+    </task>
+    <task id="LOCAL-00073" summary="refactor: на проверку">
+      <created>1684842379934</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1684842379950</updated>
+    </task>
+    <task id="LOCAL-00074" summary="refactor: на проверку">
+      <created>1684849830480</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1684849830496</updated>
+    </task>
+    <task id="LOCAL-00075" summary="refactor: на проверку">
+      <created>1684999330647</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1684999330647</updated>
+    </task>
+    <task id="LOCAL-00076" summary="refactor: на проверку">
+      <created>1684999362658</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1684999362658</updated>
+    </task>
+    <task id="LOCAL-00077" summary="refactor: на проверку">
+      <created>1685003399476</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1685003399476</updated>
+    </task>
+    <task id="LOCAL-00078" summary="refactor: на проверку">
+      <created>1685003438806</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1685003438806</updated>
+    </task>
+    <task id="LOCAL-00079" summary="refactor: на проверку">
+      <created>1685019298240</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1685019298240</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: -12" />
+    <MESSAGE value="feat: -5" />
+    <MESSAGE value="feat: в работе" />
+    <MESSAGE value="feat: в работе Page" />
+    <MESSAGE value="feat: Requests Postman ok" />
+    <MESSAGE value="refactor: поправил мелкие недочёты" />
+    <MESSAGE value="test: создал UserControllerTest" />
+    <MESSAGE value="test: создал UserServiceImplTest" />
+    <MESSAGE value="test: создал CommentServiceImplTest" />
+    <MESSAGE value="test: создал UserRepositoryTestIT" />
+    <MESSAGE value="test: в работе ItemRepositoryTestIT" />
+    <MESSAGE value="test: сделаны BookingRepositoryTestIT" />
+    <MESSAGE value="test: сделаны тесты ItemRequestRepository пофиксен баг" />
+    <MESSAGE value="test: сделаны тесты репозиториев" />
+    <MESSAGE value="refactor: почистил код" />
+    <MESSAGE value="test: сделал UserControllerTestIT" />
+    <MESSAGE value="test: сделал ItemControllerTestIT" />
+    <MESSAGE value="test: сделал BookingControllerTestIT" />
+    <MESSAGE value="test: сделал ItemRequestControllerTestIT" />
+    <MESSAGE value="test: сделал тесты json" />
+    <MESSAGE value="refactor: checkstyle" />
+    <MESSAGE value="feat: на проверку" />
+    <MESSAGE value="refactor: checkstyle test" />
+    <MESSAGE value="refactor: Jacoco" />
+    <MESSAGE value="refactor: на проверку" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: на проверку" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="6" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.hibernate.TransientPropertyValueException" package="org.hibernate" />
+          <option name="timeStamp" value="18" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="org.hibernate.TransientPropertyValueException" memberName="detailMessage" />
+        <PinnedItemInfo parentTag="org.springframework.data.domain.PageRequest" memberName="page" />
+        <PinnedItemInfo parentTag="ru.practicum.shareit.item_request.dto.ItemRequestDtoToReturn" memberName="items" />
+      </pinned-members>
+    </pin-to-top-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/java_shareit$All_in_shareit__2_.ic" NAME="All in shareit (2) Coverage Results" MODIFIED="1684418816892" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/java_shareit$All_in_shareit__3_.ic" NAME="All in shareit (3) Coverage Results" MODIFIED="1684419335211" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/java_shareit$All_in_shareit__4_.ic" NAME="All in shareit (4) Coverage Results" MODIFIED="1684479771595" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/java_shareit$All_in_shareit.ic" NAME="All in shareit Coverage Results" MODIFIED="1684768712479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/java_shareit$ItemServiceImplTest_testGetBookings.ic" NAME="ItemServiceImplTest.testGetBookings Coverage Results" MODIFIED="1684478943347" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>ru.practicum.shareit.item.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/java_shareit$CommentServiceImplTest_findByItemId.ic" NAME="CommentServiceImplTest.findByItemId Coverage Results" MODIFIED="1684479630456" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>ru.practicum.shareit.comment.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/java_shareit$ItemRequestServiceImplTest.ic" NAME="ItemRequestServiceImplTest Coverage Results" MODIFIED="1684418753612" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>ru.practicum.shareit.item_request.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/java_shareit$All_in_shareit__1_.ic" NAME="All in shareit (1) Coverage Results" MODIFIED="1684427436351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>
