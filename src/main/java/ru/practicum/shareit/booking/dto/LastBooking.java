@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+
 public class LastBooking {
     private Long id;
     private Long bookerId;

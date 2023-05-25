@@ -1,8 +1,7 @@
 package ru.practicum.shareit.item.model;
 
 import lombok.*;
-import ru.practicum.shareit.exceptions.BadRequestException;
-import ru.practicum.shareit.request.model.ItemRequest;
+import ru.practicum.shareit.item_request.model.ItemRequest;
 import ru.practicum.shareit.user.model.User;
 
 import javax.persistence.*;
@@ -42,15 +41,12 @@ public class Item {
         this.id = id;
         this.name = name;
         this.description = description;
-        if (available == null) {
-            throw new BadRequestException("Available is null.");
-        } else {
-            this.available = available;
-        }
+        this.available = available;
     }
 
     public boolean getAvailable() {
         return available;
     }
-}
+
+   }
 

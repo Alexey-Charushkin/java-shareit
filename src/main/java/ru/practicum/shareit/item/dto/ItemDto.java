@@ -4,7 +4,7 @@ import lombok.*;
 import ru.practicum.shareit.comment.dto.CommentDto;
 import ru.practicum.shareit.booking.dto.LastBooking;
 import ru.practicum.shareit.booking.dto.NextBooking;
-import ru.practicum.shareit.request.model.ItemRequest;
+import ru.practicum.shareit.item_request.model.ItemRequest;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -23,7 +23,7 @@ public class ItemDto {
     private String description;
     @NotNull
     private Boolean available;
-    private ItemRequest request;
+    private Long requestId;
 
     private Integer countRent = 0;
 
@@ -42,6 +42,8 @@ public class ItemDto {
         this.name = name;
         this.description = description;
         this.available = available;
-        this.request = request;
+        if (request != null) {
+            this.requestId = request.getId();
+        }
     }
 }
