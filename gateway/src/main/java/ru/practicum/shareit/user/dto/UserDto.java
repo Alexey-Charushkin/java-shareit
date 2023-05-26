@@ -1,8 +1,9 @@
 package ru.practicum.shareit.user.dto;
 
 import lombok.*;
-import org.hibernate.sql.Update;
+
 import ru.practicum.shareit.user.Create;
+import ru.practicum.shareit.user.Update;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
