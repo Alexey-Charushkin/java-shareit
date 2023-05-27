@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 
-public class BookingDto {
+public class BookItemResponseDto {
 
     private Long id;
     private LocalDateTime start;
@@ -22,8 +22,8 @@ public class BookingDto {
     private User booker;
     private StatusDto status;
 
-    public BookingDto(Long id, LocalDateTime start, LocalDateTime end, Long itemId, Item item, User booker,
-                      String status) {
+    public BookItemResponseDto(Long id, LocalDateTime start, LocalDateTime end, Long itemId, Item item, User booker,
+                               String status) {
         this.id = id;
         this.start = start;
         this.end = end;

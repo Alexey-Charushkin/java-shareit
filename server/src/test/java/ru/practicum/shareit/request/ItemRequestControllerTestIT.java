@@ -63,7 +63,7 @@ class ItemRequestControllerTestIT {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        verify(itemRequestService).findAllByUserId(userId);
+        verify(itemRequestService, times(1)).findAllByUserId(userId);
     }
 
     @SneakyThrows
@@ -79,20 +79,6 @@ class ItemRequestControllerTestIT {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        verify(itemRequestService).findAllByUserIdToPageable(userId, from, size);
-    }
-
-    @SneakyThrows
-    @Test
-    void findAllById_whenFromIsNotCorrect_thenBadRequestExceptionThrown() {
-        Long userId = 1L;
-        Integer from = -1;
-        Integer size = 10;
-        mockMvc.perform(get("/requests/all")
-                        .header("X-Sharer-User-Id", userId)
-                        .param("from", from.toString())
-                        .param("size", size.toString()))
-                .andDo(print())
-                .andExpect(status().isBadRequest());
+        verify(itemRequestService, times(1)).findAllByUserIdToPageable(userId, from, size);
     }
 }

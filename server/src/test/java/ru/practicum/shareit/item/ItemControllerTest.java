@@ -126,7 +126,7 @@ class ItemControllerTest {
         List<ItemDto> exceptedItemDtoList = List.of(new ItemDto(), new ItemDto());
         when(itemService.searchItems(query, 0, 1)).thenReturn(exceptedItemDtoList);
 
-        List<ItemDto> response = itemController.searchItems(query, 0, 1);
+        List<ItemDto> response = itemController.searchItems(id, query, 0, 1);
 
         assertEquals(exceptedItemDtoList.size(), response.size());
     }

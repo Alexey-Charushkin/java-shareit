@@ -6,8 +6,8 @@ import ru.practicum.shareit.booking.model.Booking;
 @UtilityClass
 public class BookingMapper {
 
-    public BookingDto toBookingDto(Booking booking) {
-        return new BookingDto(
+    public BookItemResponseDto toBookingDto(Booking booking) {
+        return new BookItemResponseDto(
                 booking.getId(),
                 booking.getStart(),
                 booking.getEnd(),
@@ -18,14 +18,14 @@ public class BookingMapper {
         );
     }
 
-    public Booking toBooking(BookingDto bookingDto) {
+    public Booking toBooking(BookItemResponseDto bookItemResponseDto) {
         return new Booking(
-                bookingDto.getId(),
-                bookingDto.getStart(),
-                bookingDto.getEnd(),
-                bookingDto.getItem(),
-                bookingDto.getBooker(),
-                String.valueOf(bookingDto.getStatus())
+                bookItemResponseDto.getId(),
+                bookItemResponseDto.getStart(),
+                bookItemResponseDto.getEnd(),
+                bookItemResponseDto.getItem(),
+                bookItemResponseDto.getBooker(),
+                String.valueOf(bookItemResponseDto.getStatus())
         );
     }
 }

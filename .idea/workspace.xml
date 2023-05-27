@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ccdeb8b-199a-4945-8889-74f37ce91cf8" name="Changes" comment="feat: initial commit">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/shareit-gateway.iml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/shareit-gateway.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/ru/practicum/shareit/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/ru/practicum/shareit/user/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/test/java/user/UserControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/test/java/user/UserControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/shareit-server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/server/shareit-server.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,52 +65,53 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "last_directory_selection": "C:/Users/achar/IdeaProjects/java-shareit/gateway/src/test",
-    "last_opened_file_path": "C:/Users/achar/IdeaProjects/java-shareit/server/src/main/java/ru/practicum/shareit/user",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Global Libraries",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "org.infernus.idea.checkstyle.CheckStyleConfigurable",
-    "spring.configuration.checksum": "46f3d9057eee11207155d59e7cf34b74"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;last_directory_selection&quot;: &quot;C:/Users/achar/IdeaProjects/java-shareit/gateway/src/main/java/ru/practicum/shareit&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/achar/IdeaProjects/java-shareit/gateway/src/main/java/ru/practicum/shareit/booking/dto&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.infernus.idea.checkstyle.CheckStyleConfigurable&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;46f3d9057eee11207155d59e7cf34b74&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "h2",
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;h2&quot;,
+      &quot;postgresql&quot;
     ],
-    "GitStage.ChangesTree.GroupingKeys": [
-      "directory",
-      "module",
-      "repository"
+    &quot;GitStage.ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;,
+      &quot;module&quot;,
+      &quot;repository&quot;
     ],
-    "RunConfigurationTargetLRU": [
-      "dc0e2248-e0aa-4253-b80d-c4adf2f0c091"
+    &quot;RunConfigurationTargetLRU&quot;: [
+      &quot;dc0e2248-e0aa-4253-b80d-c4adf2f0c091&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="ru.practicum.shareit" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\achar\IdeaProjects\java-shareit\gateway\src\main\java\ru\practicum\shareit\booking\dto" />
       <recent name="C:\Users\achar\IdeaProjects\java-shareit\server\src\main\java\ru\practicum\shareit\user" />
       <recent name="C:\Users\achar\IdeaProjects\java-shareit" />
       <recent name="C:\Users\achar\IdeaProjects\java-shareit\server\src\main\java\ru\practicum\shareit" />
@@ -136,16 +131,18 @@
       <recent name="ru.practicum.shareit.user" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="ru.practicum.shareit.request" />
+      <recent name="ru.practicum.shareit.booking" />
       <recent name="ru.practicum.shareit" />
       <recent name="ru.practicum.shareit.item_request" />
-      <recent name="ru.practicum.shareit.booking" />
       <recent name="ru.practicum.shareit.item" />
-      <recent name="ru.practicum.shareit.exceptions" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="ru.practicum.shareit.user" />
-      <recent name="ru.practicum.shareit.user.dto" />
-      <recent name="ru.practicum.shareit.item_request.dto" />
+      <recent name="ru.practicum.shareit.request" />
+      <recent name="ru.practicum.shareit.request.dto" />
+      <recent name="ru.practicum.shareit.booking" />
+      <recent name="ru.practicum.shareit.exceptions" />
+      <recent name="ru.practicum.shareit.item" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -156,14 +153,6 @@
     </option>
   </component>
   <component name="RunManager" selected="JUnit.All in shareit-server">
-    <configuration name="All in shareit (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="shareit" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="All in shareit-gateway" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="shareit-gateway" />
       <option name="PACKAGE_NAME" value="" />
@@ -188,17 +177,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserControllerTestIT (2)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="shareit-gateway" />
+    <configuration name="ItemRequestControllerTestIT.findById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shareit-server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ru.practicum.shareit.user.*" />
+          <option name="PATTERN" value="ru.practicum.shareit.request.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ru.practicum.shareit.user" />
-      <option name="MAIN_CLASS_NAME" value="ru.practicum.shareit.user.UserControllerTestIT" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="ru.practicum.shareit.request" />
+      <option name="MAIN_CLASS_NAME" value="ru.practicum.shareit.request.ItemRequestControllerTestIT" />
+      <option name="METHOD_NAME" value="findById" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ItemRequestControllerTestIt.findById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shareit-gateway" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.practicum.shareit.request.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.practicum.shareit.request" />
+      <option name="MAIN_CLASS_NAME" value="ru.practicum.shareit.request.ItemRequestControllerTestIt" />
+      <option name="METHOD_NAME" value="findById" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -221,9 +227,9 @@
       <list>
         <item itemvalue="JUnit.All in shareit-server" />
         <item itemvalue="JUnit.All in shareit-gateway" />
-        <item itemvalue="JUnit.All in shareit (1)" />
         <item itemvalue="JUnit.All in shareit" />
-        <item itemvalue="JUnit.UserControllerTestIT (2)" />
+        <item itemvalue="JUnit.ItemRequestControllerTestIT.findById" />
+        <item itemvalue="JUnit.ItemRequestControllerTestIt.findById" />
       </list>
     </recent_temporary>
   </component>
@@ -306,119 +312,16 @@
       <workItem from="1685021951294" duration="1804000" />
       <workItem from="1685079116586" duration="10930000" />
       <workItem from="1685107270446" duration="5878000" />
-      <workItem from="1685164893482" duration="16207000" />
-    </task>
-    <task id="LOCAL-00041" summary="refactor: поправил мелкие недочёты">
-      <created>1683805766630</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1683805766630</updated>
-    </task>
-    <task id="LOCAL-00042" summary="test: создал UserControllerTest">
-      <created>1683879961499</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1683879961499</updated>
-    </task>
-    <task id="LOCAL-00043" summary="test: создал UserServiceImplTest">
-      <created>1683905293131</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1683905293131</updated>
-    </task>
-    <task id="LOCAL-00044" summary="test: создал CommentServiceImplTest">
-      <created>1684133631697</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1684133631697</updated>
-    </task>
-    <task id="LOCAL-00045" summary="test: создал UserRepositoryTestIT">
-      <created>1684137331510</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1684137331510</updated>
-    </task>
-    <task id="LOCAL-00046" summary="test: в работе ItemRepositoryTestIT">
-      <created>1684141560225</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1684141560225</updated>
-    </task>
-    <task id="LOCAL-00047" summary="test: в работе ItemRepositoryTestIT">
-      <created>1684158831312</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1684158831312</updated>
-    </task>
-    <task id="LOCAL-00048" summary="test: сделаны BookingRepositoryTestIT">
-      <created>1684218611593</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1684218611593</updated>
-    </task>
-    <task id="LOCAL-00049" summary="test: сделаны тесты ItemRequestRepository пофиксен баг">
-      <created>1684221418079</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1684221418079</updated>
-    </task>
-    <task id="LOCAL-00050" summary="test: сделаны тесты ItemRequestRepository пофиксен баг">
-      <created>1684221482269</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1684221482269</updated>
-    </task>
-    <task id="LOCAL-00051" summary="test: сделаны тесты репозиториев">
-      <created>1684229507739</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1684229507739</updated>
-    </task>
-    <task id="LOCAL-00052" summary="test: сделаны тесты репозиториев">
-      <created>1684303523000</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1684303523000</updated>
-    </task>
-    <task id="LOCAL-00053" summary="refactor: почистил код">
-      <created>1684326473048</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1684326473048</updated>
-    </task>
-    <task id="LOCAL-00054" summary="refactor: почистил код">
-      <created>1684339122796</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1684339122796</updated>
-    </task>
-    <task id="LOCAL-00055" summary="test: сделал UserControllerTestIT">
-      <created>1684391631650</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1684391631650</updated>
-    </task>
-    <task id="LOCAL-00056" summary="test: сделал ItemControllerTestIT">
-      <created>1684395127425</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1684395127425</updated>
+      <workItem from="1685164893482" duration="18816000" />
+      <workItem from="1685184700395" duration="726000" />
+      <workItem from="1685250174962" duration="25537000" />
+      <workItem from="1685278363984" duration="1343000" />
+      <workItem from="1685338393166" duration="11786000" />
+      <workItem from="1685368258403" duration="4658000" />
+      <workItem from="1685373048256" duration="1221000" />
+      <workItem from="1685375945307" duration="2935000" />
+      <workItem from="1685424672700" duration="9109000" />
+      <workItem from="1685451863221" duration="786000" />
     </task>
     <task id="LOCAL-00057" summary="test: сделал BookingControllerTestIT">
       <created>1684404490300</created>
@@ -651,7 +554,119 @@
       <option name="project" value="LOCAL" />
       <updated>1685112109109</updated>
     </task>
-    <option name="localTasksCounter" value="90" />
+    <task id="LOCAL-00090" summary="feat:в работе">
+      <created>1685182076312</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1685182076314</updated>
+    </task>
+    <task id="LOCAL-00091" summary="feat: User ok">
+      <created>1685185420496</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1685185420496</updated>
+    </task>
+    <task id="LOCAL-00092" summary="feat: Item в работе">
+      <created>1685252774177</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1685252774177</updated>
+    </task>
+    <task id="LOCAL-00093" summary="feat: Item сделано всё кроме comment">
+      <created>1685262060151</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1685262060151</updated>
+    </task>
+    <task id="LOCAL-00094" summary="feat: Item ок. Comment ok">
+      <created>1685265299238</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1685265299238</updated>
+    </task>
+    <task id="LOCAL-00095" summary="feat: Убрал валидацию из server ItemController">
+      <created>1685266328787</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1685266328787</updated>
+    </task>
+    <task id="LOCAL-00096" summary="test: написал ItemControllerTest">
+      <created>1685270880330</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1685270880330</updated>
+    </task>
+    <task id="LOCAL-00097" summary="feat: Начало работы над Booking">
+      <created>1685279707729</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1685279707730</updated>
+    </task>
+    <task id="LOCAL-00098" summary="feat: Booking ок">
+      <created>1685349231093</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1685349231093</updated>
+    </task>
+    <task id="LOCAL-00099" summary="feat: Booking ок">
+      <created>1685350328580</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1685350328580</updated>
+    </task>
+    <task id="LOCAL-00100" summary="feat: Booking ок">
+      <created>1685369282180</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1685369282180</updated>
+    </task>
+    <task id="LOCAL-00101" summary="test: Booking в работе">
+      <created>1685377001820</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1685377001836</updated>
+    </task>
+    <task id="LOCAL-00102" summary="test: Booking ок">
+      <created>1685378886693</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1685378886693</updated>
+    </task>
+    <task id="LOCAL-00103" summary="feat: Postman ok">
+      <created>1685429985656</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1685429985656</updated>
+    </task>
+    <task id="LOCAL-00104" summary="feat: Убрал валидацию в Server ItemRequestController">
+      <created>1685430344276</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1685430344276</updated>
+    </task>
+    <task id="LOCAL-00105" summary="test: ItemRequestControllerTest ok">
+      <created>1685433876574</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1685433876574</updated>
+    </task>
+    <option name="localTasksCounter" value="106" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -669,20 +684,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: Requests Postman ok" />
-    <MESSAGE value="refactor: поправил мелкие недочёты" />
-    <MESSAGE value="test: создал UserControllerTest" />
-    <MESSAGE value="test: создал UserServiceImplTest" />
-    <MESSAGE value="test: создал CommentServiceImplTest" />
-    <MESSAGE value="test: создал UserRepositoryTestIT" />
-    <MESSAGE value="test: в работе ItemRepositoryTestIT" />
-    <MESSAGE value="test: сделаны BookingRepositoryTestIT" />
-    <MESSAGE value="test: сделаны тесты ItemRequestRepository пофиксен баг" />
-    <MESSAGE value="test: сделаны тесты репозиториев" />
-    <MESSAGE value="refactor: почистил код" />
-    <MESSAGE value="test: сделал UserControllerTestIT" />
-    <MESSAGE value="test: сделал ItemControllerTestIT" />
-    <MESSAGE value="test: сделал BookingControllerTestIT" />
     <MESSAGE value="test: сделал ItemRequestControllerTestIT" />
     <MESSAGE value="test: сделал тесты json" />
     <MESSAGE value="refactor: checkstyle" />
@@ -694,7 +695,21 @@
     <MESSAGE value="feat: отладил запуск в докере" />
     <MESSAGE value="feat: запустил post User" />
     <MESSAGE value="feat: сделал User" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: сделал User" />
+    <MESSAGE value="feat:в работе" />
+    <MESSAGE value="feat: User ok" />
+    <MESSAGE value="feat: Item в работе" />
+    <MESSAGE value="feat: Item сделано всё кроме comment" />
+    <MESSAGE value="feat: Item ок. Comment ok" />
+    <MESSAGE value="feat: Убрал валидацию из server ItemController" />
+    <MESSAGE value="test: написал ItemControllerTest" />
+    <MESSAGE value="feat: Начало работы над Booking" />
+    <MESSAGE value="feat: Booking ок" />
+    <MESSAGE value="test: Booking в работе" />
+    <MESSAGE value="test: Booking ок" />
+    <MESSAGE value="feat: Postman ok" />
+    <MESSAGE value="feat: Убрал валидацию в Server ItemRequestController" />
+    <MESSAGE value="test: ItemRequestControllerTest ok" />
+    <option name="LAST_COMMIT_MESSAGE" value="test: ItemRequestControllerTest ok" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -704,19 +719,9 @@
           <option name="timeStamp" value="18" />
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/gateway/src/main/java/ru/practicum/shareit/client/BaseClient.java</url>
-          <line>82</line>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/gateway/src/main/java/ru/practicum/shareit/client/BaseClient.java</url>
-          <line>88</line>
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/gateway/src/main/java/ru/practicum/shareit/client/BaseClient.java</url>
-          <line>85</line>
-          <option name="timeStamp" value="38" />
+          <url>file://$PROJECT_DIR$/server/src/main/java/ru/practicum/shareit/request/service/ItemRequestServiceImpl.java</url>
+          <line>87</line>
+          <option name="timeStamp" value="54" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

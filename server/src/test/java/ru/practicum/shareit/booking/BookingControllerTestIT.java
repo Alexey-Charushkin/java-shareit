@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import ru.practicum.shareit.booking.dto.BookingDto;
+import ru.practicum.shareit.booking.dto.BookItemResponseDto;
 import ru.practicum.shareit.booking.dto.BookingMapper;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.service.BookingService;
@@ -25,7 +25,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.practicum.shareit.booking.dto.BookingDto.StatusDto.ALL;
+import static ru.practicum.shareit.booking.dto.BookItemResponseDto.StatusDto.ALL;
 
 @WebMvcTest(BookingController.class)
 class BookingControllerTestIT {
@@ -50,20 +50,20 @@ class BookingControllerTestIT {
     void create() {
         Booking bookingToSave = new Booking(0L, LocalDateTime.now().plusMinutes(1), LocalDateTime.now().plusMinutes(5),
                 item, booker, "WAITING");
-        BookingDto bookingDtoToSave = BookingMapper.toBookingDto(bookingToSave);
-        when(bookingService.create(anyLong(), any(BookingDto.class))).thenReturn(bookingDtoToSave);
+        BookItemResponseDto bookItemResponseDtoToSave = BookingMapper.toBookingDto(bookingToSave);
+        when(bookingService.create(anyLong(), any(BookItemResponseDto.class))).thenReturn(bookItemResponseDtoToSave);
 
         String result = mockMvc.perform(post("/bookings")
                         .header("X-Sharer-User-Id", owner.getId())
                         .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(bookingDtoToSave)))
+                        .content(objectMapper.writeValueAsString(bookItemResponseDtoToSave)))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
 
-        verify(bookingService, times(1)).create(anyLong(), any(BookingDto.class));
-        assertEquals(objectMapper.writeValueAsString(bookingDtoToSave), result);
+        verify(bookingService, times(1)).create(anyLong(), any(BookItemResponseDto.class));
+        assertEquals(objectMapper.writeValueAsString(bookItemResponseDtoToSave), result);
     }
 
     @SneakyThrows
@@ -77,7 +77,7 @@ class BookingControllerTestIT {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        verify(bookingService).approveBooking(userId, bookingId, true);
+        verify(bookingService, times(1)).approveBooking(userId, bookingId, true);
     }
 
     @SneakyThrows
@@ -89,7 +89,7 @@ class BookingControllerTestIT {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        verify(bookingService).findByBookingId(owner.getId(), bookingToSave.getId());
+        verify(bookingService, times(1)).findByBookingId(owner.getId(), bookingToSave.getId());
     }
 
     @SneakyThrows
@@ -100,26 +100,13 @@ class BookingControllerTestIT {
         Integer size = 10;
         mockMvc.perform(get("/bookings")
                         .header("X-Sharer-User-Id", userId)
+                        .param("state", "ALL")
                         .param("from", from.toString())
                         .param("size", size.toString()))
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        verify(bookingService).getAllBookingsByUserId(userId, ALL, from, size);
-    }
-
-    @SneakyThrows
-    @Test
-    void gelAllBookingsByUserId_whenFromIsNotCorrect_thenBadRequestExceptionThrown() {
-        Long userId = 1L;
-        Integer from = -1;
-        Integer size = 10;
-        mockMvc.perform(get("/bookings")
-                        .header("X-Sharer-User-Id", userId)
-                        .param("from", from.toString())
-                        .param("size", size.toString()))
-                .andDo(print())
-                .andExpect(status().isBadRequest());
+        verify(bookingService, times(1)).getAllBookingsByUserId(userId, ALL, from, size);
     }
 
     @SneakyThrows
@@ -130,25 +117,12 @@ class BookingControllerTestIT {
         Integer size = 10;
         mockMvc.perform(get("/bookings/owner")
                         .header("X-Sharer-User-Id", userId)
+                        .param("state", "ALL")
                         .param("from", from.toString())
                         .param("size", size.toString()))
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        verify(bookingService).getAllBookingsByOwnerId(userId, ALL, from, size);
-    }
-
-    @SneakyThrows
-    @Test
-    void gelAllBookingsByOwnerId_whenFromIsNotCorrect_thenBadRequestExceptionThrown() {
-        Long userId = 1L;
-        Integer from = -1;
-        Integer size = 10;
-        mockMvc.perform(get("/bookings/owner")
-                        .header("X-Sharer-User-Id", userId)
-                        .param("from", from.toString())
-                        .param("size", size.toString()))
-                .andDo(print())
-                .andExpect(status().isBadRequest());
+        verify(bookingService, times(1)).getAllBookingsByOwnerId(userId, ALL, from, size);
     }
 }

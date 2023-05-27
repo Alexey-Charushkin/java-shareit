@@ -11,7 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import ru.practicum.shareit.booking.dao.BookingRepository;
-import ru.practicum.shareit.booking.dto.BookingDto;
+import ru.practicum.shareit.booking.dto.BookItemResponseDto;
 import ru.practicum.shareit.booking.dto.BookingMapper;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.exceptions.BadRequestException;
@@ -56,7 +56,7 @@ class BookingServiceImplTest {
             item, booker, "WAITING");
     Booking bookingToSave2 = new Booking(2L, LocalDateTime.now().plusMinutes(6), LocalDateTime.now().plusMinutes(10),
             item, booker, "WAITING");
-    BookingDto bookingToSaveDto = BookingMapper.toBookingDto(bookingToSave);
+    BookItemResponseDto bookingToSaveDto = BookingMapper.toBookingDto(bookingToSave);
     List<Booking> bookingList = new ArrayList<>(List.of(bookingToSave, bookingToSave2));
 
     @Test
@@ -66,7 +66,7 @@ class BookingServiceImplTest {
                 .thenReturn(Optional.ofNullable(item));
         when(bookingRepository.save(any(Booking.class))).thenReturn(bookingToSave);
 
-        BookingDto actualBooking = bookingService.create(booker.getId(), bookingToSaveDto);
+        BookItemResponseDto actualBooking = bookingService.create(booker.getId(), bookingToSaveDto);
 
         verify(bookingRepository, times(1)).save(any(Booking.class));
         assertThat(actualBooking.getId()).isEqualTo(bookingToSave.getId());
@@ -146,7 +146,7 @@ class BookingServiceImplTest {
         when(bookingRepository.findById(bookingToSave.getId()))
                 .thenReturn(Optional.of(bookingToSave));
 
-        Optional<BookingDto> actualBooking = Optional.of(bookingService.findByBookingId(bookingToSave.getBooker().getId(),
+        Optional<BookItemResponseDto> actualBooking = Optional.of(bookingService.findByBookingId(bookingToSave.getBooker().getId(),
                 bookingToSave.getId()));
 
         verify(bookingRepository, times(1)).findById(bookingToSave.getId());
@@ -185,66 +185,66 @@ class BookingServiceImplTest {
 
     @Test
     void approveBooking_whenBookingIsFoundAndUserIsOwnerToItemAndItemStatusIsWaitingAndApprovedIsTrue_ThenSaveBooking() {
-        BookingDto bookingDto = BookingMapper.toBookingDto(bookingToSave);
-        when(bookingRepository.findById(bookingDto.getId()))
+        BookItemResponseDto bookItemResponseDto = BookingMapper.toBookingDto(bookingToSave);
+        when(bookingRepository.findById(bookItemResponseDto.getId()))
                 .thenReturn(Optional.of(bookingToSave));
         when(bookingRepository.save(any(Booking.class))).thenReturn(bookingToSave);
 
-        assertEquals(bookingDto.getStatus().toString(), Booking.Status.WAITING.toString());
+        assertEquals(bookItemResponseDto.getStatus().toString(), Booking.Status.WAITING.toString());
 
-        bookingService.approveBooking(bookingDto.getItem().getOwner().getId(),
-                bookingDto.getId(), true);
+        bookingService.approveBooking(bookItemResponseDto.getItem().getOwner().getId(),
+                bookItemResponseDto.getId(), true);
 
         verify(bookingRepository).save(bookingArgumentCaptor.capture());
 
-        BookingDto savedBookingDto = BookingMapper.toBookingDto(bookingArgumentCaptor.getValue());
+        BookItemResponseDto savedBookItemResponseDto = BookingMapper.toBookingDto(bookingArgumentCaptor.getValue());
 
         verify(bookingRepository, times(1)).save(any(Booking.class));
-        assertEquals(savedBookingDto.getStatus().toString(), Booking.Status.APPROVED.toString());
+        assertEquals(savedBookItemResponseDto.getStatus().toString(), Booking.Status.APPROVED.toString());
     }
 
     @Test
     void approveBooking_whenBookingIsFoundAndUserIsOwnerToItemAndItemStatusIsWaitingAndApprovedIsFalse_ThenSaveBooking() {
-        BookingDto bookingDto = BookingMapper.toBookingDto(bookingToSave);
-        when(bookingRepository.findById(bookingDto.getId()))
+        BookItemResponseDto bookItemResponseDto = BookingMapper.toBookingDto(bookingToSave);
+        when(bookingRepository.findById(bookItemResponseDto.getId()))
                 .thenReturn(Optional.of(bookingToSave));
         when(bookingRepository.save(any(Booking.class))).thenReturn(bookingToSave);
 
-        assertEquals(bookingDto.getStatus().toString(), Booking.Status.WAITING.toString());
+        assertEquals(bookItemResponseDto.getStatus().toString(), Booking.Status.WAITING.toString());
 
-        bookingService.approveBooking(bookingDto.getItem().getOwner().getId(),
-                bookingDto.getId(), false);
+        bookingService.approveBooking(bookItemResponseDto.getItem().getOwner().getId(),
+                bookItemResponseDto.getId(), false);
 
         verify(bookingRepository).save(bookingArgumentCaptor.capture());
 
-        BookingDto savedBookingDto = BookingMapper.toBookingDto(bookingArgumentCaptor.getValue());
+        BookItemResponseDto savedBookItemResponseDto = BookingMapper.toBookingDto(bookingArgumentCaptor.getValue());
 
         verify(bookingRepository, times(1)).save(any(Booking.class));
-        assertEquals(savedBookingDto.getStatus().toString(), Booking.Status.REJECTED.toString());
+        assertEquals(savedBookItemResponseDto.getStatus().toString(), Booking.Status.REJECTED.toString());
     }
 
     @Test
     void approveBooking_whenBookingNotFoundAndUserIsOwnerToItemAndItemStatusIsWaitingAndApprovedIsFalse_ThenNotFoundExceptionThrown() {
-        BookingDto bookingDto = BookingMapper.toBookingDto(bookingToSave);
-        when(bookingRepository.findById(bookingDto.getId()))
+        BookItemResponseDto bookItemResponseDto = BookingMapper.toBookingDto(bookingToSave);
+        when(bookingRepository.findById(bookItemResponseDto.getId()))
                 .thenReturn(Optional.empty());
         NotFoundException notFoundException = assertThrows(NotFoundException.class,
-                () -> bookingService.approveBooking(bookingDto.getItem().getOwner().getId(),
-                        bookingDto.getId(), false));
+                () -> bookingService.approveBooking(bookItemResponseDto.getItem().getOwner().getId(),
+                        bookItemResponseDto.getId(), false));
         assertEquals(notFoundException.getMessage(), "Booking not found.");
     }
 
     @Test
     void approveBooking_whenBookingIsFoundAndUserIsOwnerToItemAndItemStatusIsApprovedAndApprovedIsFalse_ThenBadRequestExceptionThrown() {
-        BookingDto bookingDto = BookingMapper.toBookingDto(bookingToSave);
+        BookItemResponseDto bookItemResponseDto = BookingMapper.toBookingDto(bookingToSave);
         bookingToSave.setStatus(Booking.Status.APPROVED);
-        bookingDto.setStatus(BookingDto.StatusDto.APPROVED);
-        when(bookingRepository.findById(bookingDto.getId()))
+        bookItemResponseDto.setStatus(BookItemResponseDto.StatusDto.APPROVED);
+        when(bookingRepository.findById(bookItemResponseDto.getId()))
                 .thenReturn(Optional.of(bookingToSave));
 
         BadRequestException badRequestException = assertThrows(BadRequestException.class,
-                () -> bookingService.approveBooking(bookingDto.getItem().getOwner().getId(),
-                        bookingDto.getId(), false));
+                () -> bookingService.approveBooking(bookItemResponseDto.getItem().getOwner().getId(),
+                        bookItemResponseDto.getId(), false));
         assertEquals(badRequestException.getMessage(), "Status already updated.");
     }
 
@@ -255,13 +255,13 @@ class BookingServiceImplTest {
         Booking bookingToSave = new Booking(0L, LocalDateTime.now().plusMinutes(1), LocalDateTime.now().plusMinutes(5),
                 item, requestor, "WAITING");
 
-        BookingDto bookingDto = BookingMapper.toBookingDto(bookingToSave);
-        when(bookingRepository.findById(bookingDto.getId()))
+        BookItemResponseDto bookItemResponseDto = BookingMapper.toBookingDto(bookingToSave);
+        when(bookingRepository.findById(bookItemResponseDto.getId()))
                 .thenReturn(Optional.of(bookingToSave));
 
         NotFoundException notFoundException = assertThrows(NotFoundException.class,
                 () -> bookingService.approveBooking(wrongOwner.getId(),
-                        bookingDto.getId(), false));
+                        bookItemResponseDto.getId(), false));
         assertEquals(notFoundException.getMessage(), "The user is not the owner of the item.");
     }
 
@@ -270,7 +270,7 @@ class BookingServiceImplTest {
         when(userRepository.existsById(anyLong())).thenReturn(false);
 
         NotFoundException notFoundException = assertThrows(NotFoundException.class,
-                () -> bookingService.getAllBookingsByUserId(0L, BookingDto.StatusDto.ALL, null, null));
+                () -> bookingService.getAllBookingsByUserId(0L, BookItemResponseDto.StatusDto.ALL, null, null));
         assertEquals(notFoundException.getMessage(), "User not found.");
     }
 
@@ -285,7 +285,7 @@ class BookingServiceImplTest {
         when(bookingRepository.findByBookerId(0L, page))
                 .thenReturn(exceptedList);
 
-        bookingService.getAllBookingsByUserId(0L, BookingDto.StatusDto.ALL, from, size);
+        bookingService.getAllBookingsByUserId(0L, BookItemResponseDto.StatusDto.ALL, from, size);
 
         verify(bookingRepository, times(1)).findByBookerId(0L, page);
         assertEquals(exceptedList.get(0), bookingList.get(0));
@@ -301,7 +301,7 @@ class BookingServiceImplTest {
         when(bookingRepository.findByBooker_IdAndStartIsBeforeAndEndIsAfter(anyLong(), any(LocalDateTime.class),
                 any(LocalDateTime.class), any(Pageable.class))).thenReturn(exceptedList);
 
-        bookingService.getAllBookingsByUserId(0L, BookingDto.StatusDto.CURRENT, from, size);
+        bookingService.getAllBookingsByUserId(0L, BookItemResponseDto.StatusDto.CURRENT, from, size);
 
         verify(bookingRepository, times(1)).findByBooker_IdAndStartIsBeforeAndEndIsAfter(anyLong(), any(LocalDateTime.class),
                 any(LocalDateTime.class), any(Pageable.class));
@@ -318,7 +318,7 @@ class BookingServiceImplTest {
         when(bookingRepository.findByBooker_IdAndEndIsBefore(anyLong(),
                 any(LocalDateTime.class), any(Pageable.class))).thenReturn(exceptedList);
 
-        bookingService.getAllBookingsByUserId(0L, BookingDto.StatusDto.PAST, from, size);
+        bookingService.getAllBookingsByUserId(0L, BookItemResponseDto.StatusDto.PAST, from, size);
 
         verify(bookingRepository, times(1)).findByBooker_IdAndEndIsBefore(anyLong(), any(LocalDateTime.class),
                 any(Pageable.class));
@@ -335,7 +335,7 @@ class BookingServiceImplTest {
         when(bookingRepository.findByBooker_IdAndStartIsAfter(anyLong(),
                 any(LocalDateTime.class), any(Pageable.class))).thenReturn(exceptedList);
 
-        bookingService.getAllBookingsByUserId(0L, BookingDto.StatusDto.FUTURE, from, size);
+        bookingService.getAllBookingsByUserId(0L, BookItemResponseDto.StatusDto.FUTURE, from, size);
 
         verify(bookingRepository, times(1)).findByBooker_IdAndStartIsAfter(anyLong(), any(LocalDateTime.class),
                 any(Pageable.class));
@@ -354,7 +354,7 @@ class BookingServiceImplTest {
         when(bookingRepository.findByBookerIdAndStatus(0L, Booking.Status.WAITING, page))
                 .thenReturn(exceptedList);
 
-        bookingService.getAllBookingsByUserId(0L, BookingDto.StatusDto.WAITING, from, size);
+        bookingService.getAllBookingsByUserId(0L, BookItemResponseDto.StatusDto.WAITING, from, size);
 
         verify(bookingRepository, times(1)).findByBookerIdAndStatus(
                 0L, Booking.Status.WAITING, page);
@@ -373,7 +373,7 @@ class BookingServiceImplTest {
         when(bookingRepository.findByBookerIdAndStatus(0L, Booking.Status.APPROVED, page))
                 .thenReturn(exceptedList);
 
-        bookingService.getAllBookingsByUserId(0L, BookingDto.StatusDto.APPROVED, from, size);
+        bookingService.getAllBookingsByUserId(0L, BookItemResponseDto.StatusDto.APPROVED, from, size);
 
         verify(bookingRepository, times(1)).findByBookerIdAndStatus(
                 0L, Booking.Status.APPROVED, page);
@@ -392,7 +392,7 @@ class BookingServiceImplTest {
         when(bookingRepository.findByBookerIdAndStatus(0L, Booking.Status.REJECTED, page))
                 .thenReturn(exceptedList);
 
-        bookingService.getAllBookingsByUserId(0L, BookingDto.StatusDto.REJECTED, from, size);
+        bookingService.getAllBookingsByUserId(0L, BookItemResponseDto.StatusDto.REJECTED, from, size);
 
         verify(bookingRepository, times(1)).findByBookerIdAndStatus(
                 0L, Booking.Status.REJECTED, page);
@@ -411,7 +411,7 @@ class BookingServiceImplTest {
         when(bookingRepository.findByBookerIdAndStatus(0L, Booking.Status.CANCELED, page))
                 .thenReturn(exceptedList);
 
-        bookingService.getAllBookingsByUserId(0L, BookingDto.StatusDto.CANCELED, from, size);
+        bookingService.getAllBookingsByUserId(0L, BookItemResponseDto.StatusDto.CANCELED, from, size);
 
         verify(bookingRepository, times(1)).findByBookerIdAndStatus(
                 0L, Booking.Status.CANCELED, page);
@@ -420,20 +420,11 @@ class BookingServiceImplTest {
     }
 
     @Test
-    void getAllBookingsByUserId_whenUserIdIsCorrectAndStatusDtoIsUnsupportedStatus_thenBadRequestExceptionThrown() {
-        when(userRepository.existsById(anyLong())).thenReturn(true);
-
-        BadRequestException badRequestException = assertThrows(BadRequestException.class,
-                () -> bookingService.getAllBookingsByUserId(0L, BookingDto.StatusDto.UNSUPPORTED_STATUS, null, null));
-        assertEquals(badRequestException.getMessage(), "Unknown state: UNSUPPORTED_STATUS");
-    }
-
-    @Test
     void getAllBookingsByOwnerId_whenUserIdNotCorrectAndStatusDtoIsAllAndFromIsNullAndSizeIsNull_thenNotfoundExceptionThrown() {
         when(userRepository.existsById(anyLong())).thenReturn(false);
 
         NotFoundException notFoundException = assertThrows(NotFoundException.class,
-                () -> bookingService.getAllBookingsByOwnerId(0L, BookingDto.StatusDto.ALL, null, null));
+                () -> bookingService.getAllBookingsByOwnerId(0L, BookItemResponseDto.StatusDto.ALL, null, null));
         assertEquals(notFoundException.getMessage(), "User not correct.");
     }
 
@@ -448,7 +439,7 @@ class BookingServiceImplTest {
         when(bookingRepository.findByOwnerId(0L, page))
                 .thenReturn(exceptedList);
 
-        bookingService.getAllBookingsByOwnerId(0L, BookingDto.StatusDto.ALL, from, size);
+        bookingService.getAllBookingsByOwnerId(0L, BookItemResponseDto.StatusDto.ALL, from, size);
 
         verify(bookingRepository, times(1)).findByOwnerId(0L, page);
         assertEquals(exceptedList.get(0), bookingList.get(0));
@@ -464,7 +455,7 @@ class BookingServiceImplTest {
         when(bookingRepository.findByOwnerIdAndStartIsBeforeAndEndIsAfter(anyLong(), any(LocalDateTime.class),
                 any(LocalDateTime.class), any(Pageable.class))).thenReturn(exceptedList);
 
-        bookingService.getAllBookingsByOwnerId(0L, BookingDto.StatusDto.CURRENT, from, size);
+        bookingService.getAllBookingsByOwnerId(0L, BookItemResponseDto.StatusDto.CURRENT, from, size);
 
         verify(bookingRepository, times(1)).findByOwnerIdAndStartIsBeforeAndEndIsAfter(anyLong(), any(LocalDateTime.class),
                 any(LocalDateTime.class), any(Pageable.class));
@@ -481,7 +472,7 @@ class BookingServiceImplTest {
         when(bookingRepository.findByOwnerIdAndEndBefore(anyLong(),
                 any(LocalDateTime.class), any(Pageable.class))).thenReturn(exceptedList);
 
-        bookingService.getAllBookingsByOwnerId(0L, BookingDto.StatusDto.PAST, from, size);
+        bookingService.getAllBookingsByOwnerId(0L, BookItemResponseDto.StatusDto.PAST, from, size);
 
         verify(bookingRepository, times(1)).findByOwnerIdAndEndBefore(anyLong(), any(LocalDateTime.class),
                 any(Pageable.class));
@@ -498,7 +489,7 @@ class BookingServiceImplTest {
         when(bookingRepository.findByOwnerIdAndSAndStartIsAfter(anyLong(),
                 any(LocalDateTime.class), any(Pageable.class))).thenReturn(exceptedList);
 
-        bookingService.getAllBookingsByOwnerId(0L, BookingDto.StatusDto.FUTURE, from, size);
+        bookingService.getAllBookingsByOwnerId(0L, BookItemResponseDto.StatusDto.FUTURE, from, size);
 
         verify(bookingRepository, times(1)).findByOwnerIdAndSAndStartIsAfter(anyLong(), any(LocalDateTime.class),
                 any(Pageable.class));
@@ -517,7 +508,7 @@ class BookingServiceImplTest {
         when(bookingRepository.findByOwnerIdAndStatus(0L, Booking.Status.WAITING, page))
                 .thenReturn(exceptedList);
 
-        bookingService.getAllBookingsByOwnerId(0L, BookingDto.StatusDto.WAITING, from, size);
+        bookingService.getAllBookingsByOwnerId(0L, BookItemResponseDto.StatusDto.WAITING, from, size);
 
         verify(bookingRepository, times(1)).findByOwnerIdAndStatus(
                 0L, Booking.Status.WAITING, page);
@@ -536,7 +527,7 @@ class BookingServiceImplTest {
         when(bookingRepository.findByOwnerIdAndStatus(0L, Booking.Status.APPROVED, page))
                 .thenReturn(exceptedList);
 
-        bookingService.getAllBookingsByOwnerId(0L, BookingDto.StatusDto.APPROVED, from, size);
+        bookingService.getAllBookingsByOwnerId(0L, BookItemResponseDto.StatusDto.APPROVED, from, size);
 
         verify(bookingRepository, times(1)).findByOwnerIdAndStatus(
                 0L, Booking.Status.APPROVED, page);
@@ -555,7 +546,7 @@ class BookingServiceImplTest {
         when(bookingRepository.findByOwnerIdAndStatus(0L, Booking.Status.REJECTED, page))
                 .thenReturn(exceptedList);
 
-        bookingService.getAllBookingsByOwnerId(0L, BookingDto.StatusDto.REJECTED, from, size);
+        bookingService.getAllBookingsByOwnerId(0L, BookItemResponseDto.StatusDto.REJECTED, from, size);
 
         verify(bookingRepository, times(1)).findByOwnerIdAndStatus(
                 0L, Booking.Status.REJECTED, page);
@@ -574,20 +565,11 @@ class BookingServiceImplTest {
         when(bookingRepository.findByOwnerIdAndStatus(0L, Booking.Status.CANCELED, page))
                 .thenReturn(exceptedList);
 
-        bookingService.getAllBookingsByOwnerId(0L, BookingDto.StatusDto.CANCELED, from, size);
+        bookingService.getAllBookingsByOwnerId(0L, BookItemResponseDto.StatusDto.CANCELED, from, size);
 
         verify(bookingRepository, times(1)).findByOwnerIdAndStatus(
                 0L, Booking.Status.CANCELED, page);
         assertEquals(exceptedList.get(0), bookingList.get(0));
         assertEquals(exceptedList.get(1), bookingList.get(1));
-    }
-
-    @Test
-    void getAllBookingsByOwnerId_whenUserIdIsCorrectAndStatusDtoIsUnsupportedStatus_thenBadRequestExceptionThrown() {
-        when(userRepository.existsById(anyLong())).thenReturn(true);
-
-        BadRequestException badRequestException = assertThrows(BadRequestException.class,
-                () -> bookingService.getAllBookingsByOwnerId(0L, BookingDto.StatusDto.UNSUPPORTED_STATUS, null, null));
-        assertEquals(badRequestException.getMessage(), "Unknown state: UNSUPPORTED_STATUS");
     }
 }

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.practicum.shareit.booking.dto.BookingDto;
+import ru.practicum.shareit.booking.dto.BookItemResponseDto;
 import ru.practicum.shareit.booking.dto.BookingMapper;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.service.BookingService;
@@ -40,66 +40,66 @@ class BookingControllerTest {
 
     @Test
     void create() {
-        BookingDto exceptedBookingDto = BookingMapper.toBookingDto(bookingToSave);
+        BookItemResponseDto exceptedBookItemResponseDto = BookingMapper.toBookingDto(bookingToSave);
 
-        when(bookingService.create(owner.getId(), exceptedBookingDto)).thenReturn(exceptedBookingDto);
+        when(bookingService.create(owner.getId(), exceptedBookItemResponseDto)).thenReturn(exceptedBookItemResponseDto);
 
-        BookingDto response = bookingController.create(owner.getId(), exceptedBookingDto);
+        BookItemResponseDto response = bookingController.create(owner.getId(), exceptedBookItemResponseDto);
 
-        assertEquals(exceptedBookingDto.getId(), response.getId());
-        assertEquals(exceptedBookingDto.getItem(), response.getItem());
-        assertEquals(exceptedBookingDto.getBooker(), response.getBooker());
-        assertEquals(exceptedBookingDto.getStatus(), response.getStatus());
+        assertEquals(exceptedBookItemResponseDto.getId(), response.getId());
+        assertEquals(exceptedBookItemResponseDto.getItem(), response.getItem());
+        assertEquals(exceptedBookItemResponseDto.getBooker(), response.getBooker());
+        assertEquals(exceptedBookItemResponseDto.getStatus(), response.getStatus());
     }
 
     @Test
     void approveBooking() {
-        BookingDto exceptedBookingDto = BookingMapper.toBookingDto(bookingToSave);
+        BookItemResponseDto exceptedBookItemResponseDto = BookingMapper.toBookingDto(bookingToSave);
         when(bookingService.approveBooking(1L, 1L, true))
-                .thenReturn(exceptedBookingDto);
+                .thenReturn(exceptedBookItemResponseDto);
 
-        BookingDto response = bookingController.approveBooking(1L, 1L, true);
+        BookItemResponseDto response = bookingController.approveBooking(1L, 1L, true);
 
-        assertEquals(exceptedBookingDto.getId(), response.getId());
-        assertEquals(exceptedBookingDto.getItem(), response.getItem());
-        assertEquals(exceptedBookingDto.getBooker(), response.getBooker());
-        assertEquals(exceptedBookingDto.getStatus(), response.getStatus());
+        assertEquals(exceptedBookItemResponseDto.getId(), response.getId());
+        assertEquals(exceptedBookItemResponseDto.getItem(), response.getItem());
+        assertEquals(exceptedBookItemResponseDto.getBooker(), response.getBooker());
+        assertEquals(exceptedBookItemResponseDto.getStatus(), response.getStatus());
     }
 
     @Test
     void findByBookingId() {
-        BookingDto exceptedBookingDto = BookingMapper.toBookingDto(bookingToSave);
-        when(bookingService.findByBookingId(1L, 1L)).thenReturn(exceptedBookingDto);
+        BookItemResponseDto exceptedBookItemResponseDto = BookingMapper.toBookingDto(bookingToSave);
+        when(bookingService.findByBookingId(1L, 1L)).thenReturn(exceptedBookItemResponseDto);
 
-        BookingDto response = bookingController.findByBookingId(1L, 1L);
+        BookItemResponseDto response = bookingController.findByBookingId(1L, 1L);
 
-        assertEquals(exceptedBookingDto.getId(), response.getId());
-        assertEquals(exceptedBookingDto.getItem(), response.getItem());
-        assertEquals(exceptedBookingDto.getBooker(), response.getBooker());
-        assertEquals(exceptedBookingDto.getStatus(), response.getStatus());
+        assertEquals(exceptedBookItemResponseDto.getId(), response.getId());
+        assertEquals(exceptedBookItemResponseDto.getItem(), response.getItem());
+        assertEquals(exceptedBookItemResponseDto.getBooker(), response.getBooker());
+        assertEquals(exceptedBookItemResponseDto.getStatus(), response.getStatus());
     }
 
     @Test
     void gelAllBookingsByUserId() {
-        List<BookingDto> exceptedBookingDtoList = List.of(new BookingDto(), new BookingDto());
-        when(bookingService.getAllBookingsByUserId(1L, BookingDto.StatusDto.ALL, 0, 1))
-                .thenReturn(exceptedBookingDtoList);
+        List<BookItemResponseDto> exceptedBookItemResponseDtoList = List.of(new BookItemResponseDto(), new BookItemResponseDto());
+        when(bookingService.getAllBookingsByUserId(1L, BookItemResponseDto.StatusDto.ALL, 0, 1))
+                .thenReturn(exceptedBookItemResponseDtoList);
 
-        List<BookingDto> actualBookingDtoList = bookingController
+        List<BookItemResponseDto> actualBookItemResponseDtoList = bookingController
                 .gelAllBookingsByUserId(1L, "ALL", 0, 1);
 
-        assertEquals(exceptedBookingDtoList.size(), actualBookingDtoList.size());
+        assertEquals(exceptedBookItemResponseDtoList.size(), actualBookItemResponseDtoList.size());
     }
 
     @Test
     void gelAllBookingsByOwnerId() {
-        List<BookingDto> exceptedBookingDtoList = List.of(new BookingDto(), new BookingDto());
-        when(bookingService.getAllBookingsByOwnerId(1L, BookingDto.StatusDto.ALL, 0, 1))
-                .thenReturn(exceptedBookingDtoList);
+        List<BookItemResponseDto> exceptedBookItemResponseDtoList = List.of(new BookItemResponseDto(), new BookItemResponseDto());
+        when(bookingService.getAllBookingsByOwnerId(1L, BookItemResponseDto.StatusDto.ALL, 0, 1))
+                .thenReturn(exceptedBookItemResponseDtoList);
 
-        List<BookingDto> actualBookingDtoList = bookingController
+        List<BookItemResponseDto> actualBookItemResponseDtoList = bookingController
                 .gelAllBookingsByOwnerId(1L, "ALL", 0, 1);
 
-        assertEquals(exceptedBookingDtoList.size(), actualBookingDtoList.size());
+        assertEquals(exceptedBookItemResponseDtoList.size(), actualBookItemResponseDtoList.size());
     }
 }

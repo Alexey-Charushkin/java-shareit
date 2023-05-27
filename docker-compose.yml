@@ -2,8 +2,7 @@ version: '3.8'
 services:
   gateway:
     build: .
-    image:
-      625d3b50144a80b6a53aee1931dab3ea63f8012ee1966965e771316c988361f7
+    image:  ba715bcb90a4386a7f3f9380cf7dfaf0ffd06b425eb23c5a93cdd690e7aa93cc
     container_name:
       shareit-gateway
     ports:
@@ -15,8 +14,8 @@ services:
 
   server:
     build: .
-    image:
-      5b3f98b37b416f5daec37a327a427979a25dcba747fef8e81e1a52690d9aa036
+    image: bb99e161d07f61944e1644c07f4ec9aa16411a2285085fec71141458ce593ef3
+
     container_name:
       shareit-server
     ports:
@@ -34,6 +33,7 @@ services:
     ports:
       - "6541:5432"
     environment:
+#      TZ: Europe/Moscow
       POSTGRES_DB: shareit
       POSTGRES_USER: sa
       POSTGRES_PASSWORD: imroot

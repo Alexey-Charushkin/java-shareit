@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.booking.dao.BookingRepository;
-import ru.practicum.shareit.booking.dto.BookingDto;
+import ru.practicum.shareit.booking.dto.BookItemResponseDto;
 import ru.practicum.shareit.booking.dto.BookingMapper;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.exceptions.BadRequestException;
@@ -34,17 +34,17 @@ public class BookingServiceImpl implements BookingService {
     private final UserRepository userRepository;
 
     @Override
-    public BookingDto create(Long userId, BookingDto bookingDto) {
-        if (bookingDto.getStart() == null
-                || bookingDto.getEnd() == null
-                || bookingDto.getStart().isAfter(bookingDto.getEnd())
-                || bookingDto.getStart().equals(bookingDto.getEnd())
-                || bookingDto.getStart().isBefore(LocalDateTime.now())) {
+    public BookItemResponseDto create(Long userId, BookItemResponseDto bookItemResponseDto) {
+        if (bookItemResponseDto.getStart() == null
+                || bookItemResponseDto.getEnd() == null
+                || bookItemResponseDto.getStart().isAfter(bookItemResponseDto.getEnd())
+                || bookItemResponseDto.getStart().equals(bookItemResponseDto.getEnd())
+                || bookItemResponseDto.getStart().isBefore(LocalDateTime.now())) {
             throw new BadRequestException("Date time not correct.");
         }
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found."));
-        Item item = (itemRepository.findById(bookingDto.getItemId())
+        Item item = (itemRepository.findById(bookItemResponseDto.getItemId())
                 .orElseThrow(() -> new NotFoundException("Item not found.")));
         if (item.getOwner().getId().equals(userId)) {
             throw new NotFoundException("Owner is not be booker.");
@@ -54,10 +54,10 @@ public class BookingServiceImpl implements BookingService {
             throw new BadRequestException("Available false.");
         }
 
-        bookingDto.setItem(item);
-        bookingDto.setBooker(user);
-        bookingDto.setStatus(BookingDto.StatusDto.WAITING);
-        Booking booking = BookingMapper.toBooking(bookingDto);
+        bookItemResponseDto.setItem(item);
+        bookItemResponseDto.setBooker(user);
+        bookItemResponseDto.setStatus(BookItemResponseDto.StatusDto.WAITING);
+        Booking booking = BookingMapper.toBooking(bookItemResponseDto);
 
         bookingRepository.save(booking);
         log.info("Booking create.");
@@ -65,7 +65,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingDto findByBookingId(Long userId, Long bookingId) {
+    public BookItemResponseDto findByBookingId(Long userId, Long bookingId) {
 
         Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new NotFoundException("Booking not found."));
@@ -80,7 +80,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingDto approveBooking(Long userId, Long bookingId, Boolean approved) {
+    public BookItemResponseDto approveBooking(Long userId, Long bookingId, Boolean approved) {
 
         Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new NotFoundException("Booking not found."));
@@ -103,7 +103,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingDto> getAllBookingsByUserId(Long userId, BookingDto.StatusDto statusDto, Integer from, Integer size) {
+    public List<BookItemResponseDto> getAllBookingsByUserId(Long userId, BookItemResponseDto.StatusDto statusDto, Integer from, Integer size) {
 
         List<Booking> bookings = null;
 
@@ -120,7 +120,7 @@ public class BookingServiceImpl implements BookingService {
                 break;
             }
             case CURRENT: {
-                Sort sort = Sort.by(Sort.Direction.DESC, "start");
+                Sort sort = Sort.by(Sort.Direction.ASC, "start");
                 Pageable page = PageRequest.of(from, size, sort);
                 bookings = bookingRepository.findByBooker_IdAndStartIsBeforeAndEndIsAfter(userId, LocalDateTime.now(), LocalDateTime.now(), page);
                 break;
@@ -161,20 +161,15 @@ public class BookingServiceImpl implements BookingService {
                 bookings = bookingRepository.findByBookerIdAndStatus(userId, Booking.Status.CANCELED, page);
                 break;
             }
-            case UNSUPPORTED_STATUS: {
-                throw new BadRequestException("Unknown state: UNSUPPORTED_STATUS");
-            }
-
         }
         return bookings.stream()
                 .map(BookingMapper::toBookingDto)
                 .collect(Collectors.toList());
-
     }
 
     @Override
-    public List<BookingDto> getAllBookingsByOwnerId(Long ownerId, BookingDto.StatusDto statusDto, Integer from, Integer size) {
-        List<Booking> bookings;
+    public List<BookItemResponseDto> getAllBookingsByOwnerId(Long ownerId, BookItemResponseDto.StatusDto statusDto, Integer from, Integer size) {
+        List<Booking> bookings = null;
 
         if (!userRepository.existsById(ownerId)) {
             throw new NotFoundException("User not correct.");
@@ -188,7 +183,7 @@ public class BookingServiceImpl implements BookingService {
                 break;
             }
             case CURRENT: {
-                Sort sort = Sort.by(Sort.Direction.DESC, "start");
+                Sort sort = Sort.by(Sort.Direction.ASC, "start");
                 Pageable page = PageRequest.of(from, size, sort);
                 bookings = bookingRepository.findByOwnerIdAndStartIsBeforeAndEndIsAfter(ownerId, LocalDateTime.now(), LocalDateTime.now(),
                         page);
@@ -230,11 +225,7 @@ public class BookingServiceImpl implements BookingService {
                 bookings = bookingRepository.findByOwnerIdAndStatus(ownerId, Booking.Status.CANCELED, page);
                 break;
             }
-            default: {
-                throw new BadRequestException("Unknown state: UNSUPPORTED_STATUS");
-            }
         }
-
         return bookings.stream()
                 .map(BookingMapper::toBookingDto)
                 .collect(Collectors.toList());

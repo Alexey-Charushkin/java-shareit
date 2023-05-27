@@ -18,7 +18,7 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 @JsonTest
 class BookingMapperTest {
     @Autowired
-    private JacksonTester<BookingDto> jsonBookingDto;
+    private JacksonTester<BookItemResponseDto> jsonBookingDto;
     @Autowired
     private JacksonTester<Booking> jsonBooking;
 
@@ -34,16 +34,16 @@ class BookingMapperTest {
     void toBookingDto() {
         LocalDateTime start = LocalDateTime.now().plusMinutes(1);
         LocalDateTime end = LocalDateTime.now().plusMinutes(5);
-        BookingDto bookingDto = new BookingDto(
+        BookItemResponseDto bookItemResponseDto = new BookItemResponseDto(
                 1L,
                 start,
                 end,
                 item.getId(),
                 item,
                 user,
-                BookingDto.StatusDto.WAITING.toString());
+                BookItemResponseDto.StatusDto.WAITING.toString());
 
-        JsonContent<BookingDto> result = jsonBookingDto.write(bookingDto);
+        JsonContent<BookItemResponseDto> result = jsonBookingDto.write(bookItemResponseDto);
 
         assertThat(result).extractingJsonPathNumberValue("$.id").isEqualTo(1);
     }
