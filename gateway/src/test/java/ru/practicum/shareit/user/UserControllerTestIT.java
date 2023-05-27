@@ -1,4 +1,4 @@
-package user;
+package ru.practicum.shareit.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
@@ -6,9 +6,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.practicum.shareit.user.dto.UserDto;
-import ru.practicum.shareit.user.service.UserService;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -23,13 +24,14 @@ public class UserControllerTestIT {
     @Autowired
     private MockMvc mockMvc;
     @MockBean
-    private UserService userService;
+    private UserClient userClient;
 
     @SneakyThrows
     @Test
     void createTest() {
         UserDto userDto = new UserDto(null, "userName", "email@email.com");
-        when(userService.create(any(UserDto.class))).thenReturn(userDto);
+        ResponseEntity<Object> exceptedEntity = new ResponseEntity<>(userDto, HttpStatus.OK);
+        when(userClient.createUser(any(UserDto.class))).thenReturn(exceptedEntity);
 
         String result = mockMvc.perform(post("/users")
                         .contentType("application/json")
@@ -39,7 +41,7 @@ public class UserControllerTestIT {
                 .getResponse()
                 .getContentAsString();
 
-        verify(userService, times(1)).create(any(UserDto.class));
+        verify(userClient, times(1)).createUser(any(UserDto.class));
         assertEquals(objectMapper.writeValueAsString(userDto), result);
     }
 
@@ -48,7 +50,8 @@ public class UserControllerTestIT {
     void updateTest() {
         Long userId = 1L;
         UserDto userDtoToUpdate = new UserDto(null, "oldUser", "oldUser@mail.com");
-        when(userService.update(any(UserDto.class))).thenReturn(userDtoToUpdate);
+        ResponseEntity<Object> exceptedEntity = new ResponseEntity<>(userDtoToUpdate, HttpStatus.OK);
+        when(userClient.updateUser(anyLong(), any(UserDto.class))).thenReturn(exceptedEntity);
 
         String result = mockMvc.perform(patch("/users/{userId}", userId)
                         .contentType("application/json")
@@ -58,9 +61,8 @@ public class UserControllerTestIT {
                 .getResponse()
                 .getContentAsString();
 
-        verify(userService, times(1)).update(any(UserDto.class));
+        verify(userClient, times(1)).updateUser(anyLong(), any(UserDto.class));
         assertEquals(objectMapper.writeValueAsString(userDtoToUpdate), result);
-
     }
 
     @SneakyThrows
@@ -71,7 +73,7 @@ public class UserControllerTestIT {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        verify(userService).getById(userId);
+        verify(userClient).getById(userId);
     }
 
     @SneakyThrows
@@ -81,7 +83,7 @@ public class UserControllerTestIT {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        verify(userService).getAll();
+        verify(userClient).getAll();
 
     }
 
@@ -93,6 +95,6 @@ public class UserControllerTestIT {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        verify(userService).deleteById(userId);
+        verify(userClient).deleteById(userId);
     }
 }

@@ -1,4 +1,4 @@
-package user;
+package ru.practicum.shareit.user;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

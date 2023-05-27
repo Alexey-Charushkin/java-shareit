@@ -6,12 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.shareit.booking.dto.BookItemRequestDto;
 import ru.practicum.shareit.user.dto.UserDto;
-
-
-import javax.validation.Valid;
-import java.util.List;
 
 @Slf4j
 @Log4j2
@@ -20,7 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping(path = "/users")
 public class UserController {
-
     private final UserClient userClient;
 
     @PostMapping
@@ -28,7 +22,6 @@ public class UserController {
         log.info("Creating user", userDto);
         return userClient.createUser(userDto);
     }
-
 
     @PatchMapping("/{userId}")
     public ResponseEntity<Object> update(@PathVariable Long userId, @Validated(Update.class) @RequestBody UserDto userDto) {
@@ -53,5 +46,4 @@ public class UserController {
         log.info("Delete user by id");
         userClient.deleteById(userId);
     }
-//
 }

@@ -5,11 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ccdeb8b-199a-4945-8889-74f37ce91cf8" name="Changes" comment="feat: initial commit">
-      <change afterPath="$PROJECT_DIR$/suppressions.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/ru/practicum/shareit/booking/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/ru/practicum/shareit/booking/BookingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ru/practicum/shareit/ShareItServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ru/practicum/shareit/ShareItServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/shareit-gateway.iml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/shareit-gateway.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/ru/practicum/shareit/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/ru/practicum/shareit/user/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/test/java/user/UserControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/test/java/user/UserControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/shareit-server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/server/shareit-server.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +22,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="AnnotationType" />
+        <option value="Class" />
         <option value="JUnit5 Test Class" />
       </list>
     </option>
@@ -82,8 +84,12 @@
     "WebServerToolWindowFactoryState": "false",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "last_directory_selection": "C:/Users/achar/IdeaProjects/java-shareit/server/src/main/java/ru/practicum/shareit",
-    "last_opened_file_path": "C:/Users/achar/IdeaProjects/java-shareit/checkstyle.xml",
+    "last_directory_selection": "C:/Users/achar/IdeaProjects/java-shareit/gateway/src/test",
+    "last_opened_file_path": "C:/Users/achar/IdeaProjects/java-shareit/server/src/main/java/ru/practicum/shareit/user",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "project.structure.last.edited": "Global Libraries",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
@@ -96,6 +102,11 @@
       "h2",
       "postgresql"
     ],
+    "GitStage.ChangesTree.GroupingKeys": [
+      "directory",
+      "module",
+      "repository"
+    ],
     "RunConfigurationTargetLRU": [
       "dc0e2248-e0aa-4253-b80d-c4adf2f0c091"
     ]
@@ -106,6 +117,7 @@
       <recent name="ru.practicum.shareit" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\achar\IdeaProjects\java-shareit\server\src\main\java\ru\practicum\shareit\user" />
       <recent name="C:\Users\achar\IdeaProjects\java-shareit" />
       <recent name="C:\Users\achar\IdeaProjects\java-shareit\server\src\main\java\ru\practicum\shareit" />
     </key>
@@ -113,10 +125,15 @@
       <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\achar\IdeaProjects\java-shareit\gateway\src\test\java\ru\practicum\shareit" />
+      <recent name="C:\Users\achar\IdeaProjects\java-shareit\gateway\src\test" />
+      <recent name="C:\Users\achar\IdeaProjects\java-shareit\gateway\src\test\java" />
       <recent name="C:\Users\achar\IdeaProjects\java-shareit\server" />
       <recent name="C:\Users\achar\IdeaProjects\java-shareit\server\src\main\resources" />
-      <recent name="C:\Users\achar\IdeaProjects\java-shareit\server\src" />
-      <recent name="C:\Users\achar\IdeaProjects\java-shareit" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+      <recent name="ru.practicum.shareit.user" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="ru.practicum.shareit" />
@@ -126,6 +143,8 @@
       <recent name="ru.practicum.shareit.exceptions" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ru.practicum.shareit.user" />
+      <recent name="ru.practicum.shareit.user.dto" />
       <recent name="ru.practicum.shareit.item_request.dto" />
     </key>
   </component>
@@ -136,69 +155,41 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ShareItServer (1)">
-    <configuration name="BookingServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="shareit-server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.practicum.shareit.booking.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ru.practicum.shareit.booking.service" />
-      <option name="MAIN_CLASS_NAME" value="ru.practicum.shareit.booking.service.BookingServiceImplTest" />
-      <option name="TEST_OBJECT" value="class" />
+  <component name="RunManager" selected="JUnit.All in shareit-server">
+    <configuration name="All in shareit (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shareit" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ShareItServerTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="shareit-server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.practicum.shareit.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ru.practicum.shareit" />
-      <option name="MAIN_CLASS_NAME" value="ru.practicum.shareit.ShareItServerTest" />
-      <option name="TEST_OBJECT" value="class" />
+    <configuration name="All in shareit-gateway" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shareit-gateway" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ShareItTests (2)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="All in shareit-server" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="shareit-server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.practicum.shareit.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ru.practicum.shareit" />
-      <option name="MAIN_CLASS_NAME" value="ru.practicum.shareit.ShareItTests" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ShareItTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.practicum.shareItServer.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ru.practicum.shareit" />
-      <option name="MAIN_CLASS_NAME" value="ru.practicum.shareItServer.ShareItTests" />
-      <option name="TEST_OBJECT" value="class" />
+    <configuration name="All in shareit" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shareit" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="shareit-server" />
+    <configuration name="UserControllerTestIT (2)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shareit-gateway" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="ru.practicum.shareit.user.*" />
@@ -206,7 +197,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="ru.practicum.shareit.user" />
-      <option name="MAIN_CLASS_NAME" value="ru.practicum.shareit.user.UserControllerTest" />
+      <option name="MAIN_CLASS_NAME" value="ru.practicum.shareit.user.UserControllerTestIT" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -219,39 +210,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ShareItServer (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="ShareItServer" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="shareit-server" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ru.practicum.shareit.ShareItServer" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.practicum.shareit.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ShareItServer" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="server" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.practicum.shareItServer.ShareItServer" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.practicum.shareItServer.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.ShareItServer (1)" />
-        <item itemvalue="JUnit.BookingServiceImplTest" />
-        <item itemvalue="JUnit.UserControllerTest" />
-        <item itemvalue="JUnit.ShareItServerTest (1)" />
-        <item itemvalue="Spring Boot.ShareItServer (1)" />
+        <item itemvalue="JUnit.All in shareit-server" />
+        <item itemvalue="JUnit.All in shareit-gateway" />
+        <item itemvalue="JUnit.All in shareit (1)" />
+        <item itemvalue="JUnit.All in shareit" />
+        <item itemvalue="JUnit.UserControllerTestIT (2)" />
       </list>
     </recent_temporary>
   </component>
@@ -332,34 +304,9 @@
       <workItem from="1685020241225" duration="718000" />
       <workItem from="1685021358299" duration="569000" />
       <workItem from="1685021951294" duration="1804000" />
-    </task>
-    <task id="LOCAL-00037" summary="feat: в работе">
-      <created>1683624729357</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1683624729357</updated>
-    </task>
-    <task id="LOCAL-00038" summary="feat: в работе Page">
-      <created>1683715317069</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1683715317069</updated>
-    </task>
-    <task id="LOCAL-00039" summary="feat: Requests Postman ok">
-      <created>1683789786458</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1683789786458</updated>
-    </task>
-    <task id="LOCAL-00040" summary="feat: Requests Postman ok">
-      <created>1683800057107</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1683800057107</updated>
+      <workItem from="1685079116586" duration="10930000" />
+      <workItem from="1685107270446" duration="5878000" />
+      <workItem from="1685164893482" duration="16207000" />
     </task>
     <task id="LOCAL-00041" summary="refactor: поправил мелкие недочёты">
       <created>1683805766630</created>
@@ -676,7 +623,35 @@
       <option name="project" value="LOCAL" />
       <updated>1685023086239</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="feat: отладил запуск в докере">
+      <created>1685082939440</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1685082939440</updated>
+    </task>
+    <task id="LOCAL-00087" summary="feat: запустил post User">
+      <created>1685090471042</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1685090471042</updated>
+    </task>
+    <task id="LOCAL-00088" summary="feat: запустил post User">
+      <created>1685090495045</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1685090495045</updated>
+    </task>
+    <task id="LOCAL-00089" summary="feat: сделал User">
+      <created>1685112109109</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1685112109109</updated>
+    </task>
+    <option name="localTasksCounter" value="90" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -694,9 +669,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: -5" />
-    <MESSAGE value="feat: в работе" />
-    <MESSAGE value="feat: в работе Page" />
     <MESSAGE value="feat: Requests Postman ok" />
     <MESSAGE value="refactor: поправил мелкие недочёты" />
     <MESSAGE value="test: создал UserControllerTest" />
@@ -719,19 +691,33 @@
     <MESSAGE value="refactor: Jacoco" />
     <MESSAGE value="refactor: на проверку" />
     <MESSAGE value="feat: initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: initial commit" />
+    <MESSAGE value="feat: отладил запуск в докере" />
+    <MESSAGE value="feat: запустил post User" />
+    <MESSAGE value="feat: сделал User" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: сделал User" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.NullPointerException" package="java.lang" />
-          <option name="timeStamp" value="6" />
-        </breakpoint>
-        <breakpoint enabled="true" type="java-exception">
           <properties class="org.hibernate.TransientPropertyValueException" package="org.hibernate" />
           <option name="timeStamp" value="18" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gateway/src/main/java/ru/practicum/shareit/client/BaseClient.java</url>
+          <line>82</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gateway/src/main/java/ru/practicum/shareit/client/BaseClient.java</url>
+          <line>88</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gateway/src/main/java/ru/practicum/shareit/client/BaseClient.java</url>
+          <line>85</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
@@ -743,19 +729,22 @@
     </pin-to-top-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/java_shareit$All_in_shareit__2_.ic" NAME="All in shareit (2) Coverage Results" MODIFIED="1684418816892" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/java_shareit$All_in_shareit__3_.ic" NAME="All in shareit (3) Coverage Results" MODIFIED="1684419335211" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/java_shareit$All_in_shareit__4_.ic" NAME="All in shareit (4) Coverage Results" MODIFIED="1684479771595" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/java_shareit$All_in_shareit.ic" NAME="All in shareit Coverage Results" MODIFIED="1684768712479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/java_shareit$ItemServiceImplTest_testGetBookings.ic" NAME="ItemServiceImplTest.testGetBookings Coverage Results" MODIFIED="1684478943347" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>ru.practicum.shareit.item.service.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/java_shareit$CommentServiceImplTest_findByItemId.ic" NAME="CommentServiceImplTest.findByItemId Coverage Results" MODIFIED="1684479630456" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>ru.practicum.shareit.comment.service.*</FILTER>
-    </SUITE>
+    <SUITE FILE_PATH="coverage/java_shareit$All_in_shareit__3_.ic" NAME="All in shareit (3) Coverage Results" MODIFIED="1684419335211" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/java_shareit$ItemRequestServiceImplTest.ic" NAME="ItemRequestServiceImplTest Coverage Results" MODIFIED="1684418753612" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>ru.practicum.shareit.item_request.service.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/java_shareit$All_in_shareit__1_.ic" NAME="All in shareit (1) Coverage Results" MODIFIED="1684427436351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/java_shareit$ItemServiceImplTest_searchItems_whenItemsNotFound_thenNotFoundExceptionThrown.ic" NAME="ItemServiceImplTest.searchItems_whenItemsNotFound_thenNotFoundExceptionThrown Coverage Results" MODIFIED="1684855505347" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>ru.practicum.shareit.item.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/java_shareit$ItemServiceImplTest_testGetBookings.ic" NAME="ItemServiceImplTest.testGetBookings Coverage Results" MODIFIED="1684478943347" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>ru.practicum.shareit.item.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/java_shareit$All_in_shareit.ic" NAME="All in shareit Coverage Results" MODIFIED="1684855533429" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/java_shareit$All_in_shareit__1_.ic" NAME="All in shareit (1) Coverage Results" MODIFIED="1684075018688" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/java_shareit$CommentServiceImplTest_findByItemId.ic" NAME="CommentServiceImplTest.findByItemId Coverage Results" MODIFIED="1684479630456" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>ru.practicum.shareit.comment.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/java_shareit$All_in_shareit__2_.ic" NAME="All in shareit (2) Coverage Results" MODIFIED="1684418816892" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
