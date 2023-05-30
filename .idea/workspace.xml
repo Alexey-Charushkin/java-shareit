@@ -34,12 +34,12 @@
   <component name="GitRewordedCommitMessages">
     <option name="commitMessagesMapping">
       <RewordedCommitMessageMapping>
-        <option name="originalMessage" value="feat: постман пройден&#10;&#10;refactor: постман пройден" />
-        <option name="rewordedMessage" value="feat: на ревью." />
+        <option name="originalMessage" value="feat: User ok" />
+        <option name="rewordedMessage" value="feat: на проверку&#10;&#10;&#10;test: ItemRequestControllerTest ok&#10;&#10;&#10;feat: Убрал валидацию в Server ItemRequestController&#10;&#10;&#10;feat: Postman ok&#10;&#10;&#10;test: Booking ок&#10;&#10;&#10;test: Booking в работе&#10;&#10;&#10;feat: Booking ок&#10;&#10;&#10;feat: Booking ок&#10;&#10;&#10;feat: Booking ок&#10;&#10;&#10;feat: Начало работы над Booking&#10;&#10;&#10;test: написал ItemControllerTest&#10;&#10;&#10;feat: Убрал валидацию из server ItemController&#10;&#10;&#10;feat: Item ок. Comment ok&#10;&#10;&#10;feat: Item сделано всё кроме comment&#10;&#10;&#10;feat: Item в работе&#10;&#10;&#10;feat: User ok" />
       </RewordedCommitMessageMapping>
     </option>
     <option name="currentCommit" value="1" />
-    <option name="onto" value="f512d6719f8caad3a28f0a2062432f263eaa1d13" />
+    <option name="onto" value="c8dc261d655e36f3729cb174d249524873873c7c" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -324,13 +324,7 @@
       <workItem from="1685424672700" duration="9109000" />
       <workItem from="1685451863221" duration="8622000" />
       <workItem from="1685461979384" duration="990000" />
-    </task>
-    <task id="LOCAL-00059" summary="test: сделал тесты json">
-      <created>1684417593984</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1684417593984</updated>
+      <workItem from="1685463519986" duration="468000" />
     </task>
     <task id="LOCAL-00060" summary="refactor: checkstyle">
       <created>1684418984580</created>
@@ -668,7 +662,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685458779637</updated>
     </task>
-    <option name="localTasksCounter" value="108" />
+    <task id="LOCAL-00108" summary="feat: на проверку">
+      <created>1685463756555</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1685463756556</updated>
+    </task>
+    <option name="localTasksCounter" value="109" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
