@@ -2,8 +2,8 @@ version: '3.8'
 services:
   gateway:
     build:
-      context: .
-      dockerfile: gateway/Dockerfile-gateway
+      context: gateway
+      dockerfile: Dockerfile-gateway
     container_name: shareit-gateway
     ports:
       - "8080:8080"
@@ -14,8 +14,8 @@ services:
 
   server:
     build:
-      context: .
-      dockerfile: server/Dockerfile-server
+      context: server
+      dockerfile: Dockerfile-server
     container_name: shareit-server
     ports:
       - "9090:9090"
