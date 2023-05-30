@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ItemRequestController.class)
-class ItemRequestControllerTestIt {
+class ItemRequestControllerTestIT {
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
@@ -55,7 +55,7 @@ class ItemRequestControllerTestIt {
     @SneakyThrows
     @Test
     void findAllByUserId() {
-        Long userId = 1L;
+        long userId = 1;
         mockMvc.perform(get("/requests")
                         .header("X-Sharer-User-Id", userId))
                 .andDo(print())
@@ -80,7 +80,7 @@ class ItemRequestControllerTestIt {
     @SneakyThrows
     @Test
     void findAllById() {
-        Long userId = 1L;
+        long userId = 1;
         Integer from = 0;
         Integer size = 10;
         mockMvc.perform(get("/requests/all")

@@ -44,8 +44,8 @@ public class ItemController {
 
     @GetMapping()
     public ResponseEntity<Object> gelAllByUserId(@RequestHeader("X-Sharer-User-Id") Long userId,
-                                        @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
-                                        @Positive @RequestParam(name = "size", defaultValue = "10") Integer size) {
+                                                 @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
+                                                 @Positive @RequestParam(name = "size", defaultValue = "10") Integer size) {
         log.info("Get X-Sharer-User-Id");
         return itemClient.getAllItemsByUserId(userId, from, size);
     }
@@ -58,16 +58,16 @@ public class ItemController {
 
     @GetMapping("search")
     public ResponseEntity<Object> searchItems(@RequestHeader("X-Sharer-User-Id") Long userId,
-            @RequestParam("text") String query,
-                                     @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
-                                     @Positive @RequestParam(name = "size", defaultValue = "10") Integer size) {
+                                              @RequestParam("text") String query,
+                                              @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
+                                              @Positive @RequestParam(name = "size", defaultValue = "10") Integer size) {
         log.info("Get =search");
         return itemClient.searchItems(userId, query, from, size);
     }
 
     @PostMapping("{itemId}/comment")
     public ResponseEntity<Object> create(@RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long itemId,
-                             @Valid @RequestBody CommentDto commentDto) {
+                                         @Valid @RequestBody CommentDto commentDto) {
         log.info("Post X-Sharer-User-Id {itemId}/comment");
         return itemClient.createComment(userId, itemId, commentDto);
     }

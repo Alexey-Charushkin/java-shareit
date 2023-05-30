@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static ru.practicum.shareit.booking.dto.BookingState.ALL;
 
 @WebMvcTest(BookingController.class)
-class BookingControllerTestIt {
+class BookingControllerTestIT {
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
@@ -57,8 +57,8 @@ class BookingControllerTestIt {
     @SneakyThrows
     @Test
     void approveBooking() {
-        Long userId = 1L;
-        Long bookingId = 1L;
+        long userId = 1;
+        long bookingId = 1;
         mockMvc.perform(patch("/bookings/{bookingId}", bookingId)
                         .header("X-Sharer-User-Id", owner.getId())
                         .param("approved", "true"))
@@ -83,7 +83,7 @@ class BookingControllerTestIt {
     @SneakyThrows
     @Test
     void gelAllBookingsByUserId() {
-        Long userId = 1L;
+        long userId = 1;
         Integer from = 0;
         Integer size = 10;
         mockMvc.perform(get("/bookings")
@@ -99,7 +99,7 @@ class BookingControllerTestIt {
     @SneakyThrows
     @Test
     void gelAllBookingsByOwnerId() {
-        Long userId = 1L;
+        long userId = 1;
         Integer from = 0;
         Integer size = 10;
         mockMvc.perform(get("/bookings/owner")

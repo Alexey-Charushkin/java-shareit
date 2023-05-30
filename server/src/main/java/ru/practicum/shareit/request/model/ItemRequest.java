@@ -36,7 +36,6 @@ public class ItemRequest {
     private LocalDateTime created;
 
     public ItemRequest(String description) {
-        this.id = id;
         this.description = description;
         this.created = LocalDateTime.now();
     }

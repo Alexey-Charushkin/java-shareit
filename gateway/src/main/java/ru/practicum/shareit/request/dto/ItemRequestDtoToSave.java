@@ -12,7 +12,6 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemRequestDtoToSave {
-
     @NotBlank
     private String description;
 }

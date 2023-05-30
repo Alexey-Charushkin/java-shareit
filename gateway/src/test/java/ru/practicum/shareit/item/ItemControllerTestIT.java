@@ -102,7 +102,7 @@ class ItemControllerTestIT {
     @SneakyThrows
     @Test
     void getById() {
-        Long itemId = 1L;
+        long itemId = 1;
         mockMvc.perform(get("/items/{itemId}", itemId)
                         .header("X-Sharer-User-Id", owner.getId()))
                 .andDo(print())
@@ -114,7 +114,7 @@ class ItemControllerTestIT {
     @SneakyThrows
     @Test
     void gelAllByUserId() {
-        Long userId = 1L;
+        long userId = 1;
         Integer from = 0;
         Integer size = 10;
         mockMvc.perform(get("/items")
@@ -130,7 +130,7 @@ class ItemControllerTestIT {
     @SneakyThrows
     @Test
     void deleteById() {
-        Long itemId = 1L;
+        long itemId = 1;
         mockMvc.perform(delete("/items/{itemId}", itemId))
                 .andDo(print())
                 .andExpect(status().isOk());

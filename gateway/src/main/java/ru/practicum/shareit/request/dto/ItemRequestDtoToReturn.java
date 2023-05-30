@@ -17,7 +17,6 @@ public class ItemRequestDtoToReturn {
     private LocalDateTime created;
     private List<ItemDto> items;
 
-
     public ItemRequestDtoToReturn(Long id, String description, LocalDateTime created, List<ItemDto> items) {
         this.id = id;
         this.description = description;

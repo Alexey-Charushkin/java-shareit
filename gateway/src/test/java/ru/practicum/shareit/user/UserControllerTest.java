@@ -8,8 +8,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import ru.practicum.shareit.user.UserClient;
-import ru.practicum.shareit.user.UserController;
 import ru.practicum.shareit.user.dto.UserDto;
 
 import java.util.List;
@@ -27,7 +25,7 @@ class UserControllerTest {
 
     @Test
     void create_whenInvoke_thenResponseStatusOkWithUserDtoInBody() {
-        long id = 1L;
+        long id = 1;
         UserDto exceptedUserDto = new UserDto(id, "name", "email@mail.com");
         ResponseEntity<Object> exceptedEntity = new ResponseEntity<>(exceptedUserDto, HttpStatus.OK);
         exceptedUserDto.setId(id);
@@ -46,7 +44,7 @@ class UserControllerTest {
 
     @Test
     void update_whenInvoke_thenResponseStatusOkWithUserDtoInBody() {
-        long id = 1L;
+        long id = 1;
         UserDto oldExceptedUserDto = new UserDto(id, "name", "email@mail.com");
         oldExceptedUserDto.setId(id);
         oldExceptedUserDto.setName("Name");
@@ -71,7 +69,7 @@ class UserControllerTest {
 
     @Test
     void getById_whenInvoke_thenResponseStatusOkWithUserDtoInBody() {
-        long id = 1L;
+        long id = 1;
         UserDto exceptedUserDto = new UserDto();
         exceptedUserDto.setId(id);
         exceptedUserDto.setName("Name");
@@ -102,7 +100,7 @@ class UserControllerTest {
 
     @Test
     void deleteById_whenInvoke_thenResponseStatusOkWithUserDtoInBodyIsNull() {
-        Long id = 1L;
+        long id = 1;
         UserDto exceptedUserDto = new UserDto();
         exceptedUserDto.setId(id);
         exceptedUserDto.setName("Name");

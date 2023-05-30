@@ -25,7 +25,6 @@ public class UserClient extends BaseClient {
         );
     }
 
-
     public ResponseEntity<Object> createUser(UserDto userDto) {
         return post("", null, null, userDto);
     }
@@ -38,12 +37,11 @@ public class UserClient extends BaseClient {
         return get("/" + userId);
     }
 
-    public ResponseEntity<Object> deleteById(long userId) {
-        return delete("/" + userId);
+    public void deleteById(long userId) {
+        delete("/" + userId);
     }
 
     public ResponseEntity<Object> getAll() {
         return get("");
     }
-
 }

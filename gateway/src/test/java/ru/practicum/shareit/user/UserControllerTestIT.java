@@ -68,7 +68,7 @@ public class UserControllerTestIT {
     @SneakyThrows
     @Test
     void getById() {
-        Long userId = 1L;
+        long userId = 1;
         mockMvc.perform(get("/users/{userId}", userId))
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -90,7 +90,7 @@ public class UserControllerTestIT {
     @SneakyThrows
     @Test
     void deleteById() {
-        Long userId = 1L;
+        long userId = 1;
         mockMvc.perform(delete("/users/{userId}", userId))
                 .andDo(print())
                 .andExpect(status().isOk());

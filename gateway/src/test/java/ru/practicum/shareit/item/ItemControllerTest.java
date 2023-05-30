@@ -58,7 +58,7 @@ class ItemControllerTest {
 
     @Test
     void update() {
-        Long itemId = 1L;
+        long itemId = 1;
         ItemDto newItemDto = newItem;
         ResponseEntity<Object> exceptedEntity = new ResponseEntity<>(newItemDto, HttpStatus.OK);
         when(itemClient.update(owner.getId(), itemId, newItemDto)).thenReturn(exceptedEntity);
@@ -74,7 +74,7 @@ class ItemControllerTest {
 
     @Test
     void getById() {
-        Long itemId = 1L;
+        long itemId = 1;
         ResponseEntity<Object> exceptedEntity = new ResponseEntity<>(item, HttpStatus.OK);
         when(itemClient.getItemById(owner.getId(), item.getId())).thenReturn(exceptedEntity);
 
@@ -89,7 +89,7 @@ class ItemControllerTest {
 
     @Test
     void gelAllByUserId() {
-        Long userId = 1L;
+        long userId = 1;
         ResponseEntity<Object> exceptedEntity = new ResponseEntity<>(item, HttpStatus.OK);
         when(itemClient.getAllItemsByUserId(userId, 0, 1)).thenReturn(exceptedEntity);
 
@@ -104,7 +104,7 @@ class ItemControllerTest {
 
     @Test
     void deleteById() {
-        Long itemId = 1L;
+        long itemId = 1;
         ResponseEntity<Object> exceptedEntity = new ResponseEntity<>(item, HttpStatus.OK);
         when(itemClient.getItemById(owner.getId(), item.getId())).thenReturn(exceptedEntity);
 
@@ -125,7 +125,7 @@ class ItemControllerTest {
 
     @Test
     void searchItems() {
-        Long userId = 1L;
+        long userId = 1;
         String query = "searchQuery";
         ResponseEntity<Object> exceptedEntity = new ResponseEntity<>(item, HttpStatus.OK);
 

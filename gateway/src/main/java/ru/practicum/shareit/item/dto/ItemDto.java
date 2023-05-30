@@ -36,10 +36,6 @@ public class ItemDto {
 
     private List<CommentDto> comments;
 
-    public Boolean getAvailable() {
-        return available;
-    }
-
     public ItemDto(Long id, String name, String description, Boolean available, ItemRequestDtoToReturn request) {
         this.id = id;
         this.name = name;

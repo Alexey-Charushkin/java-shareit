@@ -131,11 +131,11 @@
       <recent name="ru.practicum.shareit.user" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="ru.practicum.shareit.user" />
       <recent name="ru.practicum.shareit.request" />
       <recent name="ru.practicum.shareit.booking" />
       <recent name="ru.practicum.shareit" />
       <recent name="ru.practicum.shareit.item_request" />
-      <recent name="ru.practicum.shareit.item" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="ru.practicum.shareit.request" />
@@ -152,7 +152,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.All in shareit-server">
+  <component name="RunManager" selected="Docker.docker-compose.yml: Compose Deployment">
     <configuration name="All in shareit-gateway" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="shareit-gateway" />
       <option name="PACKAGE_NAME" value="" />
@@ -163,14 +163,6 @@
     </configuration>
     <configuration name="All in shareit-server" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="shareit-server" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="All in shareit" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="shareit" />
       <option name="PACKAGE_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
       <method v="2">
@@ -193,22 +185,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ItemRequestControllerTestIt.findById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="shareit-gateway" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.practicum.shareit.request.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ru.practicum.shareit.request" />
-      <option name="MAIN_CLASS_NAME" value="ru.practicum.shareit.request.ItemRequestControllerTestIt" />
-      <option name="METHOD_NAME" value="findById" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ShareItGateway (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="shareit-gateway" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ru.practicum.shareit.ShareItGateway" />
@@ -223,13 +199,37 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="docker-compose.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="gateway/Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="sourceFilePath" value="gateway/Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="server/Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="sourceFilePath" value="server/Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
+        <item itemvalue="Docker.gateway/Dockerfile" />
+        <item itemvalue="Docker.server/Dockerfile" />
         <item itemvalue="JUnit.All in shareit-server" />
         <item itemvalue="JUnit.All in shareit-gateway" />
-        <item itemvalue="JUnit.All in shareit" />
-        <item itemvalue="JUnit.ItemRequestControllerTestIT.findById" />
-        <item itemvalue="JUnit.ItemRequestControllerTestIt.findById" />
       </list>
     </recent_temporary>
   </component>
@@ -321,14 +321,7 @@
       <workItem from="1685373048256" duration="1221000" />
       <workItem from="1685375945307" duration="2935000" />
       <workItem from="1685424672700" duration="9109000" />
-      <workItem from="1685451863221" duration="786000" />
-    </task>
-    <task id="LOCAL-00057" summary="test: сделал BookingControllerTestIT">
-      <created>1684404490300</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1684404490300</updated>
+      <workItem from="1685451863221" duration="6584000" />
     </task>
     <task id="LOCAL-00058" summary="test: сделал ItemRequestControllerTestIT">
       <created>1684409347725</created>
@@ -666,7 +659,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685433876574</updated>
     </task>
-    <option name="localTasksCounter" value="106" />
+    <task id="LOCAL-00106" summary="feat: на проверку">
+      <created>1685452937088</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1685452937088</updated>
+    </task>
+    <option name="localTasksCounter" value="107" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -687,7 +687,6 @@
     <MESSAGE value="test: сделал ItemRequestControllerTestIT" />
     <MESSAGE value="test: сделал тесты json" />
     <MESSAGE value="refactor: checkstyle" />
-    <MESSAGE value="feat: на проверку" />
     <MESSAGE value="refactor: checkstyle test" />
     <MESSAGE value="refactor: Jacoco" />
     <MESSAGE value="refactor: на проверку" />
@@ -709,7 +708,8 @@
     <MESSAGE value="feat: Postman ok" />
     <MESSAGE value="feat: Убрал валидацию в Server ItemRequestController" />
     <MESSAGE value="test: ItemRequestControllerTest ok" />
-    <option name="LAST_COMMIT_MESSAGE" value="test: ItemRequestControllerTest ok" />
+    <MESSAGE value="feat: на проверку" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: на проверку" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
