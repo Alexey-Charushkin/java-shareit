@@ -79,7 +79,7 @@
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "last_directory_selection": "C:/Users/achar/IdeaProjects/java-shareit/gateway/src/main/java/ru/practicum/shareit",
-    "last_opened_file_path": "C:/Users/achar/IdeaProjects/эталон",
+    "last_opened_file_path": "C:/Users/achar/IdeaProjects/java-shareit",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -111,9 +111,9 @@
       <recent name="ru.practicum.shareit" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\achar\IdeaProjects\java-shareit" />
       <recent name="C:\Users\achar\IdeaProjects\java-shareit\gateway\src\main\java\ru\practicum\shareit\booking\dto" />
       <recent name="C:\Users\achar\IdeaProjects\java-shareit\server\src\main\java\ru\practicum\shareit\user" />
-      <recent name="C:\Users\achar\IdeaProjects\java-shareit" />
       <recent name="C:\Users\achar\IdeaProjects\java-shareit\server\src\main\java\ru\practicum\shareit" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
@@ -324,21 +324,7 @@
       <workItem from="1685451863221" duration="8622000" />
       <workItem from="1685461979384" duration="990000" />
       <workItem from="1685463519986" duration="2975000" />
-      <workItem from="1685510889609" duration="795000" />
-    </task>
-    <task id="LOCAL-00062" summary="refactor: checkstyle test">
-      <created>1684421907206</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1684421907206</updated>
-    </task>
-    <task id="LOCAL-00063" summary="refactor: checkstyle test">
-      <created>1684423118870</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1684423118870</updated>
+      <workItem from="1685510889609" duration="1685000" />
     </task>
     <task id="LOCAL-00064" summary="refactor: Jacoco">
       <created>1684423620591</created>
@@ -669,7 +655,21 @@
       <option name="project" value="LOCAL" />
       <updated>1685466354690</updated>
     </task>
-    <option name="localTasksCounter" value="111" />
+    <task id="LOCAL-00111" summary="feat: на проверку">
+      <created>1685511842776</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1685511842777</updated>
+    </task>
+    <task id="LOCAL-00112" summary="feat: на проверку">
+      <created>1685512677773</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1685512677773</updated>
+    </task>
+    <option name="localTasksCounter" value="113" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
