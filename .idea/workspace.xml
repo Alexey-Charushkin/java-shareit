@@ -324,14 +324,7 @@
       <workItem from="1685451863221" duration="8622000" />
       <workItem from="1685461979384" duration="990000" />
       <workItem from="1685463519986" duration="2975000" />
-      <workItem from="1685510889609" duration="1685000" />
-    </task>
-    <task id="LOCAL-00064" summary="refactor: Jacoco">
-      <created>1684423620591</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1684423620591</updated>
+      <workItem from="1685510889609" duration="1754000" />
     </task>
     <task id="LOCAL-00065" summary="refactor: Jacoco">
       <created>1684424591113</created>
@@ -669,7 +662,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685512677773</updated>
     </task>
-    <option name="localTasksCounter" value="113" />
+    <task id="LOCAL-00113" summary="feat: на проверку">
+      <created>1685512705717</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1685512705717</updated>
+    </task>
+    <option name="localTasksCounter" value="114" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
