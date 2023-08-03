@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.user.dao.UserRepository;
 import ru.practicum.shareit.user.dto.UserDto;
+
 import ru.practicum.shareit.user.dto.UserMapper;
 import ru.practicum.shareit.user.model.User;
+
 
 import javax.transaction.Transactional;
 import java.util.List;

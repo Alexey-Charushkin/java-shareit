@@ -1,0 +1,23 @@
+| Functionality | Method | Endpoints               |
+|---------------|--------|-------------------------|
+| Users         | POST   | /users                  | 
+| Items         | POST   | /items                  | 
+| Bookings      | POST   | /bookings               |
+| Requests      | POST   | /requests               |
+| Users         | GET    | /users                  |
+| Items         | GET    | /items                  |
+| Search        | GET    | /items/search           |
+| Bookings      | GET    | /bookings               |
+| Bookings      | GET    | /bookings/owner         |
+| Users         | GET    | /users/{userId}         |
+| Items         | GET    | /items/{itemId}         |
+| Comments      | GET    | /items/{itemId}/comment |
+| Bookings      | GET    | /bookings/{bookingId}   |
+| Requests      | GET    | /requests               |
+| Requests      | GET    | /requests/{requestId}   |
+| Requests      | GET    | /requests/all           |
+| Users         | PATCH  | /users/{userId}         |
+| Users         | PATCH  | /items/{itemId}         |
+| Bookings      | PATCH  | /bookings/{bookingId}   |
+| Users         | DELETE | /users/{userId}         |
+| Items         | DELETE | /items/{itemId}         |
