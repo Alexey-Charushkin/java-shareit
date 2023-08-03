@@ -89,7 +89,6 @@ _____
 **без использования докера:**
 
 + Создайте сборку с помощью Maven
-  в корневой директории команда: mvn compile
 + запустите файл shareit-gateway-0.0.1-SNAPSHOT.jar
 + запустите файл shareit-server-0.0.1-SNAPSHOT.jar
 
